@@ -1,0 +1,52 @@
+FAQ / Gatsby x WordPress Guide
+
+General DEVELOPMENT:
+    cd into repo
+    gatsby develop
+
+Initial Setup:
+    Related Tutorial: 
+        "Building a Gatsby Front End and a WordPress backend"
+        https://www.youtube.com/watch?v=JqF_y5RQbF8
+
+    Install WPGraphQL in WordPress site
+        - Provides extendable GraphQL schema and API for any WP site
+        - Exposes data to external clients (Gatsby)
+        - Config is added to main menu as "GraphQL"
+
+    Install WPGatsby in WordPress
+        - Optimizes WP site to work as a datasource for Gatsby
+        - Tracks changes in WP and syncs them with Gatsby, sets up Preview
+        - Config is under "Settings" Menu as "GatsbyJS"
+
+    Gatsby Setup:
+        Install Gatsby (if you haven't already)
+            - Node Version must (currently) not exceed v12
+            - npm install -g gatsby-cli
+
+        Clone starter project
+            gatsby new demo https://github.com/jasonbahl/gatsby-conf-2021.git
+
+    DEVELOPMENT
+        In terminal (or GitBash), nav to repo dir and run:    
+            gatsby develop
+
+        localhost:8000
+
+    Connect Gatsby to Wordpress JSON data
+        Edit gatsby-config.js plugins section, it should look similar to this:
+            plugins: [
+            `gatsby-plugin-sharp`,
+            `gatsby-transformer-sharp`,
+            `gatsby-plugin-image`,
+            {
+                resolve: `gatsby-source-wordpress`,
+                options: {
+                    url: `http://dangerzone.local/graphql` //Wordpress site
+                }
+
+            },
+            //Additional options...
+
+        Restart gatsby
+
