@@ -59,4 +59,7 @@ Gatsby Cloud (OPTIONAL)
     - Preview
     - Free tier supports only one site
 
+Configure Individual Post Pages
+    See gatsby-node.js file
+
     
