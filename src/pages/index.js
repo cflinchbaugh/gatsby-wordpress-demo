@@ -30,7 +30,7 @@ const IndexPage = () => {
     const { allWpPost } = data;
     
     function buildPostMarkup() {
-        const postMarkup = (allWpPost.nodes && allWpPost.nodes.length) ? allWpPost.nodes.map( ({
+        const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? allWpPost.nodes.map( ({
             excerpt,
             id,
             title,

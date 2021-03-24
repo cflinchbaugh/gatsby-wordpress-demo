@@ -4,6 +4,9 @@ General DEVELOPMENT:
     cd into repo
     gatsby develop
 
+    Site: http://localhost:8000/
+    GraphQL: http://localhost:8000/___graphQL
+
 Initial Setup:
     Related Tutorial: 
         "Building a Gatsby Front End and a WordPress backend"
@@ -50,3 +53,10 @@ Initial Setup:
 
         Restart gatsby
 
+Gatsby Cloud (OPTIONAL)
+    - Service that listens for code changes
+    - Incremental builds
+    - Preview
+    - Free tier supports only one site
+
+    
