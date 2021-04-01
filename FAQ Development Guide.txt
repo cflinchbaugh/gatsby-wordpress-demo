@@ -62,4 +62,14 @@ Gatsby Cloud (OPTIONAL)
 Configure Individual Post Pages
     See gatsby-node.js file
 
-    
+Resources:
+    https://wpgraphql.com
+    https://github.com/wp-graphql
+
+
+WordPress
+    Custom Post Type:
+        https://www.youtube.com/watch?v=yYWya9IbBoY
+        https://www.wpgraphql.com/docs/custom-post-types/#registering-a-new-custom-post-type
+        //Ultimately used the plugin
+        
