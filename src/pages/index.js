@@ -1,20 +1,25 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { 
     graphql,
     Link as GatsbyLink,
     useStaticQuery
 } from 'gatsby';
+import Dialog from '../components/Dialog';
+import PageSection from '../components/PageSection';
+import WpEmployee from '../components/items/WpEmployee';
+import { StaticImage } from 'gatsby-plugin-image';
+
 
 // styles
 const pageStyles = {
   color: "#232129",
-  padding: "96px",
+ 
   fontFamily: "-apple-system, Roboto, sans-serif, serif",
 };
 
 // markup
 const IndexPage = () => {
-    const data = useStaticQuery(graphql`
+    const results = useStaticQuery(graphql`
         {
             allWpPost {
                 nodes {
@@ -24,13 +29,53 @@ const IndexPage = () => {
                     uri
                 }
             }
+            allWpEmployee {
+                nodes {
+                    id
+                    uri
+                    title
+                    employeeData {
+                        biography
+                        services
+                        twitter
+                        profilePicture {
+                            mediaItemUrl
+                        }
+                    }
+                    databaseId
+                }
+            }
+            allWpSectionAboutContent {
+                nodes {
+                    SectionAbout {
+                        body
+                        heading
+                        tab
+                    }
+                }
+            }
         }
     `);
 
-    const { allWpPost } = data;
+    const { allWpPost } = results;
+    const { allWpEmployee } = results;
+    const { allWpSectionAboutContent } = results;
+
+    const [dialogShow, setDialogShow] = useState(false);
+    const [employeeActive, setEmployeeActive] = useState('');
+
+    function handleClickClose() {
+        setDialogShow(false);
+    }
+
+    function handleClickDetails(employeeId) {
+        setEmployeeActive(employeeId);
+        setDialogShow(true);
+    }
     
     function buildPostMarkup() {
-        const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? allWpPost.nodes.map( ({
+        const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? 
+        allWpPost.nodes.map( ({
             excerpt,
             id,
             title,
@@ -43,6 +88,7 @@ const IndexPage = () => {
                 <div>
                     <span dangerouslySetInnerHTML={{__html: excerpt}} />
                 </div>
+                
                 <GatsbyLink to={uri}>Read More</GatsbyLink>
             </div>
         )) : <div>No Posts Found</div>;
@@ -50,24 +96,149 @@ const IndexPage = () => {
         return postMarkup;
     }
 
-    const postMarkup = buildPostMarkup();
+    function selectEmployee(employeeId) {
+        let employeeData = {};
 
+        if (employeeId.length) {
+            let employeeDataArray = allWpEmployee.nodes.filter((employee) => {
+                return employee.id === employeeId;
+            });
+            
+            if (employeeDataArray.length) {
+                employeeData = employeeDataArray[0];
+            } else {
+                throw new Error(`Employee ${employeeId} not found`);
+            }
+        }
+
+        return employeeData;
+    }
+
+    function buildStaffMarkup() {
+        const staffMarkup = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( ({
+            id,
+            employeeData,
+            title,
+            uri
+        }) => (
+            <div className="staff-item" key={id}>
+                <strong>
+                    <span dangerouslySetInnerHTML={{__html: title}} />
+                </strong>
+
+                <div>
+                    {employeeData.profilePicture.mediaItemUrl}
+                </div>
+
+                <button 
+                    onClick={(() => {
+                        handleClickDetails(id);
+                    })}>
+                    See Details
+                </button>
+            </div>
+        )) : <div>No Staff Found</div>;
+
+        return staffMarkup;
+    }
+    
+    function buildAboutMarkup() {
+        console.log(allWpSectionAboutContent);
+        const aboutMarkup = (allWpSectionAboutContent?.nodes && allWpSectionAboutContent.nodes.length) ? allWpSectionAboutContent.nodes.map( ({
+           data
+        }) => (
+            <div className="about-item" key={Date.now()}>
+                <strong>
+                    <span>tab</span>
+                    <span>heading</span>
+                </strong>
+
+                <div>body</div>
+            </div>
+        )) : <div>No About Data Found</div>;
+
+        return aboutMarkup;
+    }
+
+    const postMarkup = buildPostMarkup(),
+        staffMarkup = buildStaffMarkup(),
+        aboutMarkup = buildAboutMarkup(),
+        employeeActiveData = selectEmployee(employeeActive),
+        employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
+        dialogData = {
+            children: <div>{employeeMarkup}</div>,
+            handleClickClose: handleClickClose,
+            show: dialogShow
+        };
 
     return (
         <main style={pageStyles}>
-            <title>Dangerzone</title>
-            <h1>Phrasing!</h1>
-
-            {/* { allWpPosts.nodes.map(post => (
-                <div>Test</div>
-            )) } */}
-
-            { postMarkup }
-
-            <img
-                alt="Gatsby G Logo"
-                src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
+            <title>DiDi & Smiling John's</title>
+            
+            <StaticImage 
+                src="../images/logo_bbs_blacktxt.png" 
+                alt="DiDi Logo" 
+                placeholder="blurred"
+                
+                width={200}
+                height={200}
             />
+
+            <div>Header/Nav/Booking Button</div>
+            <div>Hero Image</div>
+            <div>About Section</div>
+            {aboutMarkup}
+
+            <hr/>
+
+            <PageSection>
+                <div>Our Family heading</div>
+                { staffMarkup }
+            </PageSection>
+
+            <Dialog {...dialogData}/>
+            
+            <hr/>
+            
+            <div>Map</div>
+            
+            <hr/>
+
+            <StaticImage 
+                src="../images/charm-1.jpg" 
+                alt="Scissors and plants" 
+                placeholder="blurred"
+                
+                width={200}
+                height={200}
+            />
+            <StaticImage 
+                src="../images/charm-2.jpg" 
+                alt="Silver shelves with organized hair treatment" 
+                placeholder="blurred"
+                
+                width={200}
+                height={200}
+            />
+            <StaticImage 
+                src="../images/charm-3.jpg" 
+                alt="Hair styling product" 
+                placeholder="blurred"
+                
+                width={200}
+                height={200}
+            />
+
+            <div>
+                (717) 858-7428
+                Hours of Operation
+                Monday: Closed
+                Tuesday – Friday: 9AM–7PM
+                Saturday: 9AM–3PM
+                *Prices subject to change
+            </div>
+            
+            {/* { postMarkup } */}
         </main>
     );
 };

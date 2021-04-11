@@ -3,6 +3,7 @@ module.exports = {
     title: "Gatsby Conf Demo",
   },
   plugins: [
+    `babel-plugin-styled-components`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
@@ -28,5 +29,11 @@ module.exports = {
         isUsingColorMode: true,
       },
     },
+    {
+        resolve: `gatsby-plugin-styled-components`,
+        options: {
+          // Add any options here
+        },
+      },
   ],
 };
