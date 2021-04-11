@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { 
     graphql,
     Link as GatsbyLink,
@@ -6,16 +7,17 @@ import {
 } from 'gatsby';
 import Dialog from '../components/Dialog';
 import PageSection from '../components/PageSection';
+import Staff from '../components/sections/Staff';
+import Charm from '../components/sections/Charm';
+import Footer from '../components/sections/Footer';
 import WpEmployee from '../components/items/WpEmployee';
 import { StaticImage } from 'gatsby-plugin-image';
 
+const StyleWrapper = styled.div`
+    color: "#232129";
+    fontFamily: "-apple-system, Roboto, sans-serif, serif";
+`;
 
-// styles
-const pageStyles = {
-  color: "#232129",
- 
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
 
 // markup
 const IndexPage = () => {
@@ -171,75 +173,54 @@ const IndexPage = () => {
             show: dialogShow
         };
 
+        const staffData = {
+            allWpEmployee: allWpEmployee,
+            handleClickDetails: handleClickDetails
+        };
+
     return (
-        <main style={pageStyles}>
-            <title>DiDi & Smiling John's</title>
-            
-            <StaticImage 
-                src="../images/logo_bbs_blacktxt.png" 
-                alt="DiDi Logo" 
-                placeholder="blurred"
+        <StyleWrapper>
+            <main>
+                <title>DiDi & Smiling John's</title>
                 
-                width={200}
-                height={200}
-            />
+                <StaticImage 
+                    src="../images/logo_bbs_blacktxt.png" 
+                    alt="DiDi Logo" 
+                    placeholder="blurred"
+                    
+                    width={200}
+                    height={200}
+                />
 
-            <div>Header/Nav/Booking Button</div>
-            <div>Hero Image</div>
-            <div>About Section</div>
-            {aboutMarkup}
+                <div>Header/Nav/Booking Button</div>
+                <StaticImage 
+                    src="../images/hero.png" 
+                    alt="Image of shop focused on a barber chair" 
+                    placeholder="blurred"
+                    layout="fullWidth"
+                />
+                <div>About Section</div>
+                {aboutMarkup}
 
-            <hr/>
+                <hr/>
 
-            <PageSection>
-                <div>Our Family heading</div>
-                { staffMarkup }
-            </PageSection>
+                <Staff {...staffData} />
 
-            <Dialog {...dialogData}/>
-            
-            <hr/>
-            
-            <div>Map</div>
-            
-            <hr/>
-
-            <StaticImage 
-                src="../images/charm-1.jpg" 
-                alt="Scissors and plants" 
-                placeholder="blurred"
+                <Dialog {...dialogData}/>
                 
-                width={200}
-                height={200}
-            />
-            <StaticImage 
-                src="../images/charm-2.jpg" 
-                alt="Silver shelves with organized hair treatment" 
-                placeholder="blurred"
+                <hr/>
                 
-                width={200}
-                height={200}
-            />
-            <StaticImage 
-                src="../images/charm-3.jpg" 
-                alt="Hair styling product" 
-                placeholder="blurred"
+                <div>Map</div>
                 
-                width={200}
-                height={200}
-            />
+                <hr/>
 
-            <div>
-                (717) 858-7428
-                Hours of Operation
-                Monday: Closed
-                Tuesday – Friday: 9AM–7PM
-                Saturday: 9AM–3PM
-                *Prices subject to change
-            </div>
-            
-            {/* { postMarkup } */}
-        </main>
+                <Charm />
+
+                <Footer />
+                
+                {/* { postMarkup } */}
+            </main>
+        </StyleWrapper>
     );
 };
 
