@@ -1,22 +1,45 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+
 
 const StyleWrapper = styled.div`
   padding: 4em;
   background-color: #009688;
+
+  .staff-item {
+      background: #ffffff;
+      
+  }
 `;
 
 const Staff = (props) => {
     const {
+        allFile,
         allWpEmployee,
         handleClickDetails
     } = props;
 
     function buildStaffMarkup() {
-        const staffMarkup = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( ({
+        const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
+            let employeeData = wpEmployeeData;
+
+            const currentEmployeeProfileURL = wpEmployeeData.employeeData.profilePicture.mediaItemUrl;
+            
+            allFile.nodes.some((fileData) => {
+                if (fileData.url === currentEmployeeProfileURL) {
+                    console.log(fileData.url);
+                    employeeData.profileData = fileData.childImageSharp.gatsbyImageData;
+                    console.log(employeeData.profileData);
+                }
+            })
+            
+            return employeeData;
+        }) :  <div>No Staff Found</div>;
+
+        const staffMarkup =  staffData.map( ({
             id,
-            employeeData,
+            profileData,
             title,
             uri
         }) => (
@@ -26,7 +49,7 @@ const Staff = (props) => {
                 </strong>
 
                 <div>
-                    {employeeData.profilePicture.mediaItemUrl}
+                    <GatsbyImage image={profileData} alt={`${title} Profile Image`} />
                 </div>
 
                 <button 
@@ -36,7 +59,7 @@ const Staff = (props) => {
                     See Details
                 </button>
             </div>
-        )) : <div>No Staff Found</div>;
+        ));
 
         return staffMarkup;
     }

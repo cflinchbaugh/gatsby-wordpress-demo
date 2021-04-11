@@ -56,12 +56,26 @@ const IndexPage = () => {
                     }
                 }
             }
+            allFile {
+                nodes {
+                    url
+                    childImageSharp {
+                        id
+                        gatsbyImageData(
+                            width: 200
+                            placeholder: BLURRED
+                            formats: [AUTO, WEBP, AVIF]
+                        )
+                    }
+                }
+            }
         }
     `);
 
     const { allWpPost } = results;
     const { allWpEmployee } = results;
     const { allWpSectionAboutContent } = results;
+    const { allFile } = results;
 
     const [dialogShow, setDialogShow] = useState(false);
     const [employeeActive, setEmployeeActive] = useState('');
@@ -117,7 +131,22 @@ const IndexPage = () => {
     }
 
     function buildStaffMarkup() {
-        const staffMarkup = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( ({
+        const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
+            let employeeData = wpEmployeeData;
+
+            const currentEmployeeProfileURL = wpEmployeeData.employeeData.profilePicture.mediaItemUrl;
+            
+            allFile.nodes.some((fileData) => {
+                if (fileData.url === currentEmployeeProfileURL) {
+                    console.log(fileData.url);
+                    employeeData.profileData = fileData;
+                }
+            })
+            
+            return employeeData;
+        }) :  <div>No Staff Found</div>;
+
+        const staffMarkup =  staffData.map( ({
             id,
             employeeData,
             title,
@@ -129,7 +158,7 @@ const IndexPage = () => {
                 </strong>
 
                 <div>
-                    {employeeData.profilePicture.mediaItemUrl}
+                    PROFILEPIC
                 </div>
 
                 <button 
@@ -139,7 +168,7 @@ const IndexPage = () => {
                     See Details
                 </button>
             </div>
-        )) : <div>No Staff Found</div>;
+        ));
 
         return staffMarkup;
     }
@@ -174,6 +203,7 @@ const IndexPage = () => {
         };
 
         const staffData = {
+            allFile: allFile,
             allWpEmployee: allWpEmployee,
             handleClickDetails: handleClickDetails
         };
