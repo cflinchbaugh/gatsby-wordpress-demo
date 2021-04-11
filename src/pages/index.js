@@ -6,7 +6,6 @@ import {
     useStaticQuery
 } from 'gatsby';
 import Dialog from '../components/Dialog';
-import PageSection from '../components/PageSection';
 import Staff from '../components/sections/Staff';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
@@ -89,28 +88,28 @@ const IndexPage = () => {
         setDialogShow(true);
     }
     
-    function buildPostMarkup() {
-        const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? 
-        allWpPost.nodes.map( ({
-            excerpt,
-            id,
-            title,
-            uri
-        }) => (
-            <div className="post-item" key={id}>
-                <strong>
-                    <span dangerouslySetInnerHTML={{__html: title}} />
-                </strong>
-                <div>
-                    <span dangerouslySetInnerHTML={{__html: excerpt}} />
-                </div>
+    // function buildPostMarkup() {
+    //     const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? 
+    //     allWpPost.nodes.map( ({
+    //         excerpt,
+    //         id,
+    //         title,
+    //         uri
+    //     }) => (
+    //         <div className="post-item" key={id}>
+    //             <strong>
+    //                 <span dangerouslySetInnerHTML={{__html: title}} />
+    //             </strong>
+    //             <div>
+    //                 <span dangerouslySetInnerHTML={{__html: excerpt}} />
+    //             </div>
                 
-                <GatsbyLink to={uri}>Read More</GatsbyLink>
-            </div>
-        )) : <div>No Posts Found</div>;
+    //             <GatsbyLink to={uri}>Read More</GatsbyLink>
+    //         </div>
+    //     )) : <div>No Posts Found</div>;
 
-        return postMarkup;
-    }
+    //     return postMarkup;
+    // }
 
     function selectEmployee(employeeId) {
         let employeeData = {};
@@ -128,49 +127,6 @@ const IndexPage = () => {
         }
 
         return employeeData;
-    }
-
-    function buildStaffMarkup() {
-        const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
-            let employeeData = wpEmployeeData;
-
-            const currentEmployeeProfileURL = wpEmployeeData.employeeData.profilePicture.mediaItemUrl;
-            
-            allFile.nodes.some((fileData) => {
-                if (fileData.url === currentEmployeeProfileURL) {
-                    console.log(fileData.url);
-                    employeeData.profileData = fileData;
-                }
-            })
-            
-            return employeeData;
-        }) :  <div>No Staff Found</div>;
-
-        const staffMarkup =  staffData.map( ({
-            id,
-            employeeData,
-            title,
-            uri
-        }) => (
-            <div className="staff-item" key={id}>
-                <strong>
-                    <span dangerouslySetInnerHTML={{__html: title}} />
-                </strong>
-
-                <div>
-                    PROFILEPIC
-                </div>
-
-                <button 
-                    onClick={(() => {
-                        handleClickDetails(id);
-                    })}>
-                    See Details
-                </button>
-            </div>
-        ));
-
-        return staffMarkup;
     }
     
     function buildAboutMarkup() {
@@ -191,18 +147,16 @@ const IndexPage = () => {
         return aboutMarkup;
     }
 
-    const postMarkup = buildPostMarkup(),
-        staffMarkup = buildStaffMarkup(),
-        aboutMarkup = buildAboutMarkup(),
+    const aboutMarkup = buildAboutMarkup(),
         employeeActiveData = selectEmployee(employeeActive),
         employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
         dialogData = {
             children: <div>{employeeMarkup}</div>,
             handleClickClose: handleClickClose,
             show: dialogShow
-        };
-
-        const staffData = {
+        },
+        // postMarkup = buildPostMarkup(),
+        staffData = {
             allFile: allFile,
             allWpEmployee: allWpEmployee,
             handleClickDetails: handleClickDetails
@@ -223,12 +177,14 @@ const IndexPage = () => {
                 />
 
                 <div>Header/Nav/Booking Button</div>
+
                 <StaticImage 
                     src="../images/hero.png" 
                     alt="Image of shop focused on a barber chair" 
                     placeholder="blurred"
                     layout="fullWidth"
                 />
+
                 <div>About Section</div>
                 {aboutMarkup}
 
