@@ -2,13 +2,13 @@ import React from 'react';
 
 const WpEmployee = (props) => {  
     const {
-        id,
+        // id,
         title,
-        uri,
+        // uri,
         employeeData: {
             biography,
-            services,
-            twitter
+            // services,
+            // twitter
         }
     } = props;
     console.log(props);   

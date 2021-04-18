@@ -1,15 +1,28 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 
 const StyleWrapper = styled.div`
-  padding: 4em;
-  background-color: #009688;
+    padding: 4em;
+    background-color: #009688;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+
 
   .staff-item {
-      background: #ffffff;
-      
+    background: rgba( 255,255,255,0.20 );
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur( 20.5px );
+    border-radius: 5px;
+    float: left;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 0 0 auto;
   }
 `;
 
@@ -24,14 +37,13 @@ const Staff = (props) => {
         const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
             let employeeData = wpEmployeeData;
 
-            const currentEmployeeProfileURL = wpEmployeeData.employeeData.profilePicture.mediaItemUrl;
+            const currentEmployeeProfileURL = wpEmployeeData?.employeeData?.profilePicture?.mediaItemUrl;
             
             allFile.nodes.some((fileData) => {
                 if (fileData.url === currentEmployeeProfileURL) {
-                    console.log(fileData.url);
                     employeeData.profileData = fileData.childImageSharp.gatsbyImageData;
-                    console.log(employeeData.profileData);
                 }
+                return null;
             })
             
             return employeeData;
@@ -42,24 +54,28 @@ const Staff = (props) => {
             profileData,
             title,
             uri
-        }) => (
-            <div className="staff-item" key={id}>
-                <strong>
-                    <span dangerouslySetInnerHTML={{__html: title}} />
-                </strong>
+        }) => {
+            const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <div>FALLBACK IMAGE</div>
 
-                <div>
-                    <GatsbyImage image={profileData} alt={`${title} Profile Image`} />
+            return (
+                <div className="staff-item" key={id}>
+                    <strong>
+                        <span dangerouslySetInnerHTML={{__html: title}} />
+                    </strong>
+
+                    <div>
+                        {profileImage}
+                    </div>
+
+                    <button 
+                        onClick={(() => {
+                            handleClickDetails(id);
+                        })}>
+                        See Details
+                    </button>
                 </div>
-
-                <button 
-                    onClick={(() => {
-                        handleClickDetails(id);
-                    })}>
-                    See Details
-                </button>
-            </div>
-        ));
+            );
+        });
 
         return staffMarkup;
     }
@@ -68,7 +84,7 @@ const Staff = (props) => {
 
     return (
         <StyleWrapper>
-            <div>Our Family heading</div>
+            {/* <div>Our Family heading</div> */}
             { staffMarkup }
         </StyleWrapper>
     );

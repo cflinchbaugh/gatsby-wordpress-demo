@@ -2,19 +2,36 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { 
     graphql,
-    Link as GatsbyLink,
+    // Link as GatsbyLink,
     useStaticQuery
 } from 'gatsby';
 import Dialog from '../components/Dialog';
 import Staff from '../components/sections/Staff';
+import HeroContents from '../components/sections/HeroContents';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
 import WpEmployee from '../components/items/WpEmployee';
-import { StaticImage } from 'gatsby-plugin-image';
 
 const StyleWrapper = styled.div`
     color: "#232129";
     fontFamily: "-apple-system, Roboto, sans-serif, serif";
+
+    .hero-wrapper {
+        position: relative;
+
+        img {
+            max-height: 100vh;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+    }
 `;
 
 
@@ -71,7 +88,7 @@ const IndexPage = () => {
         }
     `);
 
-    const { allWpPost } = results;
+    // const { allWpPost } = results;
     const { allWpEmployee } = results;
     const { allWpSectionAboutContent } = results;
     const { allFile } = results;
@@ -130,7 +147,6 @@ const IndexPage = () => {
     }
     
     function buildAboutMarkup() {
-        console.log(allWpSectionAboutContent);
         const aboutMarkup = (allWpSectionAboutContent?.nodes && allWpSectionAboutContent.nodes.length) ? allWpSectionAboutContent.nodes.map( ({
            data
         }) => (
@@ -166,24 +182,10 @@ const IndexPage = () => {
         <StyleWrapper>
             <main>
                 <title>DiDi & Smiling John's</title>
-                
-                <StaticImage 
-                    src="../images/logo_bbs_blacktxt.png" 
-                    alt="DiDi Logo" 
-                    placeholder="blurred"
-                    
-                    width={200}
-                    height={200}
-                />
 
-                <div>Header/Nav/Booking Button</div>
+                {/* <div>Header/Nav/Booking Button</div> */}
 
-                <StaticImage 
-                    src="../images/hero.png" 
-                    alt="Image of shop focused on a barber chair" 
-                    placeholder="blurred"
-                    layout="fullWidth"
-                />
+                <HeroContents />
 
                 <div>About Section</div>
                 {aboutMarkup}

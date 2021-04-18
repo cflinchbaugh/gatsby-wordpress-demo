@@ -4,6 +4,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 
 const StyleWrapper = styled.div`
     display: flex;
+    justify-content: space-around;
 
     img {
         border-radius: 100%;
@@ -13,8 +14,8 @@ const StyleWrapper = styled.div`
 
 const Charm = (props) => {
     const commonImageData = {
-        height: 200,
-        width: 200,
+        height: 300,
+        width: 300,
         placeholder: 'tracedSVG'
     };
 
