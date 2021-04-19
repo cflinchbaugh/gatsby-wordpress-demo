@@ -7,6 +7,7 @@ import {
 } from 'gatsby';
 import Dialog from '../components/Dialog';
 import Staff from '../components/sections/Staff';
+import About from '../components/sections/About';
 import HeroContents from '../components/sections/HeroContents';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
@@ -15,23 +16,6 @@ import WpEmployee from '../components/items/WpEmployee';
 const StyleWrapper = styled.div`
     color: "#232129";
     fontFamily: "-apple-system, Roboto, sans-serif, serif";
-
-    .hero-wrapper {
-        position: relative;
-
-        img {
-            max-height: 100vh;
-        }
-
-        .hero-content {
-            text-align: center;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-        }
-    }
 `;
 
 
@@ -176,6 +160,9 @@ const IndexPage = () => {
             allFile: allFile,
             allWpEmployee: allWpEmployee,
             handleClickDetails: handleClickDetails
+        },
+        aboutData = {
+            allWpSectionAboutContent: allWpSectionAboutContent
         };
 
     return (
@@ -187,8 +174,11 @@ const IndexPage = () => {
 
                 <HeroContents />
 
+                {/* 
                 <div>About Section</div>
-                {aboutMarkup}
+                {aboutMarkup} 
+                */}
+                <About {...aboutData}/>
 
                 <hr/>
 
