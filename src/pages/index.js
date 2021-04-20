@@ -62,7 +62,7 @@ const IndexPage = () => {
                     childImageSharp {
                         id
                         gatsbyImageData(
-                            width: 200
+                            width: 300
                             placeholder: BLURRED
                             formats: [AUTO, WEBP, AVIF]
                         )

@@ -12,7 +12,7 @@ const StyleWrapper = styled.div`
     height: 100%;
     margin: 0;
     /* Set a specific height */
-    height: 90vh;
+    height: 100vh;
 
     /* Position and center the image to scale nicely on all screens */
     background-position: center;

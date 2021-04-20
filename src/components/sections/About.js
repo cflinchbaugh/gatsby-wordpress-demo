@@ -1,4 +1,7 @@
-import * as React from 'react';
+import React, { 
+    useEffect,
+    useState
+} from 'react';
 import styled from 'styled-components';
 
 const StyleWrapper = styled.div`
@@ -6,6 +9,13 @@ const StyleWrapper = styled.div`
     justify-content: space-around;
     padding: 20px 10px;
     flex-direction: column;
+    text-align: center;
+
+    .tab-buttons {
+        button {
+            padding: 0 15px;
+        }
+    }
 
     .tab-card {
         display: flex;
@@ -18,36 +28,101 @@ const StyleWrapper = styled.div`
         margin: 10px;
     }
 
-    @media only screen and (min-width: 728px) {
-        flex-direction: row;
-        padding: 50px 10px;
+    .tab-contents {
+        display: flex;
+        flex-direction: column;
     }
+
+    @media only screen and (min-width: 728px) {
+        padding: 50px 10px;
+        
+        .tab-contents{
+            flex-direction: row;
+        }
+    }
+
 `;
 
 const About = (props) => {
-    console.log(props);
+    const [activeTab, setActiveTab] = useState('who');
+
+    const handleClickTabWho = () => {
+        setActiveTab('who');
+    }
+    const handleClickTabWhat = () => {
+        setActiveTab('what');
+    }
+
+    const tabContents = (activeTab === 'who') ? (
+            <div className="tab-contents">
+                <div className="tab-card">
+                    <strong>Award Winning</strong>
+                    <div>
+                        Downtown First award for Outstanding Small Business in 2015. “Susquehanna Style’s” Best Barber Shop in York every year since 2014 with no intention of stopping!
+                    </div>
+                </div>
+
+                <div className="tab-card">
+                    <strong>Communal</strong>
+                    <div>
+                        We proudly serve our diverse community and maintain a safe environment of equality, inclusion, and respect for all people.
+                    </div>
+                </div>
+
+                <div className="tab-card">
+                    <strong>Principled</strong>
+                    <div>
+                        Partner of Davines, striving to do the best for the world through beauty, ethics, and sustainability.
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <div className="tab-contents">
+                <div className="tab-card">
+                    <strong>Professional Styling</strong>
+                    <div>
+                        Our services include traditional and modern haircuts, coloring, balayage, precision scissor cuts, and much, much more.
+                    </div>
+                </div>
+
+                <div className="tab-card">
+                    <strong>Wedding Services</strong>
+                    <div>
+                        We want to help make your special day the best that it can be! We accomodate wedding parties and are available for on-site Wedding Hair
+                    </div>
+                </div>
+
+                <div className="tab-card">
+                    <strong>Professional Shaves</strong>
+                    <div>
+                        From trims to straight razor, we’ve got you covered.
+                    </div>
+                </div>
+            </div>
+        )
+
+    const whoTabData = {
+            id: 'who',
+            onClick: handleClickTabWho
+        },
+        whatTabData = {
+            id: 'what',
+            onClick: handleClickTabWhat
+        };
+
     return (
         <StyleWrapper>
-            <div className="tab-card">
-                <strong>Award Winning</strong>
-                <div>
-                    Downtown First award for Outstanding Small Business in 2015. “Susquehanna Style’s” Best Barber Shop in York every year since 2014 with no intention of stopping!
-                </div>
+            <div className="tab-buttons">
+                <button {...whoTabData}>
+                    Who We Are
+                </button>
+                <button {...whatTabData}>
+                    What We Do
+                </button>
             </div>
 
-            <div className="tab-card">
-                <strong>Communal</strong>
-                <div>
-                    We proudly serve our diverse community and maintain a safe environment of equality, inclusion, and respect for all people.
-                </div>
-            </div>
-
-            <div className="tab-card">
-                <strong>Principled</strong>
-                <div>
-                    Partner of Davines, striving to do the best for the world through beauty, ethics, and sustainability.
-                </div>
-            </div>
+            {tabContents}
+            
         </StyleWrapper>
     );
 };
