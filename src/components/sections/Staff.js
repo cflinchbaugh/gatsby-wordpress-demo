@@ -23,6 +23,15 @@ const StyleWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     flex: 0 0 auto;
+
+    img {
+        transition: all .15s ease-in-out;
+    }
+
+    img:hover {
+        transform: scale(1.15);
+        transition: transform .5s;
+    }
   }
 `;
 

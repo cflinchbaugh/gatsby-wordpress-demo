@@ -21,7 +21,6 @@ const StyleWrapper = styled.div`
         display: flex;
         flex: 1;
         border: solid 1px;
-        justify-content: center;
         flex-direction: column;
         padding: 20px;
         text-align: center;
