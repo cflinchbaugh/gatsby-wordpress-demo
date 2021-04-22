@@ -62,8 +62,8 @@ const IndexPage = () => {
                     childImageSharp {
                         id
                         gatsbyImageData(
-                            width: 300
-                            placeholder: BLURRED
+                            width: 350
+                            placeholder: TRACED_SVG
                             formats: [AUTO, WEBP, AVIF]
                         )
                     }

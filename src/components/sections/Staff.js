@@ -13,25 +13,58 @@ const StyleWrapper = styled.div`
 
 
   .staff-item {
-    background: rgba( 255,255,255,0.20 );
-    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur( 20.5px );
-    border-radius: 5px;
-    float: left;
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex: 0 0 auto;
+        position: relative;
 
-    img {
-        transition: all .15s ease-in-out;
-    }
 
-    img:hover {
-        transform: scale(1.15);
-        transition: transform .5s;
-    }
+        
+        backdrop-filter: blur( 20.5px );
+        border-radius: 5px;
+        float: left;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        flex: 0 0 auto;
+
+        .profile-image {
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 45%);
+
+            img {
+                transition: all .15s ease-in-out;
+            }
+            
+            img:hover {
+                transform: scale(1.15);
+                transition: transform .5s;
+            }
+        }
+
+        .foreground {
+            position: absolute;
+            z-index: 2;
+            
+        }
+
+        .header,
+        .footer {
+            color: white;
+            background-color: rgba(0,0,0,0.65);
+            padding: 5px 10px;
+        }
+        
+        .header {
+            top: 10px;
+            left: 10px;
+            border-radius: 10px;
+        }
+        
+        .footer {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+        }
   }
 `;
 
@@ -68,20 +101,24 @@ const Staff = (props) => {
 
             return (
                 <div className="staff-item" key={id}>
-                    <strong>
-                        <span dangerouslySetInnerHTML={{__html: title}} />
-                    </strong>
+                    <div className="foreground header">
+                        <strong>
+                            <span dangerouslySetInnerHTML={{__html: title}} />
+                        </strong>
+                    </div>
 
-                    <div>
+                    <div className="profile-image">
                         {profileImage}
                     </div>
 
-                    <button 
-                        onClick={(() => {
-                            handleClickDetails(id);
-                        })}>
-                        See Details
-                    </button>
+                    <div className="foreground footer">
+                        <button 
+                            onClick={(() => {
+                                handleClickDetails(id);
+                            })}>
+                            See Details
+                        </button>
+                    </div>
                 </div>
             );
         });

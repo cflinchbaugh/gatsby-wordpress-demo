@@ -32,8 +32,8 @@ const StyleWrapper = styled.div`
         flex-direction: column;
     }
 
-    @media only screen and (min-width: 728px) {
-        padding: 50px 10px;
+    @media only screen and (min-width: 768px) {
+        padding: 10vh 10vw;
         
         .tab-contents{
             flex-direction: row;
