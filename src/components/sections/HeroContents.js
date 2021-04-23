@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import BackgroundImage from 'gatsby-background-image';
@@ -122,59 +122,52 @@ const StyleWrapper = styled.div`
 const HeroContents = (props) => {
     const results = useStaticQuery(graphql`
         {
-            allFile {
-                nodes {
-                    url
-                    childImageSharp {
-                        fluid(quality: 90, maxWidth: 1920) {
-                            ...GatsbyImageSharpFluid_withWebp
-                        }
+            wpSectionHeroContent {
+                sectionHero {
+                  heroBody
+                }
+              }
+            file(url: {eq: "http://dangerzone.local/wp-content/uploads/2021/04/hero.png"}, childrenImageSharp: {}) {
+                id
+                url
+                childImageSharp {
+                    fluid(quality: 90, maxWidth: 1920) {
+                        ...GatsbyImageSharpFluid_withWebp
                     }
-                    id
                 }
             }
+            
         }
     `);
 
-    const { allFile } = results;
+    const { file } = results;
+    const { wpSectionHeroContent } = results;
 
     function handleClickCallToAction() {
         window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
     }
 
-    const heroImageId = 'e48fd9b5-1c45-523f-b448-b7a0562fa447';
-    let heroImageData = [];
-
-    allFile.nodes.some((fileData) => {
-        if (fileData.id === heroImageId) {
-            heroImageData = fileData;
-        }
-    });
-    
-    const imageData = heroImageData?.childImageSharp?.fluid;
     const logoImageData = {
-        loading: 'eager',
-        width: 400
-    };
-    
+            alt: 'DiDi and Smiling John\'s Barber and Beauty Shop Logo',
+            loading: 'eager',
+            src: '../../images/logo_banner.png',
+            placeholder: 'tracedSVG',
+            width: 400
+        },
+        backgroundImageData = {
+            fluid: file?.childImageSharp?.fluid,
+            Tag: 'section'
+        }
+
     return (
         <StyleWrapper>
-            <BackgroundImage
-                Tag="section"
-                className="dangerzone"
-                fluid={imageData}
-                backgroundColor={`#040e18`}
-            >
+            <BackgroundImage {...backgroundImageData}>
                 <div className="hero-contents-container">
                     <div className="hero-contents">
-                        <StaticImage 
-                            {...logoImageData}
-                            src="../../images/logo_banner.png" 
-                            alt="DiDi and Smiling John's Barber and Beauty Shop Logo" 
-                        />
+                        <StaticImage {...logoImageData} />
                     
                         <span className="description">
-                            Our award winning local business welcomes everyone!
+                            {wpSectionHeroContent.sectionHero.heroBody}
                         </span>
                         
                         <button onClick={handleClickCallToAction}>
@@ -189,60 +182,3 @@ const HeroContents = (props) => {
 };
 
 export default HeroContents;
-// import * as React from 'react';
-// import styled from 'styled-components';
-// import { StaticImage } from 'gatsby-plugin-image';
-// import BackgroundImage from 'gatsby-background-image';
-
-
-// const StyleWrapper = styled.div`
-//     padding: 4em;
-
-
-//     // background: rgba( 255, 255, 255, 0.40 );
-//     // box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-//     // backdrop-filter: blur( 15.5px );
-//     // border-radius: 10px;
-//     // border: 1px solid rgba( 255, 255, 255, 0.18 );
-
-//     padding: 4em;
-//     background: rgba( 255,255,255,0.20 );
-//     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-//     backdrop-filter: blur( 20.5px );
-
-// `;
-
-// const HeroContents = (props) => {
-//     function handleClickCallToAction() {
-//         window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
-//     }
-    
-//     return (
-//         <StyleWrapper>
-//             {/* <StaticImage 
-//                 src="../../images/logo_bbs_blacktxt.png" 
-//                 alt="DiDi Logo" 
-//                 placeholder="blurred"
-                
-//                 width={700}
-//             />
-
-//             <button className="btn btn-success" 
-//                 onClick={handleClickCallToAction}>
-//                 SCHEDULE APPOINTMENT
-//             </button> */}
-
-//             <BackgroundImage
-//                 Tag="section"
-//                 className={className}
-//                 fluid={imageData}
-//                 backgroundColor={`#040e18`}
-//             >
-//                 <h2>gatsby-background-image</h2>
-//             </BackgroundImage>
-
-//         </StyleWrapper>
-//     );
-// };
-
-// export default HeroContents;
