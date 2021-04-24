@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
+import staffPlaceholderImg from '../../images/staff-placeholder.png';
+
+import Carousel from '../Carousel';
 
 
 const StyleWrapper = styled.div`
@@ -10,17 +13,10 @@ const StyleWrapper = styled.div`
     flex-wrap: nowrap;
     overflow-x: auto;
 
-
-
-  .staff-item {
+    .staff-item {
         position: relative;
-
-
-        
         backdrop-filter: blur( 20.5px );
         border-radius: 5px;
-        float: left;
-        margin: 20px;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -97,7 +93,7 @@ const Staff = (props) => {
             title,
             uri
         }) => {
-            const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <div>FALLBACK IMAGE</div>
+            const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg}></img>
 
             return (
                 <div className="staff-item" key={id}>
@@ -126,12 +122,14 @@ const Staff = (props) => {
         return staffMarkup;
     }
 
-    const staffMarkup = buildStaffMarkup();
+    const staffMarkup = buildStaffMarkup(),
+        carouselData = {
+            items: staffMarkup
+        };
 
     return (
         <StyleWrapper>
-            {/* <div>Our Family heading</div> */}
-            { staffMarkup }
+            <Carousel {...carouselData} />
         </StyleWrapper>
     );
 };
