@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const StyleWrapper = styled.div`
     display: flex;
+    overflow: hidden;
 
     .cards-container {
         display: flex;
@@ -63,16 +64,23 @@ function Carousel(props) {
     const [activeItem, setActiveItem] = useState(0);
     const activeRef = useRef(null);
     const inactiveRef = useRef(null);
+    const initialRenderCompleteRef = useRef(false);
 
     useEffect(() => {
-        activeRef.current.scrollIntoView({
-            behavior: 'auto',
-            block: 'center',
-            inline: 'center'
-        });
+        if (initialRenderCompleteRef.current) { //Conditional to avoid scrolling the screen on initial render
+            activeRef.current.scrollIntoView({
+                behavior: 'auto',
+                block: 'center',
+                inline: 'center'
+            });
+        }
     }, [
         activeItem
     ]);
+
+    useEffect(() => {
+        initialRenderCompleteRef.current = true;
+    }, []);
 
     function handleClickPrev() {
         setActiveItem(prevActiveItem => {

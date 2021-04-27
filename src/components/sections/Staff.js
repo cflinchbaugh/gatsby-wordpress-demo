@@ -7,7 +7,7 @@ import Carousel from '../Carousel';
 
 
 const StyleWrapper = styled.div`
-    padding: 4em;
+    padding: 2em 5px;
     background-color: #009688;
     display: flex;
     flex-wrap: nowrap;
@@ -21,6 +21,7 @@ const StyleWrapper = styled.div`
         justify-content: center;
         flex-direction: column;
         flex: 0 0 auto;
+        max-width: 300px;
 
         .profile-image {
             box-shadow: 0 8px 32px 0 rgb(31 38 135 / 45%);
@@ -61,7 +62,15 @@ const StyleWrapper = styled.div`
             text-align: center;
             border-radius: 0 0 5px 5px;
         }
-  }
+    }
+
+    @media (min-width: 768px) {
+        padding: 4em;
+
+        .staff-item {
+            max-width: initial;
+        }
+    }
 `;
 
 const Staff = (props) => {
