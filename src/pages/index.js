@@ -43,6 +43,7 @@ const IndexPage = () => {
                         profilePicture {
                             mediaItemUrl
                         }
+                        profession
                     }
                     databaseId
                 }
@@ -147,12 +148,13 @@ const IndexPage = () => {
         return aboutMarkup;
     }
 
-    const aboutMarkup = buildAboutMarkup(),
-        employeeActiveData = selectEmployee(employeeActive),
+    // const aboutMarkup = buildAboutMarkup(),
+    const employeeActiveData = selectEmployee(employeeActive),
         employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
         dialogData = {
             children: <div>{employeeMarkup}</div>,
             handleClickClose: handleClickClose,
+            header: <div>{employeeActiveData.title}</div>,
             show: dialogShow
         },
         // postMarkup = buildPostMarkup(),

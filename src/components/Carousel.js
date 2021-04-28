@@ -62,12 +62,12 @@ function Carousel(props) {
     } = props;
 
     const [activeItem, setActiveItem] = useState(0);
-    const activeRef = useRef(null);
+    const activeRef = useRef();
     const inactiveRef = useRef(null);
     const initialRenderCompleteRef = useRef(false);
 
     useEffect(() => {
-        if (initialRenderCompleteRef.current) { //Conditional to avoid scrolling the screen on initial render
+        if (initialRenderCompleteRef.current && typeof(activeRef.current) !== 'undefined' && activeRef.current !== null) { //Conditional to avoid scrolling the screen on initial render
             activeRef.current.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',

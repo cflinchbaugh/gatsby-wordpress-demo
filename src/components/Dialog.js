@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {
+    useEffect
+} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -45,7 +47,9 @@ const StyleWrapper = styled.div`
             width: 100%;
 
             .modal-header-wrapper {
-                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 20px;
             }
 
             .modal-body-wrapper {
@@ -55,6 +59,29 @@ const StyleWrapper = styled.div`
                 height: auto; //Overhflow handlin'
                 min-height: 1px;
                 min-width: 1px;
+                overflow-y: auto;
+
+                /* width */
+                ::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                /* Track */
+                ::-webkit-scrollbar-track {
+                    background: #f1f1f1; 
+                }
+                
+                /* Handle */
+                ::-webkit-scrollbar-thumb {
+                    background: #888; 
+                    border-radius: 20px;
+                }
+
+                /* Handle on hover */
+                ::-webkit-scrollbar-thumb:hover {
+                    background: #555; 
+                }
+
                 .modal-body {
                     display: flex;
                     flex-grow: 1;
@@ -63,6 +90,11 @@ const StyleWrapper = styled.div`
                     height: auto;
                     min-height: 1px; 
                     min-width: 1px;
+
+                    ol,
+                    ul {
+                        list-style-position: inside;
+                    }
                 }
             }
 
@@ -91,7 +123,24 @@ const StyleWrapper = styled.div`
     }
 `;
 
+const rootHTML = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
+/**
+ * @description Render a dialog modal and overlay, obstructing default page scrolling
+ *
+ * @param {*} props
+ * @returns
+ */
 function Dialog(props) {
+    
+    useEffect(() => {
+        //Toggle scrolling of underlying page    
+        const overflowStyle = props.show ? 'hidden' : '';
+        
+        rootHTML.style.overflow = overflowStyle;
+    }, [
+        props.show
+    ]);
+
     function handleClickClose(e) {
         if (typeof(e.target.className) === 'string' && e.target.className.indexOf('modal-wrapper') >= 0) {
             props.handleClickClose(e);
@@ -109,7 +158,7 @@ function Dialog(props) {
                     <div className={`modal ${props.height}`}>
                         <div className="modal-header-wrapper">
                             {props.header}
-                            <button onClick={props.handleClickClose}>X</button>
+                            <button onClick={props.handleClickClose}>Close</button>
                         </div>
                         <div className="modal-body-wrapper">
                             <div className="modal-body">
