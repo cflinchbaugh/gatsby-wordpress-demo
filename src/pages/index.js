@@ -31,7 +31,7 @@ const IndexPage = () => {
                     uri
                 }
             }
-            allWpEmployee {
+            allWpEmployee(sort: { order: ASC, fields: date }) {
                 nodes {
                     id
                     uri

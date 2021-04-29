@@ -1,4 +1,7 @@
-import * as React from 'react';
+import React, {
+    useEffect,
+    useState
+} from 'react';
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
@@ -73,6 +76,8 @@ const StyleWrapper = styled.div`
     }
 `;
 
+const barber = 'Barber',
+    stylist = 'Stylist';
 const Staff = (props) => {
     const {
         allFile,
@@ -80,60 +85,82 @@ const Staff = (props) => {
         handleClickDetails
     } = props;
 
-    function buildStaffMarkup() {
+    const [filter, setFilter] = useState([barber, stylist]);
+    
+    // useEffect(() => {
+    //     const cardsContainer = document.getElementsByClassName('cards-container')[0];
+    //     let scrollBy = cardsContainer.scrollWidth / 2.5;
+
+    //     cardsContainer.scrollLeft = scrollBy;
+    // }, []);
+
+    function buildStaffMarkup(target) {
         const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
-            let employeeData = wpEmployeeData;
+                let employeeData = wpEmployeeData;
 
-            const currentEmployeeProfileURL = wpEmployeeData?.employeeData?.profilePicture?.mediaItemUrl;
-            
-            allFile.nodes.some((fileData) => {
-                if (fileData.url === currentEmployeeProfileURL) {
-                    employeeData.profileData = fileData.childImageSharp.gatsbyImageData;
-                }
-                return null;
-            })
-            
-            return employeeData;
-        }) :  <div>No Staff Found</div>;
+                const currentEmployeeProfileURL = wpEmployeeData?.employeeData?.profilePicture?.mediaItemUrl;
+                
+                allFile.nodes.some((fileData) => {
+                    if (fileData.url === currentEmployeeProfileURL) {
+                        employeeData.profileData = fileData.childImageSharp.gatsbyImageData;
+                    }
+                    return null;
+                })
+                
+                return employeeData;
+            }) :  <div>No Staff Found</div>;
 
-        const staffMarkup =  staffData.map( ({
+        let staffMarkup = [];
+        
+        staffData.forEach( ({
+            employeeData,
             id,
             profileData,
-            title,
-            uri
+            title
         }) => {
-            const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg}></img>
+            if (employeeData.profession.includes(target)) {
+                const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg}></img>
 
-            return (
-                <div className="staff-item" key={id}>
-                    <div className="foreground header">
-                        <strong>
-                            <span dangerouslySetInnerHTML={{__html: title}} />
-                        </strong>
-                    </div>
+                staffMarkup.push(
+                    <div className="staff-item" key={id}>
+                        <div className="foreground header">
+                            <strong>
+                                <span dangerouslySetInnerHTML={{__html: title}} />
+                            </strong>
+                        </div>
 
-                    <div className="profile-image">
-                        {profileImage}
-                    </div>
+                        <div className="profile-image">
+                            {profileImage}
+                        </div>
 
-                    <div className="foreground footer">
-                        <button 
-                            onClick={(() => {
-                                handleClickDetails(id);
-                            })}>
-                            See Details
-                        </button>
+                        <div className="foreground footer">
+                            <button 
+                                onClick={(() => {
+                                    handleClickDetails(id);
+                                })}>
+                                See Details
+                            </button>
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            }
         });
 
         return staffMarkup;
     }
 
-    const staffMarkup = buildStaffMarkup(),
-        carouselData = {
-            items: staffMarkup
+    const defaultMarkup = filter.includes(barber, stylist) ? [(
+            <div tabIndex="2">:Stylists || Barbers:</div>
+        )] : [],
+        barbersMarkup = filter.includes(barber) ? buildStaffMarkup(barber) : [],
+        stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];
+
+    const carouselData = {
+            items: [
+                ...stylistsMarkup.reverse(),
+                ...defaultMarkup,
+                ...barbersMarkup,
+            ]
         };
 
     return (
