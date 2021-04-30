@@ -4,6 +4,7 @@ import React, {
     useState
 } from 'react';
 import styled from 'styled-components';
+import useIntersection from './useIntersection';
 
 const StyleWrapper = styled.div`
     display: flex;
@@ -61,13 +62,15 @@ function Carousel(props) {
         items
     } = props;
 
-    const [activeItem, setActiveItem] = useState(0);
+    const [activeItem, setActiveItem] = useState(4);
+    const cardsContainerRef = useRef();
+    const inViewport = useIntersection(cardsContainerRef, '-300px');
     const activeRef = useRef();
     const inactiveRef = useRef(null);
-    const initialRenderCompleteRef = useRef(false);
 
+    // Centers the active item when the component enters the viewport
     useEffect(() => {
-        if (initialRenderCompleteRef.current && typeof(activeRef.current) !== 'undefined' && activeRef.current !== null) { //Conditional to avoid scrolling the screen on initial render
+        if (inViewport) {
             activeRef.current.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',
@@ -75,12 +78,9 @@ function Carousel(props) {
             });
         }
     }, [
-        activeItem
+        activeItem,
+        inViewport
     ]);
-
-    useEffect(() => {
-        initialRenderCompleteRef.current = true;
-    }, []);
 
     function handleClickPrev() {
         setActiveItem(prevActiveItem => {
@@ -134,7 +134,7 @@ function Carousel(props) {
         };
 
     return (
-        <StyleWrapper>
+        <StyleWrapper ref={cardsContainerRef}>
             <button {...prevButtonData}>
                 ◄
             </button>
