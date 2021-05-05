@@ -144,7 +144,9 @@ const HeroContents = (props) => {
     const { wpSectionHeroContent } = results;
 
     function handleClickCallToAction() {
-        window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
+        if (typeof(window) !== 'undefined') {
+            window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
+        }
     }
 
     const logoImageData = {

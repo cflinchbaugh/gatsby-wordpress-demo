@@ -33,10 +33,6 @@ const StyleWrapper = styled.div`
     .phone {
         padding-bottom: 2px;
     }
-
-    @media (min-width: 768px) {
-
-    }
 `;
 
 const Footer = () => {
@@ -61,7 +57,7 @@ const Footer = () => {
 
                     <span className="spacer">|</span>
 
-                    <a href="tel:+17178587428" class="phone">
+                    <a href="tel:+17178587428" className="phone">
                         (717) 858-7428
                     </a>
                 </div>

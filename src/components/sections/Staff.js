@@ -150,7 +150,17 @@ const Staff = (props) => {
     }
 
     const defaultMarkup = filter.includes(barber, stylist) ? [(
-            <div tabIndex="2">:Stylists || Barbers:</div>
+            <div tabIndex="2">
+                :Stylists || Barbers:
+                <section>
+                    <div>Hours of Operation</div>
+                    <ul>
+                        <li>Mon: Closed</li>
+                        <li>Tues–Fri: 9am–7pm</li>
+                        <li>Sat: 9AM–3PM</li>
+                    </ul>
+                </section>
+            </div>
         )] : [],
         barbersMarkup = filter.includes(barber) ? buildStaffMarkup(barber) : [],
         stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];

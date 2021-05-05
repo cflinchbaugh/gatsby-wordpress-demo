@@ -5,10 +5,15 @@ import { StaticImage } from 'gatsby-plugin-image';
 const StyleWrapper = styled.div`
     display: flex;
     justify-content: space-around;
+    padding: 20px 0;
 
     img {
         border-radius: 100%;
         padding: 15px;
+    }
+
+    @media (min-width:768px) {
+        padding: 50px 0;
     }
 `;
 
