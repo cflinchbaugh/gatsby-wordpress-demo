@@ -1,67 +1,74 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
+import { accentDefault,
+    primaryDefault } from '../../colors';
 
 const StyleWrapper = styled.div`
-    background: papayawhip;
-    padding: 4em;
+    font-size: 14pt;
+    color: white;
+    align-items: center;
+    background: ${primaryDefault};
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
     text-align: center;
 
-    .social-media-icons {
-        display: flex;
-        justify-content: center;
+    .footer-contents-primary {
+        max-width: 500px;
+    }
 
-        a {
-            display: flex;
-            padding: 15px;
+    a {
+        transition: color 0.15s;
+
+        &:hover {
+            color: ${accentDefault};
         }
+    }
+
+    .spacer {
+        padding: 15px;
+    }
+
+    .phone {
+        padding-bottom: 2px;
+    }
+
+    @media (min-width: 768px) {
+
     }
 `;
 
-const Footer = (props) => {
-    const socialMediaImageData = {
-        height: 50,
-        width: 50,
-        placeholder: 'tracedSVG'
-    };
+const Footer = () => {
+    const logoImageData = {
+            alt: 'DiDi and Smiling John\'s Barber and Beauty Shop Logo',
+            src: '../../images/logo_banner.png',
+            placeholder: 'tracedSVG',
+            width: 200
+        }
 
     return (
         <StyleWrapper>
-            <div>
-                <a href="tel:+17178587428">(717) 858-7428</a>
-            </div>
-            <div>
-                Hours of Operation
-            </div>
-            <div>
-                Monday: Closed
-            </div>
-            <div>
-                Tuesday – Friday: 9AM–7PM
-            </div>
-            <div>
-                Saturday: 9AM–3PM
-            </div>
-            <div>
-                *Prices subject to change
-            </div>
-
-            <div className="social-media-icons">
-                <a href="http://www.facebook.com/DiDiandSmilingJohns" target="_blank" rel="noopener noreferrer">
-                    <StaticImage
-                        {...socialMediaImageData}
-                        src="../../images/facebook-icon.png"
-                        alt="Facebook"
-                    />
+            <div className="footer-contents-primary">
+                <a href="#">
+                    <StaticImage {...logoImageData} />
                 </a>
+                
+                <div className="social-media-icons">
+                    <a href="http://www.facebook.com/DiDiandSmilingJohns" target="_blank" rel="noopener noreferrer">
+                        Facebook
+                    </a>
 
-                <a href="http://m.me/DiDiandSmilingJohns" target="_blank" rel="noopener noreferrer">
-                    <StaticImage
-                        {...socialMediaImageData}
-                        src="../../images/messenger-icon.png"
-                        alt="Messenger"
-                    />
-                </a>
+                    <span className="spacer">|</span>
+
+                    <a href="tel:+17178587428" class="phone">
+                        (717) 858-7428
+                    </a>
+                </div>
+
+                <div>
+                    *All prices subject to change
+                </div>
             </div>
         </StyleWrapper>
     );
