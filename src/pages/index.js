@@ -89,7 +89,7 @@ const IndexPage = () => {
         setEmployeeActive(employeeId);
         setDialogShow(true);
     }
-    
+
     // function buildPostMarkup() {
     //     const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? 
     //     allWpPost.nodes.map( ({
@@ -131,25 +131,10 @@ const IndexPage = () => {
         return employeeData;
     }
     
-    function buildAboutMarkup() {
-        const aboutMarkup = (allWpSectionAboutContent?.nodes && allWpSectionAboutContent.nodes.length) ? allWpSectionAboutContent.nodes.map( ({
-           data
-        }) => (
-            <div className="about-item" key={Date.now()}>
-                <strong>
-                    <span>tab</span>
-                    <span>heading</span>
-                </strong>
-
-                <div>body</div>
-            </div>
-        )) : <div>No About Data Found</div>;
-
-        return aboutMarkup;
-    }
-
-    // const aboutMarkup = buildAboutMarkup(),
-    const employeeActiveData = selectEmployee(employeeActive),
+    const aboutData = {
+            allWpSectionAboutContent: allWpSectionAboutContent
+        },
+        employeeActiveData = selectEmployee(employeeActive),
         employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
         dialogData = {
             children: <div>{employeeMarkup}</div>,
@@ -162,9 +147,6 @@ const IndexPage = () => {
             allFile: allFile,
             allWpEmployee: allWpEmployee,
             handleClickDetails: handleClickDetails
-        },
-        aboutData = {
-            allWpSectionAboutContent: allWpSectionAboutContent
         };
 
     return (
@@ -176,10 +158,6 @@ const IndexPage = () => {
 
                 <HeroContents />
 
-                {/* 
-                <div>About Section</div>
-                {aboutMarkup} 
-                */}
                 <About {...aboutData}/>
 
                 <hr/>
@@ -196,7 +174,7 @@ const IndexPage = () => {
 
                 <Charm />
 
-                <Footer />
+                <Footer/>
                 
                 {/* { postMarkup } */}
             </main>
