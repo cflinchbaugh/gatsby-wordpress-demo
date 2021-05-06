@@ -1,29 +1,53 @@
 import React, { 
     useState
 } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
+const fadeIn = keyframes`
+    0% {
+        transform: translateY(80px);
+        opacity: 0;
+    }
+    75% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+`;
 const StyleWrapper = styled.div`
     display: flex;
+    height: 
     justify-content: space-around;
     padding: 20px 10px;
     flex-direction: column;
     text-align: center;
 
     .tab-buttons {
+        padding-bottom: 25px;
+
         button {
             padding: 0 15px;
         }
     }
 
     .tab-card {
+        animation-name: ${fadeIn};
+        animation-duration: 1s;
         display: flex;
         flex: 1;
-        border: solid 1px;
         flex-direction: column;
-        padding: 20px;
+        padding: 30px;
         text-align: center;
-        margin: 10px;
+        margin: 1.5rem;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-size: clamp(1rem, 1.35rem, 1.2rem);
+        line-height: 1.2;
     }
 
     .tab-contents {
