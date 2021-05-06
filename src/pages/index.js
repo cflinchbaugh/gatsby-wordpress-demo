@@ -9,6 +9,7 @@ import Dialog from '../components/Dialog';
 import Staff from '../components/sections/Staff';
 import About from '../components/sections/About';
 import HeroContents from '../components/sections/HeroContents';
+import Map from '../components/sections/Map';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
 import WpEmployee from '../components/items/WpEmployee';
@@ -168,7 +169,7 @@ const IndexPage = () => {
                 
                 <hr/>
                 
-                <div>Map</div>
+                <Map />
                 
                 <hr/>
 
