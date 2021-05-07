@@ -2,6 +2,7 @@ import React, {
     useState
 } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { secondaryDefault } from '../../colors';
 
 const fadeIn = keyframes`
     0% {
@@ -24,13 +25,43 @@ const StyleWrapper = styled.div`
     flex-direction: column;
     text-align: center;
 
-    .tab-buttons {
-        padding-bottom: 25px;
+    .tabs-wrapper {
+        position: relative;
 
-        button {
-            padding: 0 15px;
+        .indicator {
+            position: absolute;
+            bottom: 0;
+            transition: all 0.5s ease-in-out;
+            height: 10px;
+            background-color: ${secondaryDefault};
+            left: 0;
+            width: 40%;
+            pointer-events: none;
+        }
+    
+        .indicator.who {
+            left: 0%;
+            border-radius: 5px 1px 1px 5px
+        }
+        .indicator.what {
+            left: 60%;
+            border-radius: 1px 5px 5px 1px
+        }
+    
+        .tab-buttons {
+            padding-bottom: 15px;
+            width: 50%;
+            margin: auto;
+            position: relative;
+    
+            button {
+                font-size: 1.15rem;
+                font-weight: strong;
+                padding: 0 15px;
+            }
         }
     }
+
 
     .tab-card {
         animation-name: ${fadeIn};
@@ -42,7 +73,7 @@ const StyleWrapper = styled.div`
         text-align: center;
         margin: 1.5rem;
         background: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.2);
         backdrop-filter: blur(4px);
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.18);
@@ -57,8 +88,26 @@ const StyleWrapper = styled.div`
 
     @media only screen and (min-width: 768px) {
         padding: 10vh 10vw;
-        
-        .tab-contents{
+
+        .tabs-wrapper {
+            .indicator {
+                width: 50%;
+            }
+           
+            .indicator.what {
+                left: 50%;
+            }
+
+            .tab-buttons {
+                width: 40%;
+
+                button {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        .tab-contents {
             flex-direction: row;
         }
     }
@@ -130,20 +179,25 @@ const About = (props) => {
         whatTabData = {
             id: 'what',
             onClick: handleClickTabWhat
-        };
+        }
 
     return (
         <StyleWrapper>
-            <div className="tab-buttons">
-                <button {...whoTabData}>
-                    Who We Are
-                </button>
-                <button {...whatTabData}>
-                    What We Do
-                </button>
+            <div className="tabs-wrapper">
+                <div className="tab-buttons">
+                    <button {...whoTabData}>
+                        Who We Are
+                    </button>
+                    <button {...whatTabData}>
+                        What We Do
+                    </button>
+                    
+                    <span className={`indicator ${activeTab}`}></span>
+                </div>
             </div>
 
             {tabContents}
+
             
         </StyleWrapper>
     );
