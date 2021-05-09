@@ -5,6 +5,11 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import useIntersection from './useIntersection';
+import {
+    accentDefault,
+    primaryDark,
+    secondaryDefault
+} from '../colors';
 
 const StyleWrapper = styled.div`
     display: flex;
@@ -49,7 +54,15 @@ const StyleWrapper = styled.div`
     }
 
     button {
+        color: ${accentDefault};
         padding: 15px;
+        transition: all 0.15s;
+        background: transparent;
+
+        &:hover {
+            background: ${primaryDark};
+            color: ${secondaryDefault};
+        }
     }
 
     @media(min-width: 768px) {
@@ -94,6 +107,10 @@ function Carousel(props) {
         })
     }
 
+    function handleClickCard(i) {
+        setActiveItem(i);
+    }
+
     function buildCards() {
         const cards = items.map((item, i) => {
             const isActive = (i === activeItem),
@@ -115,8 +132,16 @@ function Carousel(props) {
                     break;
             }
 
+            const cardData = {
+                key: i,
+                onClick: () => {
+                    handleClickCard(i)
+                },
+                ref: statusRef,
+            }
+
             return (
-                <div className={`card ${statusClass}`} key={i} ref={statusRef}>
+                <div className={`card ${statusClass}`} {...cardData}>
                     {item}
                 </div>
             );

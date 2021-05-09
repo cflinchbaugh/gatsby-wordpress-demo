@@ -1,16 +1,16 @@
 import React, {
-    useEffect,
     useState
 } from 'react';
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
+import StaffDefault from '../items/StaffDefault';
 
 import Carousel from '../Carousel';
 
 
 const StyleWrapper = styled.div`
-    padding: 2em 5px;
+    height: 100vh;
     background-color: #009688;
     display: flex;
     flex-wrap: nowrap;
@@ -18,6 +18,7 @@ const StyleWrapper = styled.div`
 
     .staff-item {
         position: relative;
+        padding: 0;
         backdrop-filter: blur( 20.5px );
         border-radius: 5px;
         display: flex;
@@ -68,8 +69,6 @@ const StyleWrapper = styled.div`
     }
 
     @media (min-width: 768px) {
-        padding: 4em;
-
         .staff-item {
             max-width: initial;
         }
@@ -78,6 +77,7 @@ const StyleWrapper = styled.div`
 
 const barber = 'Barber',
     stylist = 'Stylist';
+
 const Staff = (props) => {
     const {
         allFile,
@@ -87,13 +87,6 @@ const Staff = (props) => {
 
     const [filter, setFilter] = useState([barber, stylist]);
     
-    // useEffect(() => {
-    //     const cardsContainer = document.getElementsByClassName('cards-container')[0];
-    //     let scrollBy = cardsContainer.scrollWidth / 2.5;
-
-    //     cardsContainer.scrollLeft = scrollBy;
-    // }, []);
-
     function buildStaffMarkup(target) {
         const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
                 let employeeData = wpEmployeeData;
@@ -122,7 +115,12 @@ const Staff = (props) => {
                 const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg}></img>
 
                 staffMarkup.push(
-                    <div className="staff-item" key={id}>
+                    <button className="staff-item" 
+                        key={id}  
+                        onClick={(() => {
+                            handleClickDetails(id);
+                        })}
+                    >
                         <div className="foreground header">
                             <strong>
                                 <span dangerouslySetInnerHTML={{__html: title}} />
@@ -134,14 +132,11 @@ const Staff = (props) => {
                         </div>
 
                         <div className="foreground footer">
-                            <button 
-                                onClick={(() => {
-                                    handleClickDetails(id);
-                                })}>
+                            <div>
                                 See Details
-                            </button>
+                            </div>
                         </div>
-                    </div>
+                    </button>
                 );
             }
         });
@@ -150,17 +145,7 @@ const Staff = (props) => {
     }
 
     const defaultMarkup = filter.includes(barber, stylist) ? [(
-            <div tabIndex="2">
-                :Stylists || Barbers:
-                <section>
-                    <div>Hours of Operation</div>
-                    <ul>
-                        <li>Mon: Closed</li>
-                        <li>Tues–Fri: 9am–7pm</li>
-                        <li>Sat: 9AM–3PM</li>
-                    </ul>
-                </section>
-            </div>
+            <StaffDefault tabIndex="2" />
         )] : [],
         barbersMarkup = filter.includes(barber) ? buildStaffMarkup(barber) : [],
         stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];

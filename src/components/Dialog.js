@@ -3,6 +3,11 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { 
+    accentDefault,
+    primaryDark,
+    primaryDefault,
+    primaryLight } from '../colors';
 
 const StyleWrapper = styled.div`
     .modal-overlay {
@@ -14,7 +19,7 @@ const StyleWrapper = styled.div`
         bottom: 0;
         display: block;
         left: 0;
-        opacity: 0.7;
+        opacity: 0.5;
         position: fixed;
         right: 0;
         top: 0;
@@ -38,7 +43,11 @@ const StyleWrapper = styled.div`
         z-index: 10001;
 
         .modal {
-            background-color: #fff;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+            backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.18);
             border-radius: 5px;
             display: flex;
             flex-direction: column;
@@ -48,8 +57,26 @@ const StyleWrapper = styled.div`
 
             .modal-header-wrapper {
                 display: flex;
+                font-size: 1.25rem;
                 justify-content: space-between;
-                padding: 20px;
+                padding: 10px 20px;
+
+                border-bottom: solid 1px;
+                background: ${primaryLight};
+                color: white;
+                box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+
+                button {
+                    border: solid 2px ${accentDefault};
+                    background-color: ${primaryDefault};
+                    border-radius: 5px;
+                    padding: 0 5px;
+                    transition: all 0.15s;
+
+                    &:hover {
+                        background-color: ${primaryDark}
+                    }
+                }
             }
 
             .modal-body-wrapper {

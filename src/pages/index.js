@@ -138,9 +138,9 @@ const IndexPage = () => {
         employeeActiveData = selectEmployee(employeeActive),
         employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
         dialogData = {
-            children: <div>{employeeMarkup}</div>,
+            children: dialogShow ? <div>{employeeMarkup}</div> : null,
             handleClickClose: handleClickClose,
-            header: <div>{employeeActiveData.title}</div>,
+            header: dialogShow ? <div>{employeeActiveData.title}</div> : null,
             show: dialogShow
         },
         // postMarkup = buildPostMarkup(),
