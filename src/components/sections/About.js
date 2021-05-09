@@ -50,7 +50,6 @@ const StyleWrapper = styled.div`
     
         .tab-buttons {
             padding-bottom: 15px;
-            width: 50%;
             margin: auto;
             position: relative;
     
@@ -99,14 +98,17 @@ const StyleWrapper = styled.div`
             }
 
             .tab-buttons {
-                width: 40%;
+                width: 50%;
 
                 button {
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                 }
             }
         }
 
+    }
+
+    @media (min-width: 1024px) {
         .tab-contents {
             flex-direction: row;
         }
