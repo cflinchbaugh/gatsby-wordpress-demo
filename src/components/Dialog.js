@@ -150,7 +150,6 @@ const StyleWrapper = styled.div`
     }
 `;
 
-const rootHTML = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
 /**
  * @description Render a dialog modal and overlay, obstructing default page scrolling
  *
@@ -162,6 +161,7 @@ function Dialog(props) {
     useEffect(() => {
         //Toggle scrolling of underlying page    
         const overflowStyle = props.show ? 'hidden' : '';
+        const rootHTML = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
         
         rootHTML.style.overflow = overflowStyle;
     }, [
