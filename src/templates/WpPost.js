@@ -1,9 +1,9 @@
 import React from 'react';
-import {
-    graphql,
-    Link as GatsbyLink
-} from 'gatsby';
-import { Helmet } from 'react-helmet/es/Helmet';
+// import {
+//     graphql,
+//     Link as GatsbyLink
+// } from 'gatsby';
+// import { Helmet } from 'react-helmet/es/Helmet';
 
 const WpPost = ({ data }) => {
     return <div>WpPost</div>;
