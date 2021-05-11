@@ -83,7 +83,7 @@ function Carousel(props) {
 
     // Centers the active item when the component enters the viewport
     useEffect(() => {
-        if (inViewport) {
+        if (inViewport && activeRef && activeRef.current) {
             activeRef.current.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',

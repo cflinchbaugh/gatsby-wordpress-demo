@@ -40,7 +40,6 @@ const IndexPage = () => {
                     employeeData {
                         biography
                         services
-                        twitter
                         profilePicture {
                             mediaItemUrl
                         }

@@ -19,8 +19,7 @@ const WpEmployee = (props) => {
         employeeData: {
             biography,
             // profession,
-            services,
-            // twitter
+            services
         },
         profileData
     } = props;

@@ -126,8 +126,8 @@ const HeroContents = (props) => {
                 sectionHero {
                   heroBody
                 }
-              }
-            file(url: {eq: "http://dangerzone.local/wp-content/uploads/2021/04/hero.png"}, childrenImageSharp: {}) {
+            }
+            file(url: {eq: "https://didiandsmilingjohns.com/wp-content/uploads/hero.png"}, childrenImageSharp: {}) {
                 id
                 url
                 childImageSharp {
