@@ -13,7 +13,9 @@ import {
 
 const StyleWrapper = styled.div`
     display: flex;
+    flex: 1 0 auto;
     overflow: hidden;
+    max-width: 100vw;
 
     .cards-container {
         display: flex;
@@ -39,34 +41,42 @@ const StyleWrapper = styled.div`
         transition: all 0.15s;    
     }
 
-    .prev-active,
-    .next-active {
-        opacity: 0.75;
-    }
-
     .active {
-        opacity: 1;
         border: solid 2px yellow;
     }
 
-    .inactive {
-        opacity: 0.5;
-    }
-
     button {
-        color: ${accentDefault};
-        padding: 15px;
-        transition: all 0.15s;
-        background: transparent;
-
-        &:hover {
-            background: ${primaryDark};
-            color: ${secondaryDefault};
-        }
+        display: none;
     }
 
     @media(min-width: 768px) {
-        
+        overflow: hidden;
+
+        .prev-active,
+        .next-active {
+            opacity: 0.75;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        .inactive {
+            opacity: 0.5;
+        }
+
+        button {
+            display: block;
+            color: ${accentDefault};
+            padding: 15px;
+            transition: all 0.15s;
+            background: transparent;
+    
+            &:hover {
+                background: ${primaryDark};
+                color: ${secondaryDefault};
+            }
+        }
     }
 `;
 
@@ -75,7 +85,7 @@ function Carousel(props) {
         items
     } = props;
 
-    const [activeItem, setActiveItem] = useState(4);
+    const [activeItem, setActiveItem] = useState(2);
     const cardsContainerRef = useRef();
     const inViewport = useIntersection(cardsContainerRef, '-300px');
     const activeRef = useRef();
