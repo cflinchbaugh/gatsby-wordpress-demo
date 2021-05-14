@@ -86,14 +86,15 @@ function Carousel(props) {
     } = props;
 
     const [activeItem, setActiveItem] = useState(2);
-    const cardsContainerRef = useRef();
-    const inViewport = useIntersection(cardsContainerRef, '-300px');
+    const [cardsContainerRef, entry] = useIntersection({
+        threshold: [0.05]
+    });
     const activeRef = useRef();
     const inactiveRef = useRef(null);
 
     // Centers the active item when the component enters the viewport
     useEffect(() => {
-        if (inViewport && activeRef && activeRef.current) {
+        if (entry.intersectionRatio && activeRef && activeRef.current) {
             activeRef.current.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',
@@ -102,7 +103,7 @@ function Carousel(props) {
         }
     }, [
         activeItem,
-        inViewport
+        entry
     ]);
 
     function handleClickPrev() {
@@ -169,7 +170,7 @@ function Carousel(props) {
         };
 
     return (
-        <StyleWrapper ref={cardsContainerRef}>
+        <StyleWrapper ref={cardsContainerRef} ratio={entry.intersectionRatio}>
             <button {...prevButtonData}>
                 ◄
             </button>

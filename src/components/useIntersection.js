@@ -1,27 +1,39 @@
-import { useState, useEffect } from "react";
+import { 
+    useEffect, 
+    useRef, 
+    useState 
+} from 'react';
 
-export default (element, rootMargin) => {
-    const [isVisible, setState] = useState(false);
+//Credit Justin Travis Waith-Mair https://non-traditional.dev/how-to-use-an-intersectionobserver-in-a-react-hook-9fb061ac6cb5
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setState(entry.isIntersecting);
-                    observer.unobserve(element.current);
-                }
-            },
-            {
-                rootMargin
-            }
-        );
+export default ({
+    root = null, 
+    rootMargin, 
+    threshold = 0 
+}) => {
+    const [entry, updateEntry] = useState({});
+    const [node, setNode] = useState(null);
 
-        element.current && observer.observe(element.current);
+    const observer = useRef(
+        new window.IntersectionObserver(([entry]) => updateEntry(entry), {
+            root,
+            rootMargin,
+            threshold
+        })
+    );
 
-        return () => {
-            observer.unobserve(element.current);
-        };
-    }, []);
+    useEffect(
+        () => {
+            const { current: currentObserver } = observer;
+            currentObserver.disconnect();
 
-    return isVisible;
+            if (node) currentObserver.observe(node);
+
+            return () => currentObserver.disconnect();
+        },[
+            node
+        ]
+    );
+
+    return [setNode, entry];
 };
