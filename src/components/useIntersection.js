@@ -14,13 +14,13 @@ export default ({
     const [entry, updateEntry] = useState({});
     const [node, setNode] = useState(null);
 
-    const observer = useRef(
+    const observer = typeof(window) !== 'undefined' ? useRef(
         new window.IntersectionObserver(([entry]) => updateEntry(entry), {
             root,
             rootMargin,
             threshold
         })
-    );
+    ) : null;
 
     useEffect(
         () => {
