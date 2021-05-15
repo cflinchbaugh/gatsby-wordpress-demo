@@ -6,6 +6,10 @@ import {
     graphql,
     useStaticQuery
 } from 'gatsby';
+import {
+    accentDefault,
+    shiro
+} from '../../colors';
 
 
 const StyleWrapper = styled.div`
@@ -67,10 +71,16 @@ const StyleWrapper = styled.div`
         text-align: center;
         border-radius: 50px;
         padding: 10px 25px;
-        color: white;
-        background: #33aba0;
+        color: ${shiro};
+        background: ${accentDefault};
         transition: all 0.2s ease-out 0s;
-        border: solid 2px rgba(226,166,49, 1);
+        border: solid 2px ${accentDefault};
+
+        &:hover {
+            top: 1px;
+            background: #d48700;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+        }
     }
 
     .description {

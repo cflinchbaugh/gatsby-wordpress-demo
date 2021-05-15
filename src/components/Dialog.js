@@ -7,7 +7,8 @@ import {
     accentDefault,
     primaryDark,
     primaryDefault,
-    primaryLight } from '../colors';
+    primaryLight,
+    shiro } from '../colors';
 
 const StyleWrapper = styled.div`
     .modal-overlay {
@@ -43,7 +44,7 @@ const StyleWrapper = styled.div`
         z-index: 10001;
 
         .modal {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.8);
             box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
             backdrop-filter: blur(4px);
             border-radius: 10px;
@@ -63,18 +64,25 @@ const StyleWrapper = styled.div`
 
                 border-bottom: solid 1px;
                 background: ${primaryLight};
-                color: white;
+                color: ${shiro};
                 box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
 
                 button {
-                    border: solid 2px ${accentDefault};
-                    background-color: ${primaryDefault};
-                    border-radius: 5px;
-                    padding: 0 5px;
+                    box-shadow: 0 8px 12px 0 rgb(31 38 135 / 37%);
+                    border: solid 2px ${primaryDefault};
+                    background-color: ${accentDefault};
                     transition: all 0.15s;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 40px;
 
                     &:hover {
-                        background-color: ${primaryDark}
+                        background-color: ${primaryDark};
+                        box-shadow: 0 6px 12px 0 rgb(31 38 135 / 37%);
                     }
                 }
             }
@@ -121,6 +129,9 @@ const StyleWrapper = styled.div`
                     ol,
                     ul {
                         list-style-position: inside;
+                        li {
+                            line-height: 2;
+                        }
                     }
                 }
             }
@@ -185,7 +196,9 @@ function Dialog(props) {
                     <div className={`modal ${props.height}`}>
                         <div className="modal-header-wrapper">
                             {props.header}
-                            <button onClick={props.handleClickClose}>Close</button>
+                            <button onClick={props.handleClickClose}>
+                                X
+                            </button>
                         </div>
                         <div className="modal-body-wrapper">
                             <div className="modal-body">

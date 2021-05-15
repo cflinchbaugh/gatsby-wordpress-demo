@@ -13,9 +13,12 @@ import Map from '../components/sections/Map';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
 import WpEmployee from '../components/items/WpEmployee';
+import { primaryDefault,
+    kuro } from '../colors';
 
 const StyleWrapper = styled.div`
-    color: "#232129";
+    color: ${kuro};
+    background-color: ${primaryDefault};
     fontFamily: "-apple-system, Roboto, sans-serif, serif";
 `;
 
@@ -130,6 +133,12 @@ const IndexPage = () => {
 
         return employeeData;
     }
+
+    function handleClickCallToAction() {
+        if (typeof(window) !== 'undefined') {
+            window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop/book-now','_blank');
+        }
+    }
     
     const aboutData = {
             allWpSectionAboutContent: allWpSectionAboutContent
@@ -140,6 +149,18 @@ const IndexPage = () => {
             children: dialogShow ? <div>{employeeMarkup}</div> : null,
             handleClickClose: handleClickClose,
             header: dialogShow ? <div>{employeeActiveData.title}</div> : null,
+            footer: employeeActiveData?.employeeData?.profession?.includes('Stylist') ? (
+                <div>
+                    <a href="tel:+17178587428" className="phone">
+                        (717) 858-7428
+                    </a>
+                </div>
+            ) : (
+                <button onClick={handleClickCallToAction}>
+                    <span className="gradient"></span>
+                    Book Online
+                </button>
+            ),
             show: dialogShow
         },
         // postMarkup = buildPostMarkup(),
@@ -159,8 +180,6 @@ const IndexPage = () => {
                 <HeroContents />
 
                 <About {...aboutData}/>
-
-                <hr/>
 
                 <Staff {...staffData} />
 

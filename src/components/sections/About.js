@@ -2,7 +2,8 @@ import React, {
     useState
 } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { secondaryDefault } from '../../colors';
+import { secondaryDefault,
+    shiro } from '../../colors';
 
 const fadeIn = keyframes`
     0% {
@@ -21,9 +22,19 @@ const StyleWrapper = styled.div`
     display: flex;
     height: 
     justify-content: space-around;
-    padding: 20px 10px;
+    padding: 10vw;
     flex-direction: column;
     text-align: center;
+
+    .tabs-wrapper button,
+    .tab-contents {
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
+        backdrop-filter: blur(4px);
+
+        // border-radius: 10px;
+        // border: 1px solid rgba(255, 255, 255, 0.18);
+    }
 
     .tabs-wrapper {
         position: relative;
@@ -35,8 +46,20 @@ const StyleWrapper = styled.div`
             height: 10px;
             background-color: ${secondaryDefault};
             left: 0;
-            width: 40%;
+            width: 50%;
             pointer-events: none;
+            z-index: 1;
+        }
+
+        .indicator-track {
+            background: ${shiro};
+            width: 100%;
+            height: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            border-radius: 5px 5px 0 0;
         }
     
         .indicator.who {
@@ -44,19 +67,31 @@ const StyleWrapper = styled.div`
             border-radius: 5px 1px 1px 5px
         }
         .indicator.what {
-            left: 60%;
+            left: 50%;
             border-radius: 1px 5px 5px 1px
         }
     
         .tab-buttons {
-            padding-bottom: 15px;
+            padding-bottom: 10px;
             margin: auto;
             position: relative;
-    
+            
             button {
                 font-size: 1.15rem;
                 font-weight: strong;
-                padding: 0 15px;
+                padding: 15px;
+                transition: background-color 0.15s;
+            }
+
+            button.active {
+               background-color: white;
+            }
+
+            button.inactive {
+               &:hover {
+                    background-color: #d48700;
+                    color: white;
+                }
             }
         }
     }
@@ -71,11 +106,6 @@ const StyleWrapper = styled.div`
         padding: 30px;
         text-align: center;
         margin: 1.5rem;
-        background: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.2);
-        backdrop-filter: blur(4px);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
         font-size: clamp(1rem, 1.35rem, 1.2rem);
         line-height: 1.2;
     }
@@ -89,14 +119,6 @@ const StyleWrapper = styled.div`
         padding: 10vh 10vw;
 
         .tabs-wrapper {
-            .indicator {
-                width: 50%;
-            }
-           
-            .indicator.what {
-                left: 50%;
-            }
-
             .tab-buttons {
                 width: 50%;
 
@@ -175,10 +197,12 @@ const About = (props) => {
         )
 
     const whoTabData = {
+            className: activeTab === 'who' ? 'active' : 'inactive',
             id: 'who',
             onClick: handleClickTabWho
         },
         whatTabData = {
+            className: activeTab === 'what' ? 'active' : 'inactive',
             id: 'what',
             onClick: handleClickTabWhat
         }
@@ -195,6 +219,7 @@ const About = (props) => {
                     </button>
                     
                     <span className={`indicator ${activeTab}`}></span>
+                    <span className="indicator-track"></span>
                 </div>
             </div>
 

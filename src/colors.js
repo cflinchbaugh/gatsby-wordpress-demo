@@ -1,4 +1,6 @@
-const primaryDark = '#00675b',
+const kuro = '#040404',
+    shiro = '#e7ebec',
+    primaryDark = '#00675b',
     primaryDefault = '#009688',
     primaryLight = '#52c7b8',
     secondaryDefault = '#ffc107',
@@ -6,8 +8,10 @@ const primaryDark = '#00675b',
 
 export {
     accentDefault,
+    kuro,
     primaryDark,
     primaryDefault,
     primaryLight,
     secondaryDefault,
+    shiro
 };

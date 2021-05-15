@@ -5,8 +5,26 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
 
 const StyleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+
     .employee-section {
         padding: 20px;
+    }
+
+    .profile-image {
+        display: flex;
+        flex: 1;
+    }
+
+    .employee-details {
+        display: flex;
+        flex: 2;
+        flex-direction: column;
+    }
+
+    @media (min-width:768px) {
+        flex-direction: row;
     }
 
 `;
@@ -18,7 +36,7 @@ const WpEmployee = (props) => {
         // uri,
         employeeData: {
             biography,
-            // profession,
+            profession,
             services
         },
         profileData
@@ -27,26 +45,28 @@ const WpEmployee = (props) => {
     const servicesSantized = {
             __html: DOMPurify.sanitize(services)
         },
-        profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg} alt="Placeholder Profile Image"></img>
-    
+        profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg} alt="Placeholder Profile Image"></img>;
+
     return (
         <StyleWrapper>
             <div className="employee-section profile-image">
                 {profileImage}
             </div>
 
-            <div className="employee-section">
-                {biography}
-            </div>
+            <div className="employee-details">
+                <div className="employee-section">
+                    {biography}
+                </div>
 
-            <hr/>
+                <hr/>
 
-            <div className="employee-section">
-                <strong>Services*</strong>
+                <div className="employee-section">
+                    <strong>Services*</strong>
 
-                <div dangerouslySetInnerHTML={servicesSantized} />
+                    <div dangerouslySetInnerHTML={servicesSantized} />
 
-                <div>*Prices subject to change</div>
+                    <div>*Prices subject to change</div>
+                </div>
             </div>
         </StyleWrapper>
     );

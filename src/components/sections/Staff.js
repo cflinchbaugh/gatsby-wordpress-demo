@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
 import StaffDefault from '../items/StaffDefault';
-
 import Carousel from '../Carousel';
+import { shiro } from '../../colors';
 
 
 const StyleWrapper = styled.div`
@@ -14,7 +14,7 @@ const StyleWrapper = styled.div`
     background-color: #009688;
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
 
     .staff-item {
         position: relative;
@@ -48,7 +48,7 @@ const StyleWrapper = styled.div`
 
         .header,
         .footer {
-            color: white;
+            color: ${shiro};
             background-color: rgba(0,0,0,0.65);
             padding: 5px 10px;
         }

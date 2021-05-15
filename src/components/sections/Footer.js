@@ -2,11 +2,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import { accentDefault,
-    primaryDefault } from '../../colors';
+    primaryDefault,
+    shiro } from '../../colors';
 
 const StyleWrapper = styled.div`
     font-size: 14pt;
-    color: white;
+    color: ${shiro};
     align-items: center;
     background: ${primaryDefault};
     display: flex;
@@ -60,10 +61,12 @@ const Footer = () => {
                     <a href="tel:+17178587428" className="phone">
                         (717) 858-7428
                     </a>
-                </div>
-
-                <div>
-                    *All prices subject to change
+                    
+                    <span className="spacer">|</span>
+                    
+                    <a href="https://maps.google.com/maps?ll=39.96126,-76.724574&z=16&t=m&hl=en&gl=US&mapclient=embed&cid=8729464084897694435">
+                        Directions
+                    </a>
                 </div>
             </div>
         </StyleWrapper>
