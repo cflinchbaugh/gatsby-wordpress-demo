@@ -1,5 +1,4 @@
 import React, {
-    useEffect,
     useRef,
     useState
 } from 'react';
@@ -13,48 +12,87 @@ import {
 
 const StyleWrapper = styled.div`
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     flex: 1 0 auto;
     overflow: hidden;
     max-width: 100vw;
 
     .cards-container {
         display: flex;
-        overflow-x: scroll;
-        scroll-behavior: smooth;
-        scroll-snap-type: x mandatory;
-        margin: auto !important;
+        justify-content: center;
+        min-height: 55vh;
+    }
 
-        ::-webkit-scrollbar {
-            width: 0;  /* Remove scrollbar space */
-            background: transparent;  /* Optional: just make scrollbar invisible */
-        }
+    .navigation-container {
+        display: flex;
+        justify-content: space-around;
+        max-width: 500px;
+        margin: 0 auto;
+        min-width: 300px;
     }
 
     .card {
-        position: relative;
+        position: absolute;
         float: left;
         margin: 20px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         flex-direction: column;
         flex: 0 0 auto;    
         transition: all 0.15s;    
     }
 
-    .active {
-        border: solid 2px yellow;
+    .prev-prev-active {
+        filter: blur(5px);
+        z-index: 1;
+        transform: rotate(-20deg) scale(0.5);
     }
 
-    button {
+    .prev-active {
+        filter: blur(0px);
+        z-index: 2;
+        transform: rotate(-10deg) scale(0.75);
+    }
+
+    .active {
+        filter: blur(0px);
+        border: solid 2px yellow;
+        z-index: 3;
+        transform: rotate(0deg) scale(1);
+    }
+
+    .next-active {
+        filter: blur(0px);
+        z-index: 2;
+        transform: rotate(10deg) scale(0.75);
+    }
+
+    .next-next-active {
+        filter: blur(5px);
+        z-index: 1;
+        transform: rotate(20deg) scale(0.5);
+    }
+
+    .inactive {
         display: none;
     }
 
     @media(min-width: 768px) {
         overflow: hidden;
 
+        .cards-container {
+            min-height: 65vh;
+        }
+
+        .prev-prev-active,
+        .next-next-active {
+            opacity: 0.35;
+        }
+
         .prev-active,
         .next-active {
-            opacity: 0.75;
+            opacity: 0.5;
         }
 
         .active {
@@ -62,7 +100,34 @@ const StyleWrapper = styled.div`
         }
 
         .inactive {
-            opacity: 0.5;
+            display: none;
+        }
+
+        .prev-prev-active {
+            left: 0%;
+            z-index: 1;
+        }
+    
+        .prev-active {
+            left: 15%;
+            z-index: 2;
+        }
+    
+        .active {
+            border: solid 2px yellow;
+            z-index: 3;
+        }
+    
+        .next-active {
+            left: auto;
+            right: 15%;
+            z-index: 2;
+        }
+    
+        .next-next-active {
+            left: auto;
+            right: 0%;
+            z-index: 1;
         }
 
         button {
@@ -82,29 +147,16 @@ const StyleWrapper = styled.div`
 
 function Carousel(props) {
     const {
+        defaultItemIdx,
         items
     } = props;
 
-    const [activeItem, setActiveItem] = useState(2);
+    const [activeItem, setActiveItem] = useState(defaultItemIdx);
     const [cardsContainerRef, entry] = useIntersection({
         threshold: [0.05]
     });
     const activeRef = useRef();
     const inactiveRef = useRef(null);
-
-    // Centers the active item when the component enters the viewport
-    useEffect(() => {
-        // if (entry.intersectionRatio && activeRef && activeRef.current) {
-        //     activeRef.current.scrollIntoView({
-        //         behavior: 'auto',
-        //         block: 'center',
-        //         inline: 'center'
-        //     });
-        // }
-    }, [
-        activeItem,
-        entry
-    ]);
 
     function handleClickPrev() {
         setActiveItem(prevActiveItem => {
@@ -129,6 +181,9 @@ function Carousel(props) {
 
             let statusClass;
             switch(i) {
+                case activeItem - 2:
+                    statusClass = 'prev-prev-active';
+                    break;
                 case activeItem - 1:
                     statusClass = 'prev-active';
                     break;
@@ -137,6 +192,9 @@ function Carousel(props) {
                     break;
                 case activeItem + 1:
                     statusClass = 'next-active';
+                    break;
+                case activeItem + 2:
+                    statusClass = 'next-next-active';
                     break;
                 default:
                     statusClass = 'inactive';
@@ -163,27 +221,45 @@ function Carousel(props) {
 
     const cards = buildCards(),
         prevButtonData = {
+            disabled: activeItem === 0,
             onClick: handleClickPrev
         },
+        homeButtonData = {
+            disabled: activeItem === 4,
+            onClick: () => {
+                setActiveItem(defaultItemIdx);
+            }
+        },
         nextButtonData = {
+            disabled: activeItem === items.length - 1,
             onClick: handleClickNext
         };
 
     return (
         <StyleWrapper ref={cardsContainerRef} ratio={entry.intersectionRatio}>
-            <button {...prevButtonData}>
-                ◄
-            </button>
-
             <div className="cards-container">
                 {cards}
             </div>
 
-            <button {...nextButtonData}>
-                ►
-            </button>
+            <div className="navigation-container">
+                <button {...prevButtonData}>
+                    ◄
+                </button>
+
+                <button {...homeButtonData}>
+                    Home
+                </button>
+
+                <button {...nextButtonData}>
+                    ►
+                </button>
+            </div>
         </StyleWrapper>
     );
 }
+
+Carousel.defaultProps = {
+    defaultItemIdx: 4
+};
 
 export default Carousel;

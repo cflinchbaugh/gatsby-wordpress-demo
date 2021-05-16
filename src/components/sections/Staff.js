@@ -15,6 +15,10 @@ const StyleWrapper = styled.div`
     display: flex;
     flex-wrap: nowrap;
     overflow-x: hidden;
+    max-width: 1800px;
+    flex: 1;
+    margin: auto;
+    position: relative;
 
     .staff-item {
         position: relative;
@@ -70,7 +74,7 @@ const StyleWrapper = styled.div`
 
     @media (min-width: 768px) {
         .staff-item {
-            max-width: initial;
+            max-width: 350px;
         }
     }
 `;

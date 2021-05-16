@@ -36,7 +36,7 @@ const WpEmployee = (props) => {
         // uri,
         employeeData: {
             biography,
-            profession,
+            // profession,
             services
         },
         profileData
