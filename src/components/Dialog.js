@@ -9,6 +9,7 @@ import {
     primaryDefault,
     primaryLight,
     shiro } from '../colors';
+import Button from './Button';
 
 const StyleWrapper = styled.div`
     .modal-overlay {
@@ -66,25 +67,6 @@ const StyleWrapper = styled.div`
                 background: ${primaryLight};
                 color: ${shiro};
                 box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-
-                button {
-                    box-shadow: 0 8px 12px 0 rgb(31 38 135 / 37%);
-                    border: solid 2px ${primaryDefault};
-                    background-color: ${accentDefault};
-                    transition: all 0.15s;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    line-height: 40px;
-
-                    &:hover {
-                        background-color: ${primaryDark};
-                        box-shadow: 0 6px 12px 0 rgb(31 38 135 / 37%);
-                    }
-                }
             }
 
             .modal-body-wrapper {
@@ -196,9 +178,9 @@ function Dialog(props) {
                     <div className={`modal ${props.height}`}>
                         <div className="modal-header-wrapper">
                             {props.header}
-                            <button onClick={props.handleClickClose}>
+                            <Button handleClick={props.handleClickClose} type={"ghost"}>
                                 X
-                            </button>
+                            </Button>
                         </div>
                         <div className="modal-body-wrapper">
                             <div className="modal-body">

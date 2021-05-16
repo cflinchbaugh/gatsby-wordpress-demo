@@ -2,7 +2,8 @@ import React, {
     useState
 } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { secondaryDefault,
+import Button from '../Button';
+import { accentDefault,
     shiro } from '../../colors';
 
 const fadeIn = keyframes`
@@ -44,7 +45,7 @@ const StyleWrapper = styled.div`
             bottom: 0;
             transition: all 0.5s ease-in-out;
             height: 10px;
-            background-color: ${secondaryDefault};
+            background-color: ${accentDefault};
             left: 0;
             width: 50%;
             pointer-events: none;
@@ -75,24 +76,6 @@ const StyleWrapper = styled.div`
             padding-bottom: 10px;
             margin: auto;
             position: relative;
-            
-            button {
-                font-size: 1.15rem;
-                font-weight: strong;
-                padding: 15px;
-                transition: background-color 0.15s;
-            }
-
-            button.active {
-               background-color: white;
-            }
-
-            button.inactive {
-               &:hover {
-                    background-color: #d48700;
-                    color: white;
-                }
-            }
         }
     }
 
@@ -121,10 +104,6 @@ const StyleWrapper = styled.div`
         .tabs-wrapper {
             .tab-buttons {
                 width: 50%;
-
-                button {
-                    font-size: 1.25rem;
-                }
             }
         }
 
@@ -199,24 +178,24 @@ const About = (props) => {
     const whoTabData = {
             className: activeTab === 'who' ? 'active' : 'inactive',
             id: 'who',
-            onClick: handleClickTabWho
+            handleClick: handleClickTabWho
         },
         whatTabData = {
             className: activeTab === 'what' ? 'active' : 'inactive',
             id: 'what',
-            onClick: handleClickTabWhat
+            handleClick: handleClickTabWhat
         }
 
     return (
         <StyleWrapper>
             <div className="tabs-wrapper">
                 <div className="tab-buttons">
-                    <button {...whoTabData}>
+                    <Button {...whoTabData}>
                         Who We Are
-                    </button>
-                    <button {...whatTabData}>
+                    </Button>
+                    <Button {...whatTabData}>
                         What We Do
-                    </button>
+                    </Button>
                     
                     <span className={`indicator ${activeTab}`}></span>
                     <span className="indicator-track"></span>

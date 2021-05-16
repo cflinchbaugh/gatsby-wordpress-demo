@@ -6,12 +6,12 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
 import StaffDefault from '../items/StaffDefault';
 import Carousel from '../Carousel';
-import { shiro } from '../../colors';
+import { shiro, secondaryDefault } from '../../colors';
 
 
 const StyleWrapper = styled.div`
     height: 100vh;
-    background-color: #009688;
+    background-color: ${secondaryDefault};
     display: flex;
     flex-wrap: nowrap;
     overflow-x: hidden;
@@ -30,6 +30,7 @@ const StyleWrapper = styled.div`
         flex-direction: column;
         flex: 0 0 auto;
         max-width: 300px;
+        overflow: hidden;
 
         .profile-image {
             box-shadow: 0 8px 32px 0 rgb(31 38 135 / 45%);

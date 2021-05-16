@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { 
+    useEffect,
+    useState } from 'react';
 import styled from 'styled-components';
 import { 
     graphql,
@@ -83,6 +85,10 @@ const IndexPage = () => {
 
     const [dialogShow, setDialogShow] = useState(false);
     const [employeeActive, setEmployeeActive] = useState('');
+
+    useEffect(() => {
+        document.getElementsByTagName('html')[0].style['scroll-behavior'] = 'smooth';
+    }, []);
 
     function handleClickClose() {
         setDialogShow(false);

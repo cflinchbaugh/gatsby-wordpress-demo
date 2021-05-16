@@ -6,6 +6,7 @@ import {
     graphql,
     useStaticQuery
 } from 'gatsby';
+import Button from '../Button';
 import {
     accentDefault,
     shiro
@@ -34,7 +35,7 @@ const StyleWrapper = styled.div`
         flex-direction: column;
         align-items: center;
         height: 100%;
-        justify-content: center;
+        justify-content: space-evenly;
 
         .hero-contents {
             margin: 1.5rem;
@@ -55,78 +56,10 @@ const StyleWrapper = styled.div`
         }
     }
 
-
-    button {
-        display: block;
-        max-width: 100%;
-        margin: 10px auto;
-        overflow: hidden;
-        position: relative;
-        transform: translatez(0);
-        text-decoration: none;
-        box-sizing: border-box;
-        font-size: 24px;
-        font-weight: normal;
-        box-shadow: 0 9px 18px rgba(0,0,0,0.2);
-        text-align: center;
-        border-radius: 50px;
-        padding: 10px 25px;
-        color: ${shiro};
-        background: ${accentDefault};
-        transition: all 0.2s ease-out 0s;
-        border: solid 2px ${accentDefault};
-
-        &:hover {
-            top: 1px;
-            background: #d48700;
-            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-        }
-    }
-
     .description {
         margin: 20px 15%;
     }
-      
-    .gradient {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        bottom: auto;
-        margin: auto;
-        z-index: -1;
-        background: radial-gradient(90px circle at top center, rgba(226,166,49,.6) 30%, rgba(255,255,255,0));
-        transition: all 0s ease-out 0s;
-        transform: translatex(-140px);
-        animation: 10s linear 0s infinite move;
-    }
-      
-    @keyframes move {
-        0% {
-          transform: translatex(-140px);
-        }
-        25% {
-          transform: translatex(140px);
-          opacity: 0.3;
-        }
-        50% {
-          transform: translatex(140px);
-          opacity: 1;
-          background: radial-gradient(90px circle at bottom center, rgba(238,88,63,.5) 30%, rgba(255,255,255,0));
-        }
-        75% {
-          transform: translatex(-140px);
-          opacity: 0.3;
-        }
-        100% {
-          opacity: 1;
-          transform: translatex(-140px);
-          background: radial-gradient(90px circle at top center, rgba(238,88,63,.5) 30%, rgba(255,255,255,0));
-        }
-    }
-
+ 
 `;
 
 const HeroContents = (props) => {
@@ -158,6 +91,13 @@ const HeroContents = (props) => {
             window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
         }
     }
+    
+    function handleClickArrow() {
+        if (typeof(window) !== 'undefined') {
+            let pageHeight = window.innerHeight;
+            window.scrollBy(0, pageHeight);
+        }
+    }
 
     const logoImageData = {
             alt: 'DiDi and Smiling John\'s Barber and Beauty Shop Logo',
@@ -182,11 +122,14 @@ const HeroContents = (props) => {
                             {wpSectionHeroContent.sectionHero.heroBody}
                         </span>
                         
-                        <button onClick={handleClickCallToAction}>
-                            <span className="gradient"></span>
+                        <Button handleClick={handleClickCallToAction} showGradient={true}>
                             Book Now
-                        </button>
+                        </Button>
                     </div>
+
+                    <Button handleClick={handleClickArrow} type={"ghost"}>
+                        ▼
+                    </Button>
                 </div>
             </BackgroundImage>
         </StyleWrapper>

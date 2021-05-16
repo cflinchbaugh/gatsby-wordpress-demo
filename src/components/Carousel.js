@@ -4,11 +4,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import useIntersection from './useIntersection';
-import {
-    accentDefault,
-    primaryDark,
-    secondaryDefault
-} from '../colors';
+import Button from './Button';
 
 const StyleWrapper = styled.div`
     display: flex;
@@ -47,12 +43,14 @@ const StyleWrapper = styled.div`
         filter: blur(5px);
         z-index: 1;
         transform: rotate(-20deg) scale(0.5);
+        box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
     }
 
     .prev-active {
         filter: blur(0px);
         z-index: 2;
         transform: rotate(-10deg) scale(0.75);
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
     }
 
     .active {
@@ -60,18 +58,21 @@ const StyleWrapper = styled.div`
         border: solid 2px yellow;
         z-index: 3;
         transform: rotate(0deg) scale(1);
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 65%);
     }
 
     .next-active {
         filter: blur(0px);
         z-index: 2;
         transform: rotate(10deg) scale(0.75);
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
     }
 
     .next-next-active {
         filter: blur(5px);
         z-index: 1;
         transform: rotate(20deg) scale(0.5);
+        box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
     }
 
     .inactive {
@@ -130,18 +131,6 @@ const StyleWrapper = styled.div`
             z-index: 1;
         }
 
-        button {
-            display: block;
-            color: ${accentDefault};
-            padding: 15px;
-            transition: all 0.15s;
-            background: transparent;
-    
-            &:hover {
-                background: ${primaryDark};
-                color: ${secondaryDefault};
-            }
-        }
     }
 `;
 
@@ -222,17 +211,17 @@ function Carousel(props) {
     const cards = buildCards(),
         prevButtonData = {
             disabled: activeItem === 0,
-            onClick: handleClickPrev
+            handleClick: handleClickPrev
         },
         homeButtonData = {
             disabled: activeItem === 4,
-            onClick: () => {
+            handleClick: () => {
                 setActiveItem(defaultItemIdx);
             }
         },
         nextButtonData = {
             disabled: activeItem === items.length - 1,
-            onClick: handleClickNext
+            handleClick: handleClickNext
         };
 
     return (
@@ -242,17 +231,17 @@ function Carousel(props) {
             </div>
 
             <div className="navigation-container">
-                <button {...prevButtonData}>
+                <Button {...prevButtonData}>
                     ◄
-                </button>
+                </Button>
 
-                <button {...homeButtonData}>
+                <Button {...homeButtonData}>
                     Home
-                </button>
+                </Button>
 
-                <button {...nextButtonData}>
+                <Button {...nextButtonData}>
                     ►
-                </button>
+                </Button>
             </div>
         </StyleWrapper>
     );
