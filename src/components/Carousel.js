@@ -14,12 +14,12 @@ const StyleWrapper = styled.div`
     flex: 1 0 auto;
     overflow: hidden;
     max-width: 100vw;
+    justify-content: space-evenly;
 
     .cards-container {
         display: flex;
         justify-content: center;
         min-height: 55vh;
-        margin-bottom: 5vh;
     }
 
     .navigation-container {

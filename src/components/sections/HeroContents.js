@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import BackgroundImage from 'gatsby-background-image';
 import { 
@@ -7,11 +7,24 @@ import {
     useStaticQuery
 } from 'gatsby';
 import Button from '../Button';
-import {
-    accentDefault,
-    shiro
-} from '../../colors';
 
+const bounceAnimation = keyframes`
+    0% {
+        transform: translateY(0px);
+    }
+    30% {
+        transform: translateY(0px);
+    }
+    85% {
+        transform: translateY(-30px);
+    }
+    90% {
+        transform: translateY(5px);
+    }
+    95% {
+        transform: translateY(-10px);
+    }
+`;
 
 const StyleWrapper = styled.div`
     height: 100%;
@@ -59,8 +72,17 @@ const StyleWrapper = styled.div`
     .description {
         margin: 20px 15%;
     }
+
+    .bounce {
+        animation-name: ${bounceAnimation};
+        animation-delay: 2.5s;
+        animation-duration: 2.5s;
+        animation-iteration-count: infinite;
+    }
  
 `;
+
+
 
 const HeroContents = (props) => {
     const results = useStaticQuery(graphql`
@@ -127,9 +149,11 @@ const HeroContents = (props) => {
                         </Button>
                     </div>
 
-                    <Button handleClick={handleClickArrow} type={"ghost"}>
-                        ▼
-                    </Button>
+                    <span className="bounce">
+                        <Button handleClick={handleClickArrow} type={"ghost"}>
+                            ▼
+                        </Button>
+                    </span>
                 </div>
             </BackgroundImage>
         </StyleWrapper>

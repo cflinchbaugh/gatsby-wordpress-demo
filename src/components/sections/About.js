@@ -1,14 +1,16 @@
 import React, { 
+    useEffect,
     useState
 } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Button from '../Button';
 import { 
     accentDefault, 
     accentLight,
     accentDark,
     shiro } from '../../colors';
 import Shimmer from '../Shimmer';
+import useIntersection from '../useIntersection';
+import AboutCard from '../items/AboutCard';
 
 const fadeIn = keyframes`
     0% {
@@ -110,18 +112,9 @@ const StyleWrapper = styled.div`
         }
     }
 
-
-    .tab-card {
+    .fade-in {
         animation-name: ${fadeIn};
         animation-duration: 1s;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 30px;
-        text-align: center;
-        margin: 1.5rem;
-        font-size: clamp(1rem, 1.35rem, 1.2rem);
-        line-height: 1.2;
     }
 
     .tab-contents {
@@ -129,6 +122,19 @@ const StyleWrapper = styled.div`
         flex-direction: column;
         border: solid 2px ${accentLight};
         box-shadow: 0 8px 15px 0 rgb(31 38 135 / 50%);
+
+        .tab-card:nth-child(1) {
+            animation-delay: .0s;
+            animation-fill-mode: forwards;
+        }
+        .tab-card:nth-child(2) {
+            animation-delay: .25s;
+            animation-fill-mode: forwards;
+        }
+        .tab-card:nth-child(3) {
+            animation-delay: .5s;
+            animation-fill-mode: forwards;
+        }
     }
 
     @media only screen and (min-width: 768px) {
@@ -160,52 +166,47 @@ const About = (props) => {
         setActiveTab('what');
     }
 
-    const tabContents = (activeTab === 'who') ? (
-            <div className="tab-contents">
-                <div className="tab-card">
-                    <strong>Award Winning</strong>
-                    <div>
-                        Downtown First award for Outstanding Small Business in 2015. “Susquehanna Style’s” Best Barber Shop in York every year since 2014 with no intention of stopping!
-                    </div>
-                </div>
+    const awardWinning = {
+            contents: 'Downtown First award for Outstanding Small Business in 2015. “Susquehanna Style’s” Best Barber Shop in York every year since 2014 with no intention of stopping!',
+            key: 'Award Winning',
+            title: 'Award Winning'
+        },
+        local = {
+            contents: 'We proudly serve our diverse community and maintain a safe environment of equality, inclusion, and respect for all people.',
+            key: 'Local',
+            title: 'Local'
+        },
+        principled = {
+            contents: 'Partner of Davines, striving to do the best for the world through beauty, ethics, and sustainability.',
+            key: 'Principled',
+            title: 'Principled'
+        },
+        professional = {
+            contents: 'Our services include traditional and modern haircuts, coloring, balayage, precision scissor cuts, and much, much more.',
+            key: 'Professional Styling',
+            title: 'Professional Styling'
+        },
+        wedding = {
+            contents: 'We want to help make your special day the best that it can be! We accomodate wedding parties and are available for on-site Wedding Hair',
+            key: 'Wedding Services',
+            title: 'Wedding Services'
+        },
+        shaves = {
+            contents: 'From trims to straight razor, we’ve got you covered.',
+            key: 'Professional Shaves',
+            title: 'Professional Shaves'
+        }
 
-                <div className="tab-card">
-                    <strong>Communal</strong>
-                    <div>
-                        We proudly serve our diverse community and maintain a safe environment of equality, inclusion, and respect for all people.
-                    </div>
-                </div>
 
-                <div className="tab-card">
-                    <strong>Principled</strong>
-                    <div>
-                        Partner of Davines, striving to do the best for the world through beauty, ethics, and sustainability.
-                    </div>
-                </div>
-            </div>
-        ) : (
-            <div className="tab-contents">
-                <div className="tab-card">
-                    <strong>Professional Styling</strong>
-                    <div>
-                        Our services include traditional and modern haircuts, coloring, balayage, precision scissor cuts, and much, much more.
-                    </div>
-                </div>
-
-                <div className="tab-card">
-                    <strong>Wedding Services</strong>
-                    <div>
-                        We want to help make your special day the best that it can be! We accomodate wedding parties and are available for on-site Wedding Hair
-                    </div>
-                </div>
-
-                <div className="tab-card">
-                    <strong>Professional Shaves</strong>
-                    <div>
-                        From trims to straight razor, we’ve got you covered.
-                    </div>
-                </div>
-            </div>
+    const tabContents = (activeTab === 'who') ? ([
+                <AboutCard {...awardWinning} />,
+                <AboutCard {...local} />,
+                <AboutCard {...principled} />
+            ]) : ([
+                <AboutCard {...professional} />,
+                <AboutCard {...wedding} />,
+                <AboutCard {...shaves} />
+            ]
         )
 
     const whoTabData = {
@@ -217,7 +218,7 @@ const About = (props) => {
             className: activeTab === 'what' ? 'active' : 'inactive',
             id: 'what',
             onClick: handleClickTabWhat
-        }
+        };
 
     return (
         <StyleWrapper>
@@ -237,9 +238,9 @@ const About = (props) => {
                 </div>
             </div>
 
-            {tabContents}
-
-            
+            <div className="tab-contents">
+                {tabContents}
+            </div>
         </StyleWrapper>
     );
 };
