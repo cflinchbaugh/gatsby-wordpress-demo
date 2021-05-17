@@ -122,7 +122,7 @@ const HeroContents = (props) => {
                             {wpSectionHeroContent.sectionHero.heroBody}
                         </span>
                         
-                        <Button handleClick={handleClickCallToAction} showGradient={true}>
+                        <Button handleClick={handleClickCallToAction} showShimmer={true}>
                             Book Now
                         </Button>
                     </div>

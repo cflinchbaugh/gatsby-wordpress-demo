@@ -3,8 +3,12 @@ import React, {
 } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Button from '../Button';
-import { accentDefault,
+import { 
+    accentDefault, 
+    accentLight,
+    accentDark,
     shiro } from '../../colors';
+import Shimmer from '../Shimmer';
 
 const fadeIn = keyframes`
     0% {
@@ -45,7 +49,8 @@ const StyleWrapper = styled.div`
             bottom: 0;
             transition: all 0.5s ease-in-out;
             height: 10px;
-            background-color: ${accentDefault};
+            background-color: ${accentLight};
+            
             left: 0;
             width: 50%;
             pointer-events: none;
@@ -53,29 +58,55 @@ const StyleWrapper = styled.div`
         }
 
         .indicator-track {
-            background: ${shiro};
+            background: ${accentDefault};
+            border-left: solid 2px ${accentLight};
+            border-right: solid 2px ${accentLight};
             width: 100%;
             height: 10px;
             position: absolute;
             bottom: 0;
             left: 0;
             z-index: 0;
-            border-radius: 5px 5px 0 0;
         }
     
         .indicator.who {
-            left: 0%;
-            border-radius: 5px 1px 1px 5px
+            left: calc(0% + 2px);
         }
         .indicator.what {
-            left: 50%;
-            border-radius: 1px 5px 5px 1px
+            left: calc(50% - 2px);
         }
     
         .tab-buttons {
             padding-bottom: 10px;
             margin: auto;
             position: relative;
+            display: flex;
+            justify-content: space-between;
+
+            button {
+                border-radius: 5px 5px 0 0;
+                border: solid 2px ${accentLight};
+                border-bottom: none;
+                padding: 5px 10px;
+                transition: background 0.15s;
+                box-shadow: 0 8px 15px 0 rgb(31 38 135 / 50%);
+                overflow: hidden;
+            }
+
+            button.active {
+                background: ${accentLight};
+
+                &:hover {
+                    cursor: not-allowed;
+                }
+            }
+            button.inactive {
+                background: ${accentDefault};
+
+                &:hover {
+                    background: ${accentDark};
+                }
+            }
         }
     }
 
@@ -96,6 +127,8 @@ const StyleWrapper = styled.div`
     .tab-contents {
         display: flex;
         flex-direction: column;
+        border: solid 2px ${accentLight};
+        box-shadow: 0 8px 15px 0 rgb(31 38 135 / 50%);
     }
 
     @media only screen and (min-width: 768px) {
@@ -178,24 +211,26 @@ const About = (props) => {
     const whoTabData = {
             className: activeTab === 'who' ? 'active' : 'inactive',
             id: 'who',
-            handleClick: handleClickTabWho
+            onClick: handleClickTabWho
         },
         whatTabData = {
             className: activeTab === 'what' ? 'active' : 'inactive',
             id: 'what',
-            handleClick: handleClickTabWhat
+            onClick: handleClickTabWhat
         }
 
     return (
         <StyleWrapper>
             <div className="tabs-wrapper">
                 <div className="tab-buttons">
-                    <Button {...whoTabData}>
+                    <button {...whoTabData}>
+                        <Shimmer />
                         Who We Are
-                    </Button>
-                    <Button {...whatTabData}>
+                    </button>
+                    <button {...whatTabData}>
+                        <Shimmer />
                         What We Do
-                    </Button>
+                    </button>
                     
                     <span className={`indicator ${activeTab}`}></span>
                     <span className="indicator-track"></span>

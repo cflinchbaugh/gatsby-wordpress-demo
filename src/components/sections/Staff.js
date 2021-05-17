@@ -156,6 +156,7 @@ const Staff = (props) => {
         stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];
 
     const carouselData = {
+            defaultItemIdx: stylistsMarkup.length,
             items: [
                 ...stylistsMarkup.reverse(),
                 ...defaultMarkup,

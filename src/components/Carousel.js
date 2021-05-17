@@ -2,6 +2,7 @@ import React, {
     useRef,
     useState
 } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import useIntersection from './useIntersection';
 import Button from './Button';
@@ -211,17 +212,19 @@ function Carousel(props) {
     const cards = buildCards(),
         prevButtonData = {
             disabled: activeItem === 0,
-            handleClick: handleClickPrev
+            handleClick: handleClickPrev,
+            showShimmer: activeItem !== 0
         },
         homeButtonData = {
-            disabled: activeItem === 4,
+            active: activeItem === defaultItemIdx,
             handleClick: () => {
                 setActiveItem(defaultItemIdx);
             }
         },
         nextButtonData = {
             disabled: activeItem === items.length - 1,
-            handleClick: handleClickNext
+            handleClick: handleClickNext,
+            showShimmer: activeItem !== items.length - 1
         };
 
     return (
@@ -247,8 +250,8 @@ function Carousel(props) {
     );
 }
 
-Carousel.defaultProps = {
-    defaultItemIdx: 4
+Carousel.propTypes = {
+    defaultItemIdx: PropTypes.number
 };
 
 export default Carousel;
