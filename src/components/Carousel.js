@@ -19,6 +19,7 @@ const StyleWrapper = styled.div`
         display: flex;
         justify-content: center;
         min-height: 55vh;
+        margin-bottom: 5vh;
     }
 
     .navigation-container {
