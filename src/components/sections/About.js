@@ -35,9 +35,6 @@ const StyleWrapper = styled.div`
         background: rgba(255,255,255,0.9);
         box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
         backdrop-filter: blur(4px);
-
-        // border-radius: 10px;
-        // border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .tabs-wrapper {
@@ -137,7 +134,7 @@ const StyleWrapper = styled.div`
     @media only screen and (min-width: 768px) {
         max-width: 1200px;
         margin: 30vh auto;
-        padding: 0;
+        padding: 0 25px;
 
         .tabs-wrapper {
             .tab-buttons {

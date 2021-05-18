@@ -29,7 +29,14 @@ const StyleWrapper = styled.div`
     }
 
     .modal-wrapper {
-        display: none;
+        opacity: 0%;
+        transition: opacity 0.15s;
+    }
+
+    .modal-wrapper.inactive {
+        .modal {
+            display: none;
+        }
     }
 
     .modal-wrapper.active {
@@ -43,6 +50,7 @@ const StyleWrapper = styled.div`
         right: 5vw;
         top: 5vh;
         z-index: 10001;
+        opacity: 100%;
 
         .modal {
             background: rgba(255,255,255,0.8);
@@ -167,7 +175,25 @@ function Dialog(props) {
         }
     }
 
-    const showClass = props.show ? 'active' : '';
+    const showClass = props.show ? 'active' : 'inactive',
+        modalContentsMarkup = props.show ? (
+            <div className={`modal ${props.height}`}>
+                <div className="modal-header-wrapper">
+                    {props.header}
+                    <Button handleClick={props.handleClickClose} type={"ghost"}>
+                        X
+                    </Button>
+                </div>
+                <div className="modal-body-wrapper">
+                    <div className="modal-body">
+                        {props.children}
+                    </div>
+                </div>
+                <div className="modal-footer-wrapper">
+                    {props.footer}
+                </div>
+            </div>
+        ) : null;
 
         return (
             <StyleWrapper>
@@ -175,22 +201,7 @@ function Dialog(props) {
                     {/* Overlay */}
                 </div>
                 <div className={`modal-wrapper ${showClass}`} onClick={handleClickClose} role="dialog">
-                    <div className={`modal ${props.height}`}>
-                        <div className="modal-header-wrapper">
-                            {props.header}
-                            <Button handleClick={props.handleClickClose} type={"ghost"}>
-                                X
-                            </Button>
-                        </div>
-                        <div className="modal-body-wrapper">
-                            <div className="modal-body">
-                                {props.children}
-                            </div>
-                        </div>
-                        <div className="modal-footer-wrapper">
-                            {props.footer}
-                        </div>
-                    </div>
+                    {modalContentsMarkup}
                 </div>
             </StyleWrapper>
         );

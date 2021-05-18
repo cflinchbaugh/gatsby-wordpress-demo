@@ -24,7 +24,7 @@ const StyleWrapper = styled.div`
         max-width: 1800px;
         position: relative;
         width: 100vw;
-        height: 100vh; 
+        height: 75vh;
         display: flex;
         flex: 1;
         flex-wrap: nowrap;

@@ -1,4 +1,5 @@
 import React, {
+    useEffect,
     useRef,
     useState
 } from 'react';
@@ -28,6 +29,17 @@ const StyleWrapper = styled.div`
         max-width: 500px;
         margin: 0 auto;
         min-width: 300px;
+
+        button {
+            box-shadow: 0 6px 10px 0 rgb(31 38 135 / 20%);
+            transition: box-shadow 0.3s;
+        }
+    }
+
+    .navigation-container.lift {
+        button {
+            box-shadow: 0 8px 15px 0 rgb(31 38 135 / 50%);
+        }
     }
 
     .card {
@@ -38,21 +50,20 @@ const StyleWrapper = styled.div`
         justify-content: flex-start;
         flex-direction: column;
         flex: 0 0 auto;    
-        transition: all 0.15s;    
+        transition: all 0.3s;
+        box-shadow:  0 6px 10px 0 rgb(31 38 135 / 20%);
     }
 
     .prev-prev-active {
         filter: blur(5px);
         z-index: 1;
         transform: rotate(-20deg) scale(0.5);
-        box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
     }
 
     .prev-active {
         filter: blur(0px);
         z-index: 2;
         transform: rotate(-10deg) scale(0.75);
-        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
     }
 
     .active {
@@ -60,21 +71,35 @@ const StyleWrapper = styled.div`
         border: solid 2px yellow;
         z-index: 3;
         transform: rotate(0deg) scale(1);
-        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 65%);
+        top: 0px;
     }
 
     .next-active {
         filter: blur(0px);
         z-index: 2;
         transform: rotate(10deg) scale(0.75);
-        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
     }
 
     .next-next-active {
         filter: blur(5px);
         z-index: 1;
         transform: rotate(20deg) scale(0.5);
+    }
+
+    .prev-prev-active.lift,
+    .next-next-active.lift {
         box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
+    }
+    
+    .prev-active.lift,
+    .next-active.lift {
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 50%);
+    }
+
+    .active.lift {
+        box-shadow: 0 8px 32px 0 rgb(31 38 135 / 65%);
+        top: 10px;
+        opacity: 1;
     }
 
     .inactive {
@@ -94,12 +119,9 @@ const StyleWrapper = styled.div`
         }
 
         .prev-active,
-        .next-active {
-            opacity: 0.5;
-        }
-
+        .next-active,
         .active {
-            opacity: 1;
+            opacity: 0.5;
         }
 
         .inactive {
@@ -142,12 +164,23 @@ function Carousel(props) {
         items
     } = props;
 
+    const [isOnScreen, setIsOnScreen] = useState(false);
     const [activeItem, setActiveItem] = useState(defaultItemIdx);
     const [cardsContainerRef, entry] = useIntersection({
-        threshold: [0.05]
+        threshold: [0, 1.0]
     });
     const activeRef = useRef();
     const inactiveRef = useRef(null);
+
+    useEffect(() => {
+        if (entry.intersectionRatio === 1) {
+            setIsOnScreen(true);
+        } else if (entry.intersectionRatio === 0) {
+            setIsOnScreen(false);
+        }
+    }, [
+        entry
+    ]);
 
     function handleClickPrev() {
         setActiveItem(prevActiveItem => {
@@ -193,15 +226,16 @@ function Carousel(props) {
             }
 
             const cardData = {
-                key: i,
-                onClick: () => {
-                    handleClickCard(i)
+                    key: i,
+                    onClick: () => {
+                        handleClickCard(i)
+                    },
+                    ref: statusRef,
                 },
-                ref: statusRef,
-            }
+                liftClass = isOnScreen ? 'lift' : '';
 
             return (
-                <div className={`card ${statusClass}`} {...cardData}>
+                <div className={`card ${statusClass} ${liftClass}`} {...cardData}>
                     {item}
                 </div>
             );
@@ -226,15 +260,16 @@ function Carousel(props) {
             disabled: activeItem === items.length - 1,
             handleClick: handleClickNext,
             showShimmer: activeItem !== items.length - 1
-        };
+        },
+        liftClass = isOnScreen ? 'lift' : '';
 
     return (
-        <StyleWrapper ref={cardsContainerRef} ratio={entry.intersectionRatio}>
-            <div className="cards-container">
+        <StyleWrapper>
+            <div className="cards-container" ref={cardsContainerRef} ratio={entry.intersectionRatio}>
                 {cards}
             </div>
 
-            <div className="navigation-container">
+            <div className={`navigation-container ${liftClass}`}>
                 <Button {...prevButtonData}>
                     ◄
                 </Button>

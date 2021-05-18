@@ -25,7 +25,7 @@ const StyleWrapper = styled.div`
     flex-direction: column;
     padding: 30px;
     text-align: center;
-    margin: 1.5rem;
+    margin: 1.5rem auto;
     font-size: clamp(1rem, 1.35rem, 1.2rem);
     line-height: 1.2;
     opacity: 0;
@@ -33,6 +33,10 @@ const StyleWrapper = styled.div`
     .fade-in {
         animation-name: ${fadeIn};
         animation-duration: 2s;
+    }
+
+    @media (min-width: 768px) {
+        max-width: 70vw;
     }
 `;
 
@@ -42,18 +46,18 @@ const AboutCard = (props) => {
         title,
     } = props;
 
-    const [appear, setAppear] = useState(false);
+    const [isOnScreen, setIsOnScreen] = useState(false);
     const [aboutCardRef, entry] = useIntersection({
         threshold: [0, 1.0]
     });
 
-    const appearClass = appear ? 'fade-in' : '';
+    const appearClass = isOnScreen ? 'fade-in' : '';
 
     useEffect(() => {
         if (entry.intersectionRatio === 1) {
-            setAppear(true);
+            setIsOnScreen(true);
         } else if (entry.intersectionRatio === 0) {
-            setAppear(false);
+            setIsOnScreen(false);
         }
     }, [
         entry
