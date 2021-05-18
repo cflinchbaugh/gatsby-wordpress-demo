@@ -1,5 +1,4 @@
 import React, { 
-    useEffect,
     useState
 } from 'react';
 import styled, { keyframes } from 'styled-components';
@@ -7,9 +6,8 @@ import {
     accentDefault, 
     accentLight,
     accentDark,
-    shiro } from '../../colors';
+} from '../../colors';
 import Shimmer from '../Shimmer';
-import useIntersection from '../useIntersection';
 import AboutCard from '../items/AboutCard';
 
 const fadeIn = keyframes`
@@ -27,7 +25,6 @@ const fadeIn = keyframes`
 `;
 const StyleWrapper = styled.div`
     display: flex;
-    height: 
     justify-content: space-around;
     padding: 10vw;
     flex-direction: column;
@@ -138,7 +135,9 @@ const StyleWrapper = styled.div`
     }
 
     @media only screen and (min-width: 768px) {
-        padding: 10vh 10vw;
+        max-width: 1200px;
+        margin: 30vh auto;
+        padding: 0;
 
         .tabs-wrapper {
             .tab-buttons {

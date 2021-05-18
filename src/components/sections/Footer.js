@@ -19,8 +19,16 @@ const StyleWrapper = styled.div`
         max-width: 500px;
     }
 
+    .links-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
     a {
         transition: color 0.15s;
+        padding: 10px 0;
 
         &:hover {
             color: ${accentDefault};
@@ -28,11 +36,18 @@ const StyleWrapper = styled.div`
     }
 
     .spacer {
-        padding: 15px;
+        display: none;
     }
 
-    .phone {
-        padding-bottom: 2px;
+    @media (min-width: 768px) {
+        .links-wrapper {
+            flex-direction: row;
+        }
+
+        .spacer {
+            display: flex;
+            padding: 0 30px;
+        }
     }
 `;
 
@@ -51,7 +66,7 @@ const Footer = () => {
                     <StaticImage {...logoImageData} />
                 </a>
                 
-                <div className="social-media-icons">
+                <div className="links-wrapper">
                     <a href="http://www.facebook.com/DiDiandSmilingJohns" target="_blank" rel="noopener noreferrer">
                         Facebook
                     </a>

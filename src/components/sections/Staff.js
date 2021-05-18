@@ -13,12 +13,25 @@ const StyleWrapper = styled.div`
     height: 100vh;
     background-color: ${secondaryDefault};
     display: flex;
+    flex: 1;
     flex-wrap: nowrap;
     overflow-x: hidden;
-    max-width: 1800px;
-    flex: 1;
     margin: auto;
     position: relative;
+    min-height: 550px;
+
+    .staff-wrapper {
+        max-width: 1800px;
+        position: relative;
+        width: 100vw;
+        height: 100vh; 
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        overflow-x: hidden;
+        margin: auto;
+        position: relative;
+    }
 
     .staff-item {
         position: relative;
@@ -166,7 +179,9 @@ const Staff = (props) => {
 
     return (
         <StyleWrapper>
-            <Carousel {...carouselData} />
+            <div className="staff-wrapper">
+                <Carousel {...carouselData} />
+            </div>
         </StyleWrapper>
     );
 };

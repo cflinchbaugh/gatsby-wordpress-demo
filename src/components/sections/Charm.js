@@ -6,6 +6,8 @@ const StyleWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     padding: 20px 0;
+    max-width: 1600px;
+    margin: auto;
 
     img {
         border-radius: 100%;
