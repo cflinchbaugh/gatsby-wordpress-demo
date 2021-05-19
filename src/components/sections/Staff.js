@@ -24,7 +24,7 @@ const StyleWrapper = styled.div`
         max-width: 1800px;
         position: relative;
         width: 100vw;
-        height: 75vh;
+        height: 100vh;
         display: flex;
         flex: 1;
         flex-wrap: nowrap;
@@ -46,6 +46,7 @@ const StyleWrapper = styled.div`
         overflow: hidden;
 
         .profile-image {
+            display: flex;
             box-shadow: 0 8px 32px 0 rgb(31 38 135 / 45%);
 
             img {
@@ -87,6 +88,9 @@ const StyleWrapper = styled.div`
     }
 
     @media (min-width: 768px) {
+        .staff-wrapper {
+            min-height: 70vh;
+        }
         .staff-item {
             max-width: 350px;
         }

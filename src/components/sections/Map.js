@@ -9,7 +9,7 @@ import styled from 'styled-components';
 // };
 
 const StyleWrapper = styled.div`
-    
+    box-shadow: 0 8px 20px 0 rgb(31 38 135 / 20%);
 `;
 
 function createMarkup() {

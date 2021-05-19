@@ -69,6 +69,7 @@ const StyleWrapper = styled.div`
     .active {
         filter: blur(0px);
         border: solid 2px yellow;
+        border-radius: 5px;
         z-index: 3;
         transform: rotate(0deg) scale(1);
         top: 0px;

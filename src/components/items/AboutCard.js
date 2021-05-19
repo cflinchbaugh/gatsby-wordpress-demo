@@ -25,7 +25,7 @@ const StyleWrapper = styled.div`
     flex-direction: column;
     padding: 30px;
     text-align: center;
-    margin: 1.5rem auto;
+    margin: auto;
     font-size: clamp(1rem, 1.35rem, 1.2rem);
     line-height: 1.2;
     opacity: 0;
@@ -37,6 +37,7 @@ const StyleWrapper = styled.div`
 
     @media (min-width: 768px) {
         max-width: 70vw;
+        margin: 1.5rem auto;
     }
 `;
 

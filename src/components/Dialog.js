@@ -70,8 +70,6 @@ const StyleWrapper = styled.div`
                 font-size: 1.25rem;
                 justify-content: space-between;
                 padding: 10px 20px;
-
-                border-bottom: solid 1px;
                 background: ${primaryLight};
                 color: ${shiro};
                 box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
@@ -128,6 +126,11 @@ const StyleWrapper = styled.div`
 
             .modal-footer-wrapper {
                 width: 100%;
+                background: ${primaryLight};
+                padding: 15px 25px;
+                border-radius: 0 0 5px 5px;
+                font-size: 1.5rem;
+                box-shadow: 0 0 32px 0 rgb(31 38 135 / 37%);
             }
         }
     }

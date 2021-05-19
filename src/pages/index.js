@@ -15,13 +15,25 @@ import Map from '../components/sections/Map';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
 import WpEmployee from '../components/items/WpEmployee';
-import { primaryDefault,
+import { 
+    accentDefault,
+    accentLight,
+    primaryDefault,
     kuro } from '../colors';
+import Button from '../components/Button';
 
 const StyleWrapper = styled.div`
     color: ${kuro};
     background-color: ${primaryDefault};
     fontFamily: "-apple-system, Roboto, sans-serif, serif";
+
+    .phone {
+        color: ${accentDefault};
+
+        &:hover {
+            color: ${accentLight};
+        }
+    }
 `;
 
 
@@ -154,18 +166,34 @@ const IndexPage = () => {
         dialogData = {
             children: dialogShow ? <div>{employeeMarkup}</div> : null,
             handleClickClose: handleClickClose,
-            header: dialogShow ? <div>{employeeActiveData.title}</div> : null,
+            header: dialogShow ? <div style={{
+                fontSize: '2rem'
+            }}>{employeeActiveData.title}</div> : null,
             footer: employeeActiveData?.employeeData?.profession?.includes('Stylist') ? (
-                <div>
-                    <a href="tel:+17178587428" className="phone">
+                <div style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'flex-end'
+                }}>
+                    Call for Appointment &nbsp; 
+                    <Button handleClick={() => {
+                            window.location.href='tel:+17178587428';
+                        }}
+                        showShimmer="true">
                         (717) 858-7428
-                    </a>
+                    </Button>
                 </div>
             ) : (
-                <button onClick={handleClickCallToAction}>
-                    <span className="gradient"></span>
-                    Book Online
-                </button>
+                <div style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'flex-end'
+                }}>
+                    <Button handleClick={handleClickCallToAction}
+                    showShimmer="true">
+                        Book Now
+                    </Button>
+                </div>
             ),
             show: dialogShow
         },
@@ -191,11 +219,7 @@ const IndexPage = () => {
 
                 <Dialog {...dialogData}/>
                 
-                <hr/>
-                
                 <Map />
-                
-                <hr/>
 
                 <Charm />
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyleWrapper = styled.div`
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.85);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
     backdrop-filter: blur(4px);
     display: flex;
@@ -11,6 +11,7 @@ const StyleWrapper = styled.div`
     justify-content: center;
     text-align: center;
     padding: 20px;
+    min-height: 350px;
     min-width: 300px;
 
     .heading {
@@ -25,6 +26,11 @@ const StyleWrapper = styled.div`
             list-style-type: none;
         }
     }
+
+    @media (min-width: 768px) {
+        min-height: 450px;
+    }
+        
 `;
 
 const StaffDefault = (props) => { 
