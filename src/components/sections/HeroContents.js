@@ -7,6 +7,8 @@ import {
     useStaticQuery
 } from 'gatsby';
 import Button from '../Button';
+import stylistIcon from '../../images/stylistIcon.svg';
+import barberIcon from '../../images/barberIcon.svg';
 
 const bounceAnimation = keyframes`
     0% {
@@ -54,7 +56,7 @@ const StyleWrapper = styled.div`
             margin: 1.5rem;
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.18);
 
@@ -73,11 +75,49 @@ const StyleWrapper = styled.div`
         margin: 20px 15%;
     }
 
+    .call-to-actions-container {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        .call-to-action-button-container {
+            flex: 1;
+            margin: 20px 0;
+        }
+
+    }
+    
+    .call-to-action-button-contents {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px;
+
+        .icon {
+            opacity: 0.85;
+            padding-right: 15px;
+            max-width: 45px;
+        }
+    }
+
+    
+    
     .bounce {
         animation-name: ${bounceAnimation};
         animation-delay: 2.5s;
         animation-duration: 2.5s;
         animation-iteration-count: infinite;
+    }
+
+    @media (min-width: 768px) {
+        .call-to-actions-container {
+            flex-direction: row;
+    
+            .call-to-action-button-container {
+                margin: 50px 0;
+            }
+        }
     }
  
 `;
@@ -143,10 +183,26 @@ const HeroContents = (props) => {
                         <span className="description">
                             {wpSectionHeroContent.sectionHero.heroBody}
                         </span>
-                        
-                        <Button handleClick={handleClickCallToAction} showShimmer={true}>
-                            Book Now
-                        </Button>
+
+                        <div className="call-to-actions-container">
+                            <div className="call-to-action-button-container">
+                                <Button className="call-to-action-button" handleClick={handleClickCallToAction} showShimmer={true}>
+                                    <div className="call-to-action-button-contents">
+                                        <img src={stylistIcon} className="icon icon-stylists" alt="Stylists Icon"/>
+                                        Stylists
+                                    </div>
+                                </Button>
+                            </div>
+
+                            <div className="call-to-action-button-container">
+                                <Button className="call-to-action-button" handleClick={handleClickCallToAction} showShimmer={true}>
+                                    <div className="call-to-action-button-contents">
+                                        <img src={barberIcon} className="icon icon-barbers" alt="Barbers Icon"/>
+                                        Barbers
+                                    </div>
+                                </Button>
+                            </div>
+                        </div>
                     </div>
 
                     <span className="bounce">
