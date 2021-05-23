@@ -1,34 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
+import stylistIcon from '../../images/stylistIcon.svg';
+import barberIcon from '../../images/barberIcon.svg';
 
 const StyleWrapper = styled.div`
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.75);
     box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
-    backdrop-filter: blur(4px);
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     padding: 20px;
-    min-height: 350px;
+    min-height: 250px;
     min-width: 300px;
 
-    .heading {
-        font-size: 1.25rem;
+    .staff-section {
+        font-size: 2rem;
         font-weight: bold;
-        margin-bottom: 50px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+
+        .icon {
+            max-width: 45px;
+            opacity: 0.75;
+        }
+
+        .icon-stylists {
+            padding-left: 10px;
+            transform: scaleX(-1);
+        }
+
+        .icon-barbers {
+            padding-right: 10px;
+        }
+
+        
     }
 
-    .body {
-        font-size: 1.15rem;
-        ul {
-            list-style-type: none;
-        }
+    
+
+    hr {
+        border: solid 1px;
+        margin: 0px 15px;
+        opacity: 0.25;
     }
 
     @media (min-width: 768px) {
-        min-height: 450px;
+        min-height: 350px;
     }
         
 `;
@@ -37,20 +60,16 @@ const StaffDefault = (props) => {
     
     return (
         <StyleWrapper>
-            <div className="heading">
-                ◄ Stylists  |  Barbers ►
+            <div className="staff-section">
+                <img src={stylistIcon} className="icon icon-stylists" alt="Stylists Icon"/>
+                ◄ Stylists
             </div>
+
+            <hr/>
             
-            
-            <div className="body">
-                <section>
-                    <strong>Hours of Operation</strong>
-                    <ul>
-                        <li>Mon: Closed</li>
-                        <li>Tues–Fri: 9am–7pm</li>
-                        <li>Sat: 9AM–3PM</li>
-                    </ul>
-                </section>
+            <div className="staff-section">
+                <img src={barberIcon} className="icon icon-barbers" alt="Barbers Icon"/>
+                Barbers ►
             </div>
         </StyleWrapper>
     );
