@@ -29,7 +29,7 @@ const StyleWrapper = styled.div`
 
 `;
 
-const WpEmployee = (props) => {  
+const EmployeeDetails = (props) => {  
     const {
         // id,
         title,
@@ -72,4 +72,4 @@ const WpEmployee = (props) => {
     );
 }
 
-export default WpEmployee;
+export default EmployeeDetails;

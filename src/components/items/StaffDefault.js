@@ -56,19 +56,25 @@ const StyleWrapper = styled.div`
         
 `;
 
-const StaffDefault = (props) => { 
+const StaffDefault = () => { 
     
     return (
         <StyleWrapper>
             <div className="staff-section">
-                <img src={stylistIcon} className="icon icon-stylists" alt="Stylists Icon"/>
+                <img src={stylistIcon} 
+                    className="icon icon-stylists"
+                    alt="Stylists Icon"
+                />
                 ◄ Stylists
             </div>
 
             <hr/>
             
             <div className="staff-section">
-                <img src={barberIcon} className="icon icon-barbers" alt="Barbers Icon"/>
+                <img src={barberIcon} 
+                    className="icon icon-barbers"
+                    alt="Barbers Icon"
+                />
                 Barbers ►
             </div>
         </StyleWrapper>

@@ -14,7 +14,7 @@ import HeroContents from '../components/sections/HeroContents';
 import Map from '../components/sections/Map';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
-import WpEmployee from '../components/items/WpEmployee';
+import EmployeeDetails from '../components/items/EmployeeDetails';
 import { 
     accentDefault,
     accentLight,
@@ -162,7 +162,7 @@ const IndexPage = () => {
             allWpSectionAboutContent: allWpSectionAboutContent
         },
         employeeActiveData = selectEmployee(employeeActive),
-        employeeMarkup = employeeActive.length ? <WpEmployee {...employeeActiveData}/> : null,
+        employeeMarkup = employeeActive.length ? <EmployeeDetails {...employeeActiveData}/> : null,
         dialogData = {
             children: dialogShow ? <div>{employeeMarkup}</div> : null,
             handleClickClose: handleClickClose,

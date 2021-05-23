@@ -62,12 +62,12 @@ const StyleWrapper = styled.div`
 `;
 
 const Footer = () => {
-    const logoImageData = {
-            alt: 'DiDi and Smiling John\'s Barber and Beauty Shop Logo',
-            src: '../../images/logo_banner.png',
-            placeholder: 'tracedSVG',
-            width: 200
-        }
+    // const logoImageData = {
+    //         alt: 'DiDi and Smiling John\'s Barber and Beauty Shop Logo',
+    //         src: '../../images/logo_banner.png',
+    //         placeholder: 'tracedSVG',
+    //         width: 200
+    //     }
 
     return (
         <StyleWrapper>
