@@ -137,11 +137,10 @@ const StyleWrapper = styled.div`
 
     @media(min-width: 768px) {
         .modal-wrapper.active {
-            padding: 0 12.5%;
 
             .modal {
                 margin: 0 auto;
-                max-width: 900px;
+                max-width: 1200px;
 
                 &.fixed {
                     height: 590px;

@@ -91,10 +91,6 @@ const StyleWrapper = styled.div`
 
             button.active {
                 background: ${accentLight};
-
-                &:hover {
-                    cursor: not-allowed;
-                }
             }
             button.inactive {
                 background: ${accentDefault};
@@ -133,7 +129,7 @@ const StyleWrapper = styled.div`
 
     @media only screen and (min-width: 768px) {
         max-width: 1200px;
-        margin: 30vh auto;
+        margin: 25vh auto;
         padding: 0 25px;
 
         .tabs-wrapper {

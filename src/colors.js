@@ -1,4 +1,5 @@
-export const kuro = '#040404',
+// export const kuro = '#040404',
+export const kuro = '#172423',
     shiro = '#e7ebec',
 
     primaryDark = '#00675b', //teal

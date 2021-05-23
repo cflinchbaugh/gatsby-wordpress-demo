@@ -179,7 +179,7 @@ const IndexPage = () => {
                     <Button handleClick={() => {
                             window.location.href='tel:+17178587428';
                         }}
-                        showShimmer="true">
+                        showShimmer={true}>
                         (717) 858-7428
                     </Button>
                 </div>
@@ -190,7 +190,7 @@ const IndexPage = () => {
                     justifyContent: 'flex-end'
                 }}>
                     <Button handleClick={handleClickCallToAction}
-                    showShimmer="true">
+                    showShimmer={true}>
                         Book Now
                     </Button>
                 </div>
