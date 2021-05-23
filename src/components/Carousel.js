@@ -21,6 +21,7 @@ const StyleWrapper = styled.div`
         display: flex;
         justify-content: center;
         min-height: 55vh;
+        position: relative;
     }
 
     .navigation-container {
@@ -33,6 +34,8 @@ const StyleWrapper = styled.div`
         button {
             box-shadow: 0 6px 10px 0 rgb(31 38 135 / 20%);
             transition: box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
     }
 
@@ -66,13 +69,14 @@ const StyleWrapper = styled.div`
         transform: rotate(-10deg) scale(0.75);
     }
 
-    .active {
-        filter: blur(0px);
+    .current-active {
+        filter: blur(3px);
+        backdrop-filter: blur(4px);
         border: solid 2px yellow;
         border-radius: 5px;
         z-index: 3;
         transform: rotate(0deg) scale(1);
-        top: 0px;
+        top: 10px;
     }
 
     .next-active {
@@ -97,10 +101,11 @@ const StyleWrapper = styled.div`
         box-shadow: 0 8px 32px 0 rgb(31 38 135 / 50%);
     }
 
-    .active.lift {
+    .current-active.lift {
         box-shadow: 0 8px 32px 0 rgb(31 38 135 / 65%);
-        top: 10px;
+        top: 0;
         opacity: 1;
+        filter: blur(0px);
     }
 
     .inactive {
@@ -114,6 +119,10 @@ const StyleWrapper = styled.div`
             min-height: 65vh;
         }
 
+        .card {
+            transition: all 0.5s ease-out;
+        }
+
         .prev-prev-active,
         .next-next-active {
             opacity: 0.35;
@@ -121,7 +130,7 @@ const StyleWrapper = styled.div`
 
         .prev-active,
         .next-active,
-        .active {
+        .current-active {
             opacity: 0.5;
         }
 
@@ -139,7 +148,7 @@ const StyleWrapper = styled.div`
             z-index: 2;
         }
     
-        .active {
+        .current-active {
             border: solid 2px yellow;
             z-index: 3;
         }
@@ -167,9 +176,12 @@ function Carousel(props) {
 
     const [isOnScreen, setIsOnScreen] = useState(false);
     const [activeItem, setActiveItem] = useState(defaultItemIdx);
+    const [touchStart, setTouchStart] = useState(0);
+    const [touchEnd, setTouchEnd] = useState(0);
     const [cardsContainerRef, entry] = useIntersection({
         threshold: [0, 1.0]
     });
+
     const activeRef = useRef();
     const inactiveRef = useRef(null);
 
@@ -213,7 +225,7 @@ function Carousel(props) {
                     statusClass = 'prev-active';
                     break;
                 case activeItem:
-                    statusClass = 'active';
+                    statusClass = 'current-active';
                     break;
                 case activeItem + 1:
                     statusClass = 'next-active';
@@ -226,8 +238,14 @@ function Carousel(props) {
                     break;
             }
 
-            const cardData = {
-                    key: i,
+            const activeCardData = isActive ? {
+                    onTouchStart: handleTouchStart,
+                    onTouchMove: handleTouchMove,
+                    onTouchEnd: handleTouchEnd,
+                } : {},
+                cardData = {
+                    ...activeCardData,
+                    key: item.key,
                     onClick: () => {
                         handleClickCard(i)
                     },
@@ -244,6 +262,25 @@ function Carousel(props) {
 
         return cards;
     }
+
+function handleTouchStart(e) {
+    setTouchStart(e.targetTouches[0].clientX);
+}
+
+function handleTouchMove(e) {
+    setTouchEnd(e.targetTouches[0].clientX);
+}
+
+function handleTouchEnd() {
+    if (touchStart - touchEnd > 150) {
+        //swiped left
+        handleClickPrev(); 
+    } else if (touchStart - touchEnd < -150) {
+        //swiped right
+
+        handleClickNext(); 
+    }
+}
 
     const cards = buildCards(),
         prevButtonData = {
