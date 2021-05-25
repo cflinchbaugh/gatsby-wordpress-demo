@@ -110,7 +110,9 @@ const IndexPage = () => {
     const [dialogShowContents, setDialogShowContents] = useState(false);
 
     useEffect(() => {
-        document.getElementsByTagName('html')[0].style['scroll-behavior'] = 'smooth';
+        const htmlElement = document.getElementsByTagName('html')[0];
+
+        htmlElement.setAttribute('style', 'scroll-snap-type: y proximity; scroll-behavior: smooth;');
     }, []);
 
     function handleClickClose() {

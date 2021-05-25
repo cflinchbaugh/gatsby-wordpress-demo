@@ -33,6 +33,7 @@ const StyleWrapper = styled.div`
     margin: 0;
     /* Set a specific height */
     height: 100vh;
+    scroll-snap-align: start;
 
     /* Position and center the image to scale nicely on all screens */
     background-position: center;

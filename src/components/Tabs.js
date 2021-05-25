@@ -130,8 +130,6 @@ const StyleWrapper = styled.div`
 
     @media only screen and (min-width: 768px) {
         max-width: 1200px;
-        margin: 25vh auto;
-        padding: 0 25px;
 
         .tabs-wrapper {
             .tab-buttons {
