@@ -45,7 +45,11 @@ const EmployeeDetails = (props) => {
     const servicesSantized = {
             __html: DOMPurify.sanitize(services)
         },
-        profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg} alt="Placeholder Profile Image"></img>;
+        profileImage = (typeof(profileData) !== 'undefined') ? (
+            <GatsbyImage image={profileData} alt={`${title} Profile`} />
+         ) : (
+            <img src={staffPlaceholderImg} alt={`${title} Placeholder Profile`}></img>)
+         ;
 
     return (
         <StyleWrapper>

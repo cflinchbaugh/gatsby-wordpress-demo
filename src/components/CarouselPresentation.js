@@ -299,7 +299,6 @@ CarouselPresentation.propTypes = {
     items:  PropTypes.array.isRequired,
     defaultItemIdx: PropTypes.number,
     handleClickPrev: PropTypes.func.isRequired,
-    defaultItemIdx: PropTypes.number,
     entry: PropTypes.object,
 };
 

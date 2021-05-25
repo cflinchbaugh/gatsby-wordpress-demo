@@ -31,7 +31,8 @@ export default ({
 
             return () => currentObserver.disconnect();
         },[
-            node
+            node,
+            observer
         ]
     );
 

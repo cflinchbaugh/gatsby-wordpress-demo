@@ -185,13 +185,7 @@ const Tabs = (props) => {
     }
 
     function buildTabContentsMarkup() {
-        const tabContentsMarkup = tabContent.filter((tabData) => {
-            if (tabData.id === activeTab) {
-                return tabData.content
-            }
-        })[0].content;
-
-        return tabContentsMarkup;
+        return tabContent.find((data) => data.id === activeTab).content;
     }
 
     const buttonsMarkup = buildButtonsMarkup();

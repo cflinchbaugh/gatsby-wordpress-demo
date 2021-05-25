@@ -4,9 +4,6 @@ import React, {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { 
-    accentDefault,
-    primaryDark,
-    primaryDefault,
     primaryLight,
     shiro } from '../colors';
 import Button from './Button';
@@ -160,7 +157,6 @@ const StyleWrapper = styled.div`
  * @returns
  */
 function Dialog(props) {
-    
     useEffect(() => {
         //Toggle scrolling of underlying page    
         const overflowStyle = props.show ? 'hidden' : '';
@@ -170,12 +166,6 @@ function Dialog(props) {
     }, [
         props.show
     ]);
-
-    function handleClickClose(e) {
-        if (typeof(e.target.className) === 'string' && e.target.className.indexOf('modal-wrapper') >= 0) {
-            props.handleClickClose(e);
-        }
-    }
 
     const showClass = props.show ? 'active' : 'inactive',
         modalContentsMarkup = props.show ? (
@@ -202,7 +192,8 @@ function Dialog(props) {
                 <div className={`modal-overlay ${showClass}`} role="presentation">
                     {/* Overlay */}
                 </div>
-                <div className={`modal-wrapper ${showClass}`} onClick={handleClickClose} role="dialog">
+                <div className={`modal-wrapper ${showClass}`}
+                    role="dialog">
                     {modalContentsMarkup}
                 </div>
             </StyleWrapper>

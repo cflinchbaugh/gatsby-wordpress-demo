@@ -1,6 +1,4 @@
-import React, {
-    useState
-} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
@@ -66,7 +64,10 @@ const Staff = (props) => {
         handleClickDetails
     } = props;
 
-    const [filter, setFilter] = useState([barber, stylist]);
+    const filter = [
+        barber, 
+        stylist
+    ];
     
     function buildStaffMarkup(target) {
         const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
@@ -93,7 +94,11 @@ const Staff = (props) => {
             title
         }) => {
             if (employeeData.profession.includes(target)) {
-                const profileImage = (typeof(profileData) !== 'undefined') ? <GatsbyImage image={profileData} alt={`${title} Profile Image`} /> : <img src={staffPlaceholderImg}></img>,
+                const profileImage = (typeof(profileData) !== 'undefined') ? (
+                        <GatsbyImage image={profileData} alt={`${title} Profile`} />
+                    ) : (
+                        <img src={staffPlaceholderImg} alt={`${title} Placeholder Profile`}></img>
+                    ),
                     staffItemData = {
                         title,
                         profileImage
@@ -116,7 +121,7 @@ const Staff = (props) => {
     }
 
     const defaultMarkup = filter.includes(barber, stylist) ? [(
-            <StaffDefault tabIndex="2" />
+            <StaffDefault tabIndex={0} />
         )] : [],
         barbersMarkup = filter.includes(barber) ? buildStaffMarkup(barber) : [],
         stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];
