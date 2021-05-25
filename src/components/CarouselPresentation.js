@@ -279,11 +279,11 @@ CarouselPresentation.propTypes = {
     activeItem: PropTypes.number.isRequired,
     activeRef: PropTypes.oneOfType([
         PropTypes.func, 
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
     ]),
     cardsContainerRef: PropTypes.oneOfType([
         PropTypes.func, 
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
     ]),
     handleTouchStart: PropTypes.func.isRequired,
     handleTouchMove: PropTypes.func.isRequired,
@@ -293,7 +293,7 @@ CarouselPresentation.propTypes = {
     handleClickNext: PropTypes.func.isRequired,
     inactiveRef: PropTypes.oneOfType([
         PropTypes.func, 
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
     ]),
     isOnScreen: PropTypes.bool.isRequired,
     items:  PropTypes.array.isRequired,
