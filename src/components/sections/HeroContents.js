@@ -65,14 +65,14 @@ const StyleWrapper = styled.div`
             justify-content: center;
             align-items: center;
             padding: 40px;
-            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-size: clamp(1.5rem, 6vw, 1.5rem);
             line-height: 1.2;
             text-align: center;
         }
     }
 
     .description {
-        margin: 20px 15%;
+        margin: 30px 15% 0;
     }
 
     .call-to-actions-container {
@@ -148,9 +148,15 @@ const HeroContents = (props) => {
     const { file } = results;
     const { wpSectionHeroContent } = results;
 
-    function handleClickCallToAction() {
+    function handleClickBarbers() {
         if (typeof(window) !== 'undefined') {
             window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop','_blank');
+        }
+    }
+
+    function handleClickStylists() {
+        if (typeof(window) !== 'undefined') {
+            window.open('http://fb.com/msg/DiDiandSmilingJohns','_blank');
         }
     }
     
@@ -186,19 +192,19 @@ const HeroContents = (props) => {
 
                         <div className="call-to-actions-container">
                             <div className="call-to-action-button-container">
-                                <Button className="call-to-action-button" handleClick={handleClickCallToAction} showShimmer={true}>
+                                <Button className="call-to-action-button" handleClick={handleClickStylists} showShimmer={true}>
                                     <div className="call-to-action-button-contents">
                                         <img src={stylistIcon} className="icon icon-stylists" alt="Stylists Icon"/>
-                                        Stylists
+                                        Book Stylist
                                     </div>
                                 </Button>
                             </div>
 
                             <div className="call-to-action-button-container">
-                                <Button className="call-to-action-button" handleClick={handleClickCallToAction} showShimmer={true}>
+                                <Button className="call-to-action-button" handleClick={handleClickBarbers} showShimmer={true}>
                                     <div className="call-to-action-button-contents">
                                         <img src={barberIcon} className="icon icon-barbers" alt="Barbers Icon"/>
-                                        Barbers
+                                        Book Barber
                                     </div>
                                 </Button>
                             </div>

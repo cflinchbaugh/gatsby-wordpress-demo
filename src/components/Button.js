@@ -40,7 +40,7 @@ const StyleWrapper = styled.div`
     
     .ghost {
         color: white;
-        border: solid;
+        border: solid 1px;
         border-radius: 15px;
         backdrop-filter: blur(4px);
 

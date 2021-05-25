@@ -15,7 +15,9 @@ import Map from '../components/sections/Map';
 import Charm from '../components/sections/Charm';
 import Footer from '../components/sections/Footer';
 import EmployeeDetails from '../components/items/EmployeeDetails';
+import AttributionDetails from '../components/sections/AttributionDetails';
 import { 
+    accentDark,
     accentDefault,
     accentLight,
     primaryDefault,
@@ -26,6 +28,14 @@ const StyleWrapper = styled.div`
     color: ${kuro};
     background-color: ${primaryDefault};
     fontFamily: "-apple-system, Roboto, sans-serif, serif";
+    font-size: 18px;
+
+    a {
+        text-decoration: underline;
+        &:hover {
+            color: ${accentDark};
+        }
+    }
 
     .phone {
         color: ${accentDefault};
@@ -97,6 +107,7 @@ const IndexPage = () => {
 
     const [dialogShow, setDialogShow] = useState(false);
     const [employeeActive, setEmployeeActive] = useState('');
+    const [dialogShowContents, setDialogShowContents] = useState(false);
 
     useEffect(() => {
         document.getElementsByTagName('html')[0].style['scroll-behavior'] = 'smooth';
@@ -107,7 +118,14 @@ const IndexPage = () => {
     }
 
     function handleClickDetails(employeeId) {
+        setDialogShowContents('employeeDetails');
+
         setEmployeeActive(employeeId);
+        setDialogShow(true);
+    }
+
+    function handleClickAttributions() {
+        setDialogShowContents('attributions');
         setDialogShow(true);
     }
 
@@ -157,44 +175,68 @@ const IndexPage = () => {
             window.open('https://www.vagaro.com/didiandsmilingjohnsbarbershop/book-now','_blank');
         }
     }
+
+    function buildDialogMarkup() {
+        let dialogData = null;
+
+        if (dialogShow) {
+            if (dialogShowContents === 'attributions') {
+                dialogData = {
+                    children: <AttributionDetails />,
+                    footer: null,
+                    header: <div style={{ fontSize: '2rem' }}>Attributions</div>
+                }
+            } else if (dialogShowContents === 'employeeDetails') {
+                const employeeActiveData = selectEmployee(employeeActive);
+                const employeeMarkup = employeeActive.length ? <EmployeeDetails {...employeeActiveData}/> : null;
+                const header = (<div style={{ fontSize: '2rem' }}>{employeeActiveData.title}</div>);
+                const stylistsFooterMarkup = (
+                    <div style={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        flexDirection: 'column'
+                    }}>
+                        Call for Appointment &nbsp; 
+                        <Button handleClick={() => {
+                                window.location.href='tel:+17178587428';
+                            }}
+                            showShimmer={true}>
+                            (717) 858-7428
+                        </Button>
+                    </div>
+                );
+                const barberFooterMarkup = (
+                    <div style={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                    }}>
+                        <Button handleClick={handleClickCallToAction}
+                        showShimmer={true}>
+                            Book Now
+                        </Button>
+                    </div>
+                );
+                const footer = employeeActiveData?.employeeData?.profession?.includes('Stylist') ? stylistsFooterMarkup : barberFooterMarkup;
+
+                dialogData = {
+                    children: <div>{employeeMarkup}</div>,
+                    footer: footer,
+                    header: header
+                }
+            }
+        }
+
+        return dialogData;
+    }
     
     const aboutData = {
             allWpSectionAboutContent: allWpSectionAboutContent
         },
-        employeeActiveData = selectEmployee(employeeActive),
-        employeeMarkup = employeeActive.length ? <EmployeeDetails {...employeeActiveData}/> : null,
         dialogData = {
-            children: dialogShow ? <div>{employeeMarkup}</div> : null,
+                ...buildDialogMarkup(),
             handleClickClose: handleClickClose,
-            header: dialogShow ? <div style={{
-                fontSize: '2rem'
-            }}>{employeeActiveData.title}</div> : null,
-            footer: employeeActiveData?.employeeData?.profession?.includes('Stylist') ? (
-                <div style={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    justifyContent: 'flex-end'
-                }}>
-                    Call for Appointment &nbsp; 
-                    <Button handleClick={() => {
-                            window.location.href='tel:+17178587428';
-                        }}
-                        showShimmer={true}>
-                        (717) 858-7428
-                    </Button>
-                </div>
-            ) : (
-                <div style={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    justifyContent: 'flex-end'
-                }}>
-                    <Button handleClick={handleClickCallToAction}
-                    showShimmer={true}>
-                        Book Now
-                    </Button>
-                </div>
-            ),
             show: dialogShow
         },
         // postMarkup = buildPostMarkup(),
@@ -202,7 +244,10 @@ const IndexPage = () => {
             allFile: allFile,
             allWpEmployee: allWpEmployee,
             handleClickDetails: handleClickDetails
-        };
+        },
+        footerData = {
+            handleClickAttributions: handleClickAttributions
+        }
 
     return (
         <StyleWrapper>
@@ -223,7 +268,7 @@ const IndexPage = () => {
 
                 <Charm />
 
-                <Footer/>
+                <Footer {...footerData}/>
                 
                 {/* { postMarkup } */}
             </main>
