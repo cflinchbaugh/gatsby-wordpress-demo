@@ -61,11 +61,14 @@ function Carousel(props) {
     function handleTouchEnd() {
         if (touchStart - touchEnd > 150) {
             //swiped left
-            handleClickPrev(); 
+            if (activeItem !== 0) {
+                handleClickPrev(); 
+            }
         } else if (touchStart - touchEnd < -150) {
             //swiped right
-
-            handleClickNext(); 
+            if (activeItem !== items.length -1) {
+                handleClickNext(); 
+            }
         }
     }
 
