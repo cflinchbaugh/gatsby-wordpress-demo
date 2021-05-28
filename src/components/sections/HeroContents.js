@@ -31,9 +31,7 @@ const bounceAnimation = keyframes`
 const StyleWrapper = styled.div`
     height: 100%;
     margin: 0;
-    /* Set a specific height */
-    height: 100vh;
-    scroll-snap-align: start;
+    min-height: 100vh;
 
     /* Position and center the image to scale nicely on all screens */
     background-position: center;
@@ -52,6 +50,7 @@ const StyleWrapper = styled.div`
         align-items: center;
         height: 100%;
         justify-content: space-evenly;
+        min-height: 100vh;
 
         .hero-contents {
             margin: 1.5rem;

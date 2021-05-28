@@ -4,7 +4,8 @@ import AboutCard from '../items/AboutCard';
 import Tabs from '../Tabs';
 
 const StyleWrapper = styled.div`
-    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
 
     @media only screen and (min-width: 768px) {
         padding: 0 25px;

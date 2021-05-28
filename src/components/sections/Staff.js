@@ -13,10 +13,10 @@ const StyleWrapper = styled.div`
     display: flex;
     flex: 1;
     flex-wrap: nowrap;
-    overflow-x: hidden;
     margin: auto;
-    position: relative;
     min-height: 550px;
+    overflow-x: hidden;
+    position: relative;
 
     .staff-wrapper {
         max-width: 1800px;

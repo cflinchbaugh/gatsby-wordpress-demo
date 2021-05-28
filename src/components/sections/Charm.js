@@ -8,7 +8,6 @@ const StyleWrapper = styled.div`
     padding: 20px 0;
     max-width: 1600px;
     margin: auto;
-    scroll-snap-align: start;
 
     img {
         border-radius: 100%;

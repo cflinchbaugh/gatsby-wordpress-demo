@@ -140,6 +140,8 @@ const StyleWrapper = styled.div`
     }
 
     @media (min-width: 1024px) {
+        max-width: 1600px;
+
         .tab-contents {
             flex-direction: row;
         }

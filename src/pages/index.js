@@ -112,7 +112,7 @@ const IndexPage = () => {
     useEffect(() => {
         const htmlElement = document.getElementsByTagName('html')[0];
 
-        htmlElement.setAttribute('style', 'scroll-snap-type: y proximity; scroll-behavior: smooth;');
+        htmlElement.setAttribute('style', 'scroll-behavior: smooth;');
     }, []);
 
     function handleClickClose() {
