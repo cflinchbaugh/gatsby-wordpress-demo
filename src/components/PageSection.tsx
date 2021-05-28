@@ -6,7 +6,11 @@ const StyleWrapper = styled.div`
     background: #009688;
 `;
 
-const PageSection = (props) => {
+interface PageSectionInterface {
+    children: React.ReactNode
+};
+
+const PageSection = (props:PageSectionInterface) => {
     return (
         <StyleWrapper>
             {props.children}

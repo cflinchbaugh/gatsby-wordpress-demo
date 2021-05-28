@@ -1,6 +1,5 @@
 import React, {
 } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
 import { accentDark,
@@ -63,14 +62,23 @@ const StyleWrapper = styled.div`
     
 `;
 
-function Button(props) {
+interface ButtonInterface {
+    active: boolean,
+    children: React.ReactNode,
+    disabled: boolean,
+    handleClick: Function,
+    showShimmer: boolean,
+    type: 'ghost' | 'primary'
+}
+
+function Button(props:ButtonInterface) {
     const {
-        active,
+        active = false,
         children,
-        disabled,
+        disabled = false,
         handleClick,
-        showShimmer,
-        type
+        showShimmer = false,
+        type = 'primary'
     } = props;
 
     const shimmerMarkup = (!disabled && showShimmer) ? <Shimmer /> : null,
@@ -86,23 +94,5 @@ function Button(props) {
         </StyleWrapper>
     );
 }
-
-Button.defaultProps = {
-    active: false,
-    disabled: false,
-    showShimmer: false,
-    type: 'primary'
-}
-
-Button.propTypes = {
-    active: PropTypes.bool,
-    children: PropTypes.node,
-    handleClick: PropTypes.func.isRequired,
-    showShimmer: PropTypes.bool,
-    type: PropTypes.oneOf([
-        'primary',
-        'ghost'
-    ])
-};
 
 export default Button;
