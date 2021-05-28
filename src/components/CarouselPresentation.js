@@ -180,7 +180,7 @@ function CarouselPresentation(props) {
         inactiveRef,
         isOnScreen,
         items,
-      
+        transformValue
     } = props;
 
     function buildCards() {
@@ -214,6 +214,11 @@ function CarouselPresentation(props) {
                     onTouchStart: handleTouchStart,
                     onTouchMove: handleTouchMove,
                     onTouchEnd: handleTouchEnd,
+                    style: {
+                        opacity: `${100 - Math.abs(transformValue)}%`,
+                        transform: `rotate(${transformValue}deg)`,
+                        transformOrigin: `${transformValue}% 100%`
+                    }
                 } : {},
                 cardData = {
                     ...activeCardData,
@@ -279,27 +284,28 @@ CarouselPresentation.propTypes = {
     activeItem: PropTypes.number.isRequired,
     activeRef: PropTypes.oneOfType([
         PropTypes.func, 
-        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        PropTypes.shape({ current: PropTypes.any })
     ]),
     cardsContainerRef: PropTypes.oneOfType([
         PropTypes.func, 
-        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        PropTypes.shape({ current: PropTypes.any })
     ]),
-    handleTouchStart: PropTypes.func.isRequired,
-    handleTouchMove: PropTypes.func.isRequired,
-    handleTouchEnd: PropTypes.func.isRequired,
+    defaultItemIdx: PropTypes.number,
+    entry: PropTypes.object,
     handleClickCard: PropTypes.func.isRequired,
     handleClickHome: PropTypes.func.isRequired,
     handleClickNext: PropTypes.func.isRequired,
+    handleClickPrev: PropTypes.func.isRequired,
+    handleTouchEnd: PropTypes.func.isRequired,
+    handleTouchMove: PropTypes.func.isRequired,
+    handleTouchStart: PropTypes.func.isRequired,
     inactiveRef: PropTypes.oneOfType([
         PropTypes.func, 
-        // PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        PropTypes.shape({ current: PropTypes.any })
     ]),
     isOnScreen: PropTypes.bool.isRequired,
     items:  PropTypes.array.isRequired,
-    defaultItemIdx: PropTypes.number,
-    handleClickPrev: PropTypes.func.isRequired,
-    entry: PropTypes.object,
+    transformValue: PropTypes.number.isRequired
 };
 
 export default CarouselPresentation;

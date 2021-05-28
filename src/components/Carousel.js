@@ -17,6 +17,7 @@ function Carousel(props) {
     const [activeItem, setActiveItem] = useState(defaultItemIdx);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
+    const [transformValue, setTransformValue] = useState(0);
     const [cardsContainerRef, entry] = useIntersection({
         threshold: [0, 1.0]
     });
@@ -54,22 +55,31 @@ function Carousel(props) {
         setTouchStart(e.targetTouches[0].clientX);
     }
 
+    function clamp(num, min, max) {
+        return Math.min(Math.max(num, min), max);
+    }
+
     function handleTouchMove(e) {
+        const transformValue = clamp(((e.targetTouches[0].clientX - touchStart) / 10), -15, 15);
+
+        setTransformValue(transformValue);
         setTouchEnd(e.targetTouches[0].clientX);
     }
 
     function handleTouchEnd() {
         if (touchStart - touchEnd > 150) {
             //swiped left
-            if (activeItem !== 0) {
-                handleClickPrev(); 
+            if (activeItem !== items.length -1) {
+                handleClickNext();
             }
         } else if (touchStart - touchEnd < -150) {
             //swiped right
-            if (activeItem !== items.length -1) {
-                handleClickNext(); 
+            if (activeItem !== 0) {
+                handleClickPrev();
             }
         }
+
+        setTransformValue(0);
     }
 
     function handleClickHome() {
@@ -92,6 +102,7 @@ function Carousel(props) {
         inactiveRef,
         isOnScreen,
         items,
+        transformValue
     }
 
     return (
