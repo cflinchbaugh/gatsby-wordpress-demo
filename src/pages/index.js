@@ -17,7 +17,6 @@ import Footer from '../components/sections/Footer';
 import EmployeeDetails from '../components/items/EmployeeDetails';
 import AttributionDetails from '../components/sections/AttributionDetails';
 import { 
-    accentDark,
     accentDefault,
     accentLight,
     primaryDefault,
@@ -32,9 +31,6 @@ const StyleWrapper = styled.div`
 
     a {
         text-decoration: underline;
-        &:hover {
-            color: ${accentDark};
-        }
     }
 
     .phone {

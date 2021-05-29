@@ -1,9 +1,14 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { accentDark } from '../../colors';
 
 const StyleWrapper = styled.div`
     margin: 20px;
     min-height: 50vh;
+
+    a:hover {
+        color: ${accentDark};
+    }
 
     li {
         margin-bottom: 20px;

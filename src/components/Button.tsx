@@ -48,8 +48,20 @@ const StyleWrapper = styled.div`
         }
     }
 
-    .primary,
-    .ghost {
+    .kuro {
+        color: ${kuro};
+        border: solid 1px;
+        border-radius: 15px;
+        backdrop-filter: blur(4px);
+
+        &:hover:not(:disabled) {
+            background: ${accentDark};
+        }
+    }
+
+    .ghost,
+    .kuro, 
+    .primary {
         &:disabled {
             background: ${disabled};
             opacity: 0.5;
@@ -68,7 +80,7 @@ interface ButtonInterface {
     disabled: boolean,
     handleClick: Function,
     showShimmer: boolean,
-    type: 'ghost' | 'primary'
+    type: 'ghost' | 'kuro' | 'primary'
 }
 
 function Button(props:ButtonInterface) {

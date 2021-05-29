@@ -1,14 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
-import { accentDefault,
+import { 
+    kuro,
     primaryDefault,
-    shiro } from '../../colors';
+    shiro 
+} from '../../colors';
 import Button from '../Button';
 
 const StyleWrapper = styled.div`
     font-size: 14pt;
-    color: ${shiro};
+    color: ${kuro};
     align-items: center;
     background: ${primaryDefault};
     display: flex;
@@ -32,7 +34,7 @@ const StyleWrapper = styled.div`
         padding: 10px 0;
 
         &:hover {
-            color: ${accentDefault};
+            color: ${shiro};
         }
     }
 
@@ -95,7 +97,7 @@ const Footer = (props) => {
         },
         attributionButtonData = {
             handleClick: handleClickAttributions,
-            type: 'ghost'
+            type: 'kuro'
         };
         
 

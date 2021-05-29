@@ -97,7 +97,7 @@ const Staff = (props) => {
                 const profileImage = (typeof(profileData) !== 'undefined') ? (
                         <GatsbyImage image={profileData} alt={`${title} Profile`} />
                     ) : (
-                        <img src={staffPlaceholderImg} alt={`${title} Placeholder Profile`}></img>
+                        <img src={staffPlaceholderImg} height="481" width="350" alt={`${title} Placeholder Profile`}></img>
                     ),
                     staffItemData = {
                         title,
