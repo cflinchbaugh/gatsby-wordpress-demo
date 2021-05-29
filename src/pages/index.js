@@ -7,6 +7,7 @@ import {
     // Link as GatsbyLink,
     useStaticQuery
 } from 'gatsby';
+import { Helmet } from 'react-helmet';
 import Dialog from '../components/Dialog';
 import Staff from '../components/sections/Staff';
 import About from '../components/sections/About';
@@ -249,6 +250,22 @@ const IndexPage = () => {
 
     return (
         <StyleWrapper>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>DiDi & Smiling John's</title>
+
+                <meta name="author" content="Christopher Flinchbaugh"/>
+                <meta name="date" content="2021-06-01" scheme="YYYY-MM-DD"/>
+                <meta name="description" content="Whether you want a modern or traditional haircut, coloring, or more- our award-winning Barber Shop and Salon has you covered."/>
+
+                <meta property="og:description" content="Whether you want a modern or traditional haircut, coloring, or more- our award-winning Barber Shop and Salon has you covered."/>
+
+                <meta property="og:title" content="DiDi &amp; Smiling John's Barber Shop and Salon"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:url" content="https://www.didiandsmilingjohns.com/"/>
+                <meta name="twitter:description" content="Whether you want a modern or traditional haircut, coloring, or more- our award-winning Barber Shop and Salon has you covered."/>
+            </Helmet>
+
             <main>
                 <title>DiDi & Smiling John's</title>
 

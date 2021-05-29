@@ -34,7 +34,7 @@
     "gatsby-background-image": "^1.5.2",
     "gatsby-image": "^3.3.0",
     "gatsby-plugin-image": "^0.7.2",
-    "gatsby-plugin-react-helmet": "^3.3.14",
+    "gatsby-plugin-react-helmet": "^3.10.0",
     "gatsby-plugin-sharp": "^2.14.3",
     "gatsby-plugin-styled-components": "^4.3.0",
     "gatsby-source-filesystem": "^3.3.0",
