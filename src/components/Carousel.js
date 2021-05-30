@@ -1,8 +1,7 @@
 import React, {
-    useEffect,
     useRef,
-    useState
 } from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import PropTypes from 'prop-types';
 import useIntersection from './useIntersection';
 import CarouselPresentation from './CarouselPresentation';

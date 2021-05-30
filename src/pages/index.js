@@ -1,6 +1,5 @@
-import React, { 
-    useEffect,
-    useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import styled from 'styled-components';
 import { 
     graphql,

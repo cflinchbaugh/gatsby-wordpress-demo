@@ -1,6 +1,5 @@
-import React, { 
-    useState
-} from 'react';
+import React from 'react';
+import { useState } from 'preact/hooks';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { 

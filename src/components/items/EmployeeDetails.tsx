@@ -29,7 +29,16 @@ const StyleWrapper = styled.div`
 
 `;
 
-const EmployeeDetails = (props) => {  
+interface EmployeeDetailsInterface {
+    employeeData: {
+        biography: string,
+        services: Node
+    },
+    profileData: any,
+    title: string
+}
+
+const EmployeeDetails = (props:EmployeeDetailsInterface) => {  
     const {
         // id,
         title,
@@ -43,7 +52,9 @@ const EmployeeDetails = (props) => {
     } = props;
 
     const servicesSantized = {
-            __html: DOMPurify.sanitize(services)
+            __html: DOMPurify.sanitize(services,
+                {USE_PROFILES: {html: true}}
+            )
         },
         profileImage = (typeof(profileData) !== 'undefined') ? (
             <GatsbyImage image={profileData} alt={`${title} Profile`} />

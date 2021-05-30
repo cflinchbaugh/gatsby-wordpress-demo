@@ -7,6 +7,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
+    `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
     {
         resolve: `gatsby-source-wordpress`,

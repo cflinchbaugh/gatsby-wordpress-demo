@@ -1,7 +1,5 @@
-import React, {
-    useEffect,
-    useState
-} from 'react';
+import React from 'react';
+import { useState, useEffect } from 'preact/hooks';
 import styled, { keyframes } from 'styled-components';
 import useIntersection from '../useIntersection';
 
