@@ -254,6 +254,8 @@ const IndexPage = () => {
                 <meta charSet="utf-8" />
                 <title>DiDi & Smiling John's</title>
 
+                <html lang="en-us"/>
+
                 <meta name="author" content="Christopher Flinchbaugh"/>
                 <meta name="date" content="2021-06-01" scheme="YYYY-MM-DD"/>
                 <meta name="description" content="Whether you want a modern or traditional haircut, coloring, or more- our award-winning Barber Shop and Salon has you covered."/>
