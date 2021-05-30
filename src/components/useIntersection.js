@@ -1,7 +1,8 @@
 import { 
-    useRef,
+    useEffect, 
+    useRef, 
+    useState 
 } from 'react';
-import { useState, useEffect } from 'preact/hooks';
 
 //Credit Justin Travis Waith-Mair https://non-traditional.dev/how-to-use-an-intersectionobserver-in-a-react-hook-9fb061ac6cb5
 
