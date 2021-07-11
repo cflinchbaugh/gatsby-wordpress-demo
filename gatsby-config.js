@@ -11,7 +11,7 @@ module.exports = {
     {
         resolve: `gatsby-source-wordpress`,
         options: {
-            // url: `http://dangerzone.local/graphql`
+            //url: `http://dangerzone.local/graphql`
             url: `https://didiandsmilingjohns.com/graphql`
         }
 

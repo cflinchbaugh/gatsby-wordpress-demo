@@ -44,6 +44,10 @@ const StyleWrapper = styled.div`
 
 `;
 
+interface ShimmerInterface {
+
+}
+
 function Shimmer() {
     return (
         <StyleWrapper>
@@ -53,3 +57,4 @@ function Shimmer() {
 }
 
 export default Shimmer;
+export type {ShimmerInterface};

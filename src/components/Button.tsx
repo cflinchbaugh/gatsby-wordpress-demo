@@ -1,4 +1,5 @@
 import React, {
+    MouseEventHandler
 } from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
@@ -75,12 +76,12 @@ const StyleWrapper = styled.div`
 `;
 
 interface ButtonInterface {
-    active: boolean,
+    active?: boolean,
     children: React.ReactNode,
-    disabled: boolean,
-    handleClick: Function,
-    showShimmer: boolean,
-    type: 'ghost' | 'kuro' | 'primary'
+    disabled?: boolean,
+    handleClick: MouseEventHandler<HTMLButtonElement>,
+    showShimmer?: boolean,
+    type?: 'ghost' | 'kuro' | 'primary'
 }
 
 function Button(props:ButtonInterface) {
@@ -108,3 +109,4 @@ function Button(props:ButtonInterface) {
 }
 
 export default Button;
+export type { ButtonInterface };

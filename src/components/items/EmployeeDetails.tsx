@@ -30,12 +30,13 @@ const StyleWrapper = styled.div`
 `;
 
 interface EmployeeDetailsInterface {
-    employeeData: {
+    employeeData?: {
         biography: string,
         services: Node
+        profession: ['Barber'|'Stylist']
     },
-    profileData: any,
-    title: string
+    profileData?: any,
+    title?: string
 }
 
 const EmployeeDetails = (props:EmployeeDetailsInterface) => {  
@@ -88,3 +89,4 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
 }
 
 export default EmployeeDetails;
+export type {EmployeeDetailsInterface};

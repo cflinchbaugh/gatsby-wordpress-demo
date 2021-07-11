@@ -9,7 +9,6 @@ const WpPost = ({ data }) => {
     return <div>WpPost</div>;
 //     const { wpPost } = data,
 //         metaDescription = typeof(wpPost.seo) !=='undefined' && typeof(wpPost.seo.metaDesc) !== 'undefined' ? wpPost.seo.metaDesc : wpPost.title;
-// console.log(wpPost);
 //     return (
 //         <>
 //             <Helmet>

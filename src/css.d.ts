@@ -1,5 +1,8 @@
-//TypeScript import image confit, see here: https://stackoverflow.com/questions/64732623/react-typescript-cannot-find-module-or-its-corresponding-type-declaration
-
+//TypeScript import image config, see here: https://stackoverflow.com/questions/64732623/react-typescript-cannot-find-module-or-its-corresponding-type-declaration
+declare module "*.svg" {
+    const content: any;
+    export default content;
+}
 
 declare module '*.scss' {
     const css: { [key: string]: string };

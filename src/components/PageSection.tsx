@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyleWrapper = styled.div`
@@ -19,3 +19,4 @@ const PageSection = (props:PageSectionInterface) => {
 };
 
 export default PageSection;
+export type {PageSectionInterface};
