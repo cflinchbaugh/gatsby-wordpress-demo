@@ -13,7 +13,7 @@ const StyleWrapper = styled.div`
 `;
 
 const awardWinning:AboutCardInterface = {
-        contents: 'Downtown First award for Outstanding Small Business in 2015. “Susquehanna Style’s” Best Barber Shop in York every year since 2014 with no intention of stopping!',
+        contents: 'Repeat winner of “Susquehanna Style’s” Best Barber Shop in York.  "Outstanding Small Business" awarded by Downtown First. ',
         key: 'Award Winning',
         title: 'Award Winning'
     },
