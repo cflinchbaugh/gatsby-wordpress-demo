@@ -30,38 +30,56 @@ const StyleWrapper = styled.div`
 `;
 
 interface EmployeeDetailsInterface {
+    allFile: any,
     employeeData?: {
         biography: string,
-        services: Node
-        profession: ['Barber'|'Stylist']
+        services: Node,
+        profession: ['Barber'|'Stylist'],
+        profilePicture2: {
+            mediaItemUrl: string
+        }
     },
-    profileData?: any,
     title?: string
 }
 
 const EmployeeDetails = (props:EmployeeDetailsInterface) => {  
     const {
-        // id,
+        allFile,
         title,
-        // uri,
         employeeData: {
             biography,
-            // profession,
+            profilePicture2: {
+                mediaItemUrl
+            },
             services
-        },
-        profileData
+        }
     } = props;
 
     const servicesSantized = {
             __html: DOMPurify.sanitize(services,
                 {USE_PROFILES: {html: true}}
             )
-        },
-        profileImage = (typeof(profileData) !== 'undefined') ? (
-            <GatsbyImage image={profileData} alt={`${title} Profile`} />
-         ) : (
-            <img src={staffPlaceholderImg} height="481" width="350" alt={`${title} Placeholder Profile`}></img>)
-         ;
+        };
+
+        let imageData = undefined;
+
+        allFile.nodes.some((fileData) => {
+            if (fileData.url === props.employeeData.profilePicture2.mediaItemUrl) {
+                imageData = fileData.childImageSharp.gatsbyImageData
+            }
+        });
+
+        const profileImage = (typeof(imageData) !== 'undefined') ? (
+                <GatsbyImage image={imageData} alt={`${title} Profile`} />
+             ) : (
+                <img 
+                    alt={`${title} Placeholder Profile`}
+                    height="481"
+                    src={staffPlaceholderImg} 
+                    width="350"
+                >
+                </img>
+            );
 
     return (
         <StyleWrapper>

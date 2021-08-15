@@ -1,5 +1,4 @@
 import React, {
-    TouchEventHandler,
     useEffect,
     useRef,
     useState

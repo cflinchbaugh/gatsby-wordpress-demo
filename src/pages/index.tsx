@@ -68,6 +68,9 @@ const IndexPage = () => {
                         profilePicture {
                             mediaItemUrl
                         }
+                        profilePicture2 {
+                            mediaItemUrl
+                        }
                     }
                     databaseId
                 }
@@ -186,7 +189,10 @@ const IndexPage = () => {
                     header: <div style={{ fontSize: '2rem' }}>Attributions</div>
                 }
             } else if (dialogShowContents === 'employeeDetails') {
-                const employeeActiveData:EmployeeDetailsInterface = selectEmployee(employeeActive);
+                const employeeActiveData:EmployeeDetailsInterface = {
+                    allFile: allFile,
+                    ...selectEmployee(employeeActive)
+                };
                 const employeeMarkup = employeeActive.length ? <EmployeeDetails {...employeeActiveData}/> : null;
                 const header = (<div style={{ fontSize: '2rem' }}>{employeeActiveData.title}</div>);
                 const appointmentButtonData:ButtonInterface = {
