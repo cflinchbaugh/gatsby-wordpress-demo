@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import barberIcon from '../../images/barberIcon.svg';
+import stylistIcon from '../../images/stylistIcon.svg';
 import { shiro } from '../../colors';
 
 const StyleWrapper = styled.div`
@@ -43,25 +45,64 @@ const StyleWrapper = styled.div`
         text-align: center;
         border-radius: 0 0 5px 5px;
     }
+
+    .icons {
+        left: auto;
+        right: 10px;
+        height: 40px;
+        width: 50px;
+
+        .icon-stylists {
+            transform: scaleX(-1);
+        }
+
+        img {
+            filter: invert(100%) sepia(7%) saturate(0%) hue-rotate(308deg) brightness(102%) contrast(102%);
+        }
+    }
 `;
 
+type ProfessionTypes = 'Barber' | 'Stylist';
+
 interface StaffItemInterface {
+    employeeData: {
+        profession: Array<ProfessionTypes>
+    },
     title: string,
     profileImage: React.ReactNode
 }
 
 const StaffItem = (props:StaffItemInterface) => {
     const {
-        title,
-        profileImage
-    } = props;
+            employeeData,
+            title,
+            profileImage
+        } = props,
+        professionIcon = employeeData.profession.includes('Barber') ? (
+            <img 
+                alt="Barbers Icon"
+                className="icon icon-barbers"
+                src={barberIcon} 
+            />
+        ) : (
+            <img 
+                alt="Stylists Icon"
+                className="icon icon-stylists"
+                src={stylistIcon} 
+            />
+        );
 
-   return (
+
+    return (
         <StyleWrapper>
             <div className="foreground header">
                 <strong>
-                    <span dangerouslySetInnerHTML={{__html: title}} />
+                    {title}
                 </strong>
+            </div>
+
+            <div className="foreground header icons">
+                {professionIcon}
             </div>
 
             <div className="profile-image">

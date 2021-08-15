@@ -29,9 +29,28 @@ const StyleWrapper = styled.div`
 
 `;
 
+type AllFileNodeType = {
+    childImageSharp: {
+        gatsbyImageData: {
+            height: number,
+            images: {
+                fallback: any,
+                sources: []
+            },
+            layout: "constrained",
+            placeholder: any,
+            width: number
+        },
+        id: string
+    }
+    url: string
+}
+
 interface EmployeeDetailsInterface {
-    allFile: any,
-    employeeData?: {
+    allFile: {
+        nodes: Array<AllFileNodeType>
+    },
+    employeeData: {
         biography: string,
         services: Node,
         profession: ['Barber'|'Stylist'],
@@ -46,17 +65,11 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
     const {
         allFile,
         title,
-        employeeData: {
-            biography,
-            profilePicture2: {
-                mediaItemUrl
-            },
-            services
-        }
+        employeeData
     } = props;
 
     const servicesSantized = {
-            __html: DOMPurify.sanitize(services,
+            __html: DOMPurify.sanitize(employeeData.services,
                 {USE_PROFILES: {html: true}}
             )
         };
@@ -64,7 +77,7 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
         let imageData = undefined;
 
         allFile.nodes.some((fileData) => {
-            if (fileData.url === props.employeeData.profilePicture2.mediaItemUrl) {
+            if (fileData.url === employeeData.profilePicture2.mediaItemUrl) {
                 imageData = fileData.childImageSharp.gatsbyImageData
             }
         });
@@ -89,7 +102,7 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
 
             <div className="employee-details">
                 <div className="employee-section">
-                    {biography}
+                    {employeeData.biography}
                 </div>
 
                 <hr/>

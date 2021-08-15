@@ -197,7 +197,7 @@ const IndexPage = () => {
                 const header = (<div style={{ fontSize: '2rem' }}>{employeeActiveData.title}</div>);
                 const appointmentButtonData:ButtonInterface = {
                     children: (
-                        '(717) 858-7428'
+                        'Call for Appointment'
                     ),
                     handleClick: () => {
                         window.location.href='tel:+17178587428';
@@ -211,7 +211,7 @@ const IndexPage = () => {
                         justifyContent: 'flex-end',
                         flexDirection: 'column'
                     }}>
-                        Call for Appointment &nbsp; 
+                        
                         <Button {...appointmentButtonData}/>
                     </div>
                 );

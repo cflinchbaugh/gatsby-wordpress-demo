@@ -109,7 +109,7 @@ const Staff = (props:StaffInterface) => {
             }) :  <div>No Staff Found</div>;
 
         let staffMarkup = [];
-        
+
         staffData.forEach( ({
             employeeData,
             id,
@@ -123,6 +123,7 @@ const Staff = (props:StaffInterface) => {
                         <img src={staffPlaceholderImg} height="481" width="350" alt={`${title} Placeholder Profile`}></img>
                     ),
                     staffItemData = {
+                        employeeData,
                         title,
                         profileImage
                     };
