@@ -42,6 +42,15 @@ const StyleWrapper = styled.div`
         height: 100%;
     }
 
+    .hero-background-image {
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 0;
+    }
+
     .hero-contents-container {
         display: flex;
         flex: 1 0 0%;
@@ -166,14 +175,14 @@ const HeroContents = () => {
             width: 400
         },
         heroImageData = {
-            aspectRatio: 3 / 1, // You can optionally force an aspect ratio for the generated image
+            alt: 'The Barbershop, a yellow brick building set against a brilliant blue sky',
             formats: [
                 'auto',
                 'webp',
                 'avif'
             ],
             layout: 'fullWidth',
-            src: '../../images/hero.jpg'
+            src: '../../images/hero-background.jpg'
         },
         bookStylistButtonData:ButtonInterface = {
             children: (
@@ -200,6 +209,7 @@ const HeroContents = () => {
             <StyleWrapper>
                 <div style={{ display: "grid" }}>
                     <StaticImage
+                        className="hero-background-image"
                         style={{
                             gridArea: "1/1", // By using the same grid area for both, they are stacked on top of each other
                         }}
@@ -234,7 +244,7 @@ const HeroContents = () => {
                             </div>
 
                             <span className="bounce">
-                                <Button handleClick={handleClickArrow} type={"ghost"}>
+                                <Button handleClick={handleClickArrow} type={"secondary"}>
                                     ▼
                                 </Button>
                             </span>

@@ -3,11 +3,16 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
-import { accentDark,
+import { 
+    accentDark,
     accentLight,
     accentDefault, 
+    disabled,
     kuro,
-    disabled } from '../colors';
+    secondaryDark,
+    secondaryDefault,
+    secondaryLight,
+} from '../colors';
 
 const StyleWrapper = styled.div`
     button {
@@ -60,6 +65,15 @@ const StyleWrapper = styled.div`
         }
     }
 
+    .secondary {
+        background: ${secondaryDefault};
+        border: solid 4px ${secondaryLight};
+
+        &:hover:not(:disabled) {
+            background: ${secondaryDark};
+        }
+    }
+
     .ghost,
     .kuro, 
     .primary {
@@ -81,7 +95,7 @@ interface ButtonInterface {
     disabled?: boolean,
     handleClick: MouseEventHandler<HTMLButtonElement>,
     showShimmer?: boolean,
-    type?: 'ghost' | 'kuro' | 'primary'
+    type?: 'ghost' | 'kuro' | 'primary' | 'secondary'
 }
 
 function Button(props:ButtonInterface) {
