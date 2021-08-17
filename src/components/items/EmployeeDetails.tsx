@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import DOMPurify from 'dompurify';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { 
+    GatsbyImage,
+    StaticImage
+} from 'gatsby-plugin-image';
 import staffPlaceholderImg from '../../images/staff-placeholder.png';
+import {
+    accentDark
+} from '../../colors';
 
 const StyleWrapper = styled.div`
     display: flex;
@@ -12,9 +18,26 @@ const StyleWrapper = styled.div`
         padding: 20px;
     }
 
+    .social-media-wrapper {
+        display: flex;
+        justify-content: flex-end;
+
+        a {
+            transition: background-color .25s;
+            border-radius: 100%;
+            padding: 2.5px;
+
+            &:hover {
+                background-color: ${accentDark};
+            }
+        }
+
+    }
+
     .profile-image {
         display: flex;
         flex: 1;
+        max-height: 500px;
     }
 
     .employee-details {
@@ -57,6 +80,7 @@ interface EmployeeDetailsInterface {
         profilePicture2: {
             mediaItemUrl: string
         }
+        socialMediaInstagram: URL | null
     },
     title?: string
 }
@@ -92,7 +116,27 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
                     width="350"
                 >
                 </img>
-            );
+            ),
+            commonImageData = {
+                height: 30,
+                width: 30,
+            },
+            socialMediaMarkup = employeeData.socialMediaInstagram ? (
+                <div className="social-media-wrapper">
+                    <a href={employeeData.socialMediaInstagram.toString()} 
+                        title={`${title} Instagram`}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                    >
+                        <StaticImage 
+                            {...commonImageData}
+                            alt="Instagram Icon"
+                            placeholder="tracedSVG" 
+                            src="../../images/instagram.png" 
+                        />
+                    </a>
+                </div>
+            ) : null;
 
     return (
         <StyleWrapper>
@@ -103,7 +147,10 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
             <div className="employee-details">
                 <div className="employee-section">
                     {employeeData.biography}
+                    
+                    {socialMediaMarkup}
                 </div>
+
 
                 <hr/>
 
@@ -114,6 +161,7 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
 
                     <div>*Prices subject to change</div>
                 </div>
+                
             </div>
         </StyleWrapper>
     );

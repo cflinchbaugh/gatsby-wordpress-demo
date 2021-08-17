@@ -58,12 +58,9 @@ const IndexPage = () => {
             }
             allWpEmployee(sort: { order: ASC, fields: date }) {
                 nodes {
-                    id
-                    uri
-                    title
+                    databaseId
                     employeeData {
                         biography
-                        services
                         profession
                         profilePicture {
                             mediaItemUrl
@@ -71,8 +68,12 @@ const IndexPage = () => {
                         profilePicture2 {
                             mediaItemUrl
                         }
+                        services
+                        socialMediaInstagram
                     }
-                    databaseId
+                    id
+                    title
+                    uri
                 }
             }
             allWpSectionAboutContent {
