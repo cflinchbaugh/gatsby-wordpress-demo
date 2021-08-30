@@ -31,7 +31,6 @@ const StyleWrapper = styled.div`
                 background-color: ${accentDark};
             }
         }
-
     }
 
     .profile-image {
@@ -91,52 +90,52 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
         title,
         employeeData
     } = props;
-
     const servicesSantized = {
             __html: DOMPurify.sanitize(employeeData.services,
                 {USE_PROFILES: {html: true}}
             )
-        };
-
-        let imageData = undefined;
-
-        allFile.nodes.some((fileData) => {
-            if (fileData.url === employeeData.profilePicture2.mediaItemUrl) {
-                imageData = fileData.childImageSharp.gatsbyImageData
-            }
-        });
-
-        const profileImage = (typeof(imageData) !== 'undefined') ? (
-                <GatsbyImage image={imageData} alt={`${title} Profile`} />
-             ) : (
-                <img 
-                    alt={`${title} Placeholder Profile`}
-                    height="481"
-                    src={staffPlaceholderImg} 
-                    width="350"
+        },
+        commonImageData = {
+            height: 30,
+            width: 30,
+        },
+        socialMediaMarkup = employeeData.socialMediaInstagram ? (
+            <div className="social-media-wrapper">
+                <a href={employeeData.socialMediaInstagram.toString()} 
+                    title={`${title} Instagram`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
                 >
-                </img>
-            ),
-            commonImageData = {
-                height: 30,
-                width: 30,
-            },
-            socialMediaMarkup = employeeData.socialMediaInstagram ? (
-                <div className="social-media-wrapper">
-                    <a href={employeeData.socialMediaInstagram.toString()} 
-                        title={`${title} Instagram`}
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                    >
-                        <StaticImage 
-                            {...commonImageData}
-                            alt="Instagram Icon"
-                            placeholder="tracedSVG" 
-                            src="../../images/instagram.png" 
-                        />
-                    </a>
-                </div>
-            ) : null;
+                    <StaticImage 
+                        {...commonImageData}
+                        alt="Instagram Icon"
+                        placeholder="tracedSVG" 
+                        src="../../images/instagram.png" 
+                    />
+                </a>
+            </div>
+        ) : null;
+
+    let imageData = undefined,
+        profileImage;
+
+    allFile.nodes.some((fileData) => {
+        if (fileData.url === employeeData.profilePicture2?.mediaItemUrl) {
+            imageData = fileData.childImageSharp.gatsbyImageData
+        }
+    });
+
+    profileImage = (typeof(imageData) !== 'undefined') ? (
+        <GatsbyImage image={imageData} alt={`${title} Profile`} />
+        ) : (
+        <img 
+            alt={`${title} Placeholder Profile`}
+            height="481"
+            src={staffPlaceholderImg} 
+            width="350"
+        >
+        </img>
+    );
 
     return (
         <StyleWrapper>
@@ -150,7 +149,6 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
                     
                     {socialMediaMarkup}
                 </div>
-
 
                 <hr/>
 

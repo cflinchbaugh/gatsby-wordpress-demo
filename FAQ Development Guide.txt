@@ -22,6 +22,10 @@ Initial Setup:
         - Tracks changes in WP and syncs them with Gatsby, sets up Preview
         - Config is under "Settings" Menu as "GatsbyJS"
 
+    Install Advanced Custom Fields
+        - Provides ability to create new types of GraphQL retrievable data (Ex: Employees)
+        https://wordpress.org/plugins/advanced-custom-fields/
+
     Gatsby Setup:
         Install Gatsby (if you haven't already)
             - Node Version must (currently) not exceed v12

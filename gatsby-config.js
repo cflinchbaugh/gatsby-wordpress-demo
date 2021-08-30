@@ -12,8 +12,7 @@ module.exports = {
         resolve: `gatsby-source-wordpress`,
         options: {
             //url: `http://dangerzone.local/graphql`
-            //url: `http://didiandsmilingjohns.local/graphql`
-            url: `https://didiandsmilingjohns.com/graphql`
+            url: `https://dev.didiandsmilingjohns.com/graphql`
         }
 
     },

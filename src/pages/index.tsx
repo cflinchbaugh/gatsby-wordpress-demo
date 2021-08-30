@@ -48,14 +48,6 @@ const StyleWrapper = styled.div`
 const IndexPage = () => {
     const results = useStaticQuery(graphql`
         {
-            allWpPost {
-                nodes {
-                    id
-                    title
-                    excerpt
-                    uri
-                }
-            }
             allWpEmployee(sort: { order: ASC, fields: date }) {
                 nodes {
                     databaseId
@@ -76,15 +68,6 @@ const IndexPage = () => {
                     uri
                 }
             }
-            allWpSectionAboutContent {
-                nodes {
-                    SectionAbout {
-                        body
-                        heading
-                        tab
-                    }
-                }
-            }
             allFile {
                 nodes {
                     url
@@ -101,7 +84,6 @@ const IndexPage = () => {
         }
     `);
 
-    // const { allWpPost } = results;
     const { allWpEmployee } = results;
     const { allWpSectionAboutContent } = results;
     const { allFile } = results;
@@ -131,29 +113,6 @@ const IndexPage = () => {
         setDialogShowContents('attributions');
         setDialogShow(true);
     }
-
-    // function buildPostMarkup() {
-    //     const postMarkup = (allWpPost?.nodes && allWpPost.nodes.length) ? 
-    //     allWpPost.nodes.map( ({
-    //         excerpt,
-    //         id,
-    //         title,
-    //         uri
-    //     }) => (
-    //         <div className="post-item" key={id}>
-    //             <strong>
-    //                 <span dangerouslySetInnerHTML={{__html: title}} />
-    //             </strong>
-    //             <div>
-    //                 <span dangerouslySetInnerHTML={{__html: excerpt}} />
-    //             </div>
-                
-    //             <GatsbyLink to={uri}>Read More</GatsbyLink>
-    //         </div>
-    //     )) : <div>No Posts Found</div>;
-
-    //     return postMarkup;
-    // }
 
     function selectEmployee(employeeId) {
         let employeeData = {};
@@ -253,7 +212,6 @@ const IndexPage = () => {
             handleClickClose: handleClickClose,
             show: dialogShow
         },
-        // postMarkup = buildPostMarkup(),
         staffData:StaffInterface = {
             allFile: allFile,
             allWpEmployee: allWpEmployee,
@@ -286,8 +244,6 @@ const IndexPage = () => {
             <main>
                 <title>DiDi & Smiling John's</title>
 
-                {/* <div>Header/Nav/Booking Button</div> */}
-
                 <HeroContents />
 
                 <About {...aboutData}/>
@@ -301,8 +257,6 @@ const IndexPage = () => {
                 <Charm />
 
                 <Footer {...footerData}/>
-                
-                {/* { postMarkup } */}
             </main>
         </StyleWrapper>
     );
