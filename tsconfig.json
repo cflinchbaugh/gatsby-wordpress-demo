@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "lib": ["dom", "es2015", "es2017"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "removeComments": false,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "es6",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./types/common/*"
+        ]
+    },
+    "include": [
+        "./src/**/*",
+        "./types/common/*"
+    ]
+  }
