@@ -5,7 +5,6 @@ import {
     GatsbyImage,
     StaticImage
 } from 'gatsby-plugin-image';
-import staffPlaceholderImg from '../../images/staff-placeholder.png';
 import {
     accentDark
 } from '../../colors';
@@ -128,13 +127,12 @@ const EmployeeDetails = (props:EmployeeDetailsInterface) => {
     profileImage = (typeof(imageData) !== 'undefined') ? (
         <GatsbyImage image={imageData} alt={`${title} Profile`} />
         ) : (
-        <img 
-            alt={`${title} Placeholder Profile`}
-            height="481"
-            src={staffPlaceholderImg} 
-            width="350"
-        >
-        </img>
+            <StaticImage placeholder="tracedSVG" 
+                alt={`${title} Placeholder Profile`}
+                height={481}
+                src={'../../images/staff-placeholder.png'} 
+                width={350}
+        />
     );
 
     return (

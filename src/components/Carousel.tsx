@@ -8,7 +8,7 @@ import CarouselPresentation, {CarouselPresentationInterface} from './CarouselPre
 
 interface CarouselInterface {
     defaultItemIdx?: number,
-    items?: []
+    items?: Array<HTMLButtonElement | JSX.Element>
 }
 
 function Carousel(props:CarouselInterface) {

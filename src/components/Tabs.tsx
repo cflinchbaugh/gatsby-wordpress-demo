@@ -147,14 +147,15 @@ const StyleWrapper = styled.div`
     }
 
 `;
+interface TabContentInterface {
+    id: string,
+    tabLabel: string,
+    content: Array<JSX.Element>
+}
 
 interface TabsInterface {
     activeTabDefault: string,
-    tabContent: [{
-        id: string,
-        tabLabel: string,
-        content: []
-    }]
+    tabContent: Array<TabContentInterface>
 }
 
 const Tabs = (props:TabsInterface) => {
@@ -193,7 +194,7 @@ const Tabs = (props:TabsInterface) => {
     }
 
     function buildTabContentsMarkup() {
-        return tabContent.find((data) => data.id === activeTab).content;
+        return tabContent.find((data) => data.id === activeTab)?.content;
     }
 
     const buttonsMarkup = buildButtonsMarkup();

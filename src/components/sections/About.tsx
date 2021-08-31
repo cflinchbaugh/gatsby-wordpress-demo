@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AboutCard, {AboutCardInterface} from '../items/AboutCard';
-import Tabs from '../Tabs';
+import Tabs, {TabsInterface} from '../Tabs';
 
 const StyleWrapper = styled.div`
     display: flex;
@@ -66,7 +66,7 @@ const About = () => {
         ]
     }];
 
-    const tabsData = {
+    const tabsData:TabsInterface = {
         activeTabDefault: 'who',
         tabContent: tabContent
     }

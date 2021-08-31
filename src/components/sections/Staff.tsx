@@ -54,32 +54,53 @@ const StyleWrapper = styled.div`
     }
 `;
 
-const barber = 'Barber',
-    stylist = 'Stylist';
+type TargetInterface = 'Barber' | 'Stylist';
+
+interface FileDataInterface  {
+    childImageSharp: {
+        gatsbyImageData: Object
+    },
+    url: string 
+}
+
+interface EmployeeDataInterface {
+    databaseId: number,
+    employeeData: {
+        biography: string,
+        profession: Array<TargetInterface>,
+        profilePicture: {
+            mediaItemUrl: string,
+        },
+        profilePicture2: {
+            mediaItemUrl: string,
+        }
+    },
+    id: string,
+    profileData: {
+        layout: string,
+        placeholder: {
+            fallback: string
+        },
+        images: any,
+        width: number,
+        height: number
+    },
+    title: string,
+    uri: string
+}
 
 interface StaffInterface {
     allFile: {
-        nodes: [{
-            fileData: {
-                childImageSharp: {
-                    gatsbyImageData: Object
-                },
-                url: string 
-            }
-        }]
+        nodes: Array<FileDataInterface>
     },
     allWpEmployee: {
-        nodes: [{
-            employeeData: {
-                profileData: Object,
-                profilePicture: {
-                    mediaItemUrl: string
-                }
-            }
-        }]
+        nodes: Array<EmployeeDataInterface>
     },
     handleClickDetails: Function
 }
+
+const barber = 'Barber',
+    stylist = 'Stylist';
 const Staff = (props:StaffInterface) => {
     const {
         allFile,
@@ -92,9 +113,11 @@ const Staff = (props:StaffInterface) => {
         stylist
     ];
     
-    function buildStaffMarkup(target) {
+    function buildStaffMarkup(target:TargetInterface) {
+        let staffMarkup:JSX.Element[] = [];
+
         const staffData = (allWpEmployee?.nodes && allWpEmployee.nodes.length) ? allWpEmployee.nodes.map( (wpEmployeeData) => {
-                let employeeData = wpEmployeeData;
+            let employeeData = wpEmployeeData;
 
                 const currentEmployeeProfileURL = wpEmployeeData?.employeeData?.profilePicture?.mediaItemUrl;
 
@@ -102,20 +125,21 @@ const Staff = (props:StaffInterface) => {
                     if (fileData.url === currentEmployeeProfileURL) {
                         employeeData.profileData = fileData.childImageSharp.gatsbyImageData;
                     }
+
                     return null;
                 })
                 
                 return employeeData;
-            }) :  <div>No Staff Found</div>;
+            }) :  [<div>No Staff Found</div>];
+            
+        staffData.forEach((staffMemberData:EmployeeDataInterface) => {
+            const {
+                employeeData,
+                id,
+                profileData,
+                title
+            } = staffMemberData;
 
-        let staffMarkup = [];
-
-        staffData.forEach( ({
-            employeeData,
-            id,
-            profileData,
-            title
-        }) => {
             if (employeeData.profession.includes(target)) {
                 const profileImage = (typeof(profileData) !== 'undefined') ? (
                         <GatsbyImage image={profileData} alt={`${title} Profile`} />
@@ -144,16 +168,12 @@ const Staff = (props:StaffInterface) => {
         return staffMarkup;
     }
 
-    const staffDefaultData = {
-            tabIndex: 0
-        },
-        defaultMarkup = filter.includes(barber, stylist) ? [(
-            <StaffDefault {...staffDefaultData} />
+    const defaultMarkup = filter.includes(barber) || filter.includes(stylist)? [(
+            <StaffDefault/>
         )] : [],
         barbersMarkup = filter.includes(barber) ? buildStaffMarkup(barber) : [],
-        stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [];
-
-    const carouselData = {
+        stylistsMarkup = filter.includes(stylist) ? buildStaffMarkup(stylist) : [],
+        carouselData = {
             defaultItemIdx: stylistsMarkup.length,
             items: [
                 ...stylistsMarkup.reverse(),

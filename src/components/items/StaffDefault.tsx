@@ -62,7 +62,7 @@ interface StaffDefaultInterface {
 const StaffDefault = () => { 
     
     return (
-        <StyleWrapper>
+        <StyleWrapper tabIndex={0}>
             <div className="staff-section">
                 <img 
                     alt="Stylists Icon"
