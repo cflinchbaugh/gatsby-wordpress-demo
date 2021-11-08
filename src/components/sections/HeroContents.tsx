@@ -182,7 +182,7 @@ const HeroContents = () => {
                 'avif'
             ],
             layout: 'fullWidth',
-            src: '../../images/hero-background.jpg'
+            src: '../../images/hero_cropped.jpg'
         },
         bookStylistButtonData:ButtonInterface = {
             children: (
